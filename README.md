@@ -26,7 +26,7 @@
     ├── controllers 控制器
     ├── models      模型
     ├── utils       工具函数
-    └── views       试图
+    └── views       视图
 ├── app.js          入口文件
 ├── bower.json
 ├── config
@@ -54,7 +54,6 @@ git clonegit@gitlab.com:jungor/LearningHigh.git
 ```bash
 cd LearningHigh
 npm install
-bower install
 gulp
 ```
 运行无误后，直接访问：http://localhost:3000
