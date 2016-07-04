@@ -59,4 +59,4 @@ gulp
 运行无误后，直接访问：http://localhost:3000
 
 ## 5 代码贡献
-详情请看[代码贡献](CONTRIBUTING.md)
+详情请看[代码贡献](contributing.md)
