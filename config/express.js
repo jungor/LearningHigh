@@ -23,18 +23,25 @@ module.exports = function(app, config) {
   // app.use(favicon(config.root + '/public/img/favicon.ico'));
   var connection = mysql.createConnection(config.db);
   var sessionStore = new MySQLStore({}, connection);
+  app.use(cookieParser());
   app.use(session({
-    secret: 'qingyunkejian',
-    resave: false,
+    name: 'sid',
+    store: sessionStore,
     saveUninitialized: true,
-    cookie: { secure: true }
+    resave: false,
+    secret: 'bangbangbang',
+    cookie: {
+      path: '/',
+      httpOnly: false,
+      secure: false,
+      maxAge: 3 * 60 * 60 * 1000
+    }
   }))
   app.use(logger('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());

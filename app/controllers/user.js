@@ -6,11 +6,11 @@ var express = require('express'),
   db = require('../models');
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/api/users', router);
 };
 
 // Create a user, use to register
-router.post('/api/users', (req, res, next)=>{
+router.post('/', (req, res, next)=>{
   var username = req.body.username
   var password = req.body.password
   db.user.create({
@@ -22,15 +22,15 @@ router.post('/api/users', (req, res, next)=>{
       req.session.user = data
       sendData(res, data)
     },
-    err=>handleError(res, err)
+    err=>handleError(res, err, '用户名已存在')
   )
   .catch(
-    err=>handleError(res, err)
+    err=>handleError(res, err, '数据库查询出错')
   )
 })
 
 // use to login in
-router.post('/api/users/login', (req, res, next)=>{
+router.post('/login', (req, res, next)=>{
   var username = req.body.username
   var password = req.body.password
   console.log(`${username}请求登录系统`)
@@ -43,20 +43,20 @@ router.post('/api/users/login', (req, res, next)=>{
   .then(
     data=>{
       if (data) {
-        req.session.use = data
+        req.session.user = data
         sendData(res, data)
       } else {
-        handleError(res, true)
+        handleError(res, true, '用户名或密码错误')
       }
     },
-    err=>handleError(res, err)
+    err=>handleError(res, err, '数据库查询出错')
   )
   .catch(
-    err=>handleError(res, err)
+    err=>handleError(res, err, '数据库查询出错')
   )
 })
 
-router.get('/api/users/logout', (req, res, next)=>{
+router.get('/logout', (req, res, next)=>{
   delete req.session.user
   sendData(res, null)
 })

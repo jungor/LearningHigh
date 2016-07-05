@@ -6,14 +6,14 @@ var express = require('express'),
   db = require('../models');
 
 module.exports = function (app) {
-  app.use('/', router);
+  app.use('/api/posts', router);
 };
 
-router.all('/api/posts/*', utils.requireAuth)
+router.all('*', utils.requireAuth)
 
 
 // Create a post, use to register
-router.post('/api/posts', (req, res, next)=>{
+router.post('/', (req, res, next)=>{
   var authorId = req.session.user.id
   // var title = req.body.title || null
   // var body = req.body.body
@@ -21,20 +21,36 @@ router.post('/api/posts', (req, res, next)=>{
   // var parentId = req.body.parentId || null
   // var absParentId = req.body.absParentId || null
   var {title, body, type, parentId, absParentId} = req.body
-  db.post.create({title, body, type, parentId, absParentId})
+  var isValid = true;
+  type = parseInt(type)
+  switch (type) {
+  case 0:
+    if (!title) isValid = false
+    break
+  case 1:
+    if (!parentId || !absParentId) isValid = false
+    break
+  default:
+    isValid = false
+    break
+  }
+  if (!isValid) {
+    handleError(res, err, '参数不符合要求')
+  }
+  db.post.create({authorId, title, body, type, parentId, absParentId})
   .then(
     data=>{
       sendData(res, data)
     },
-    err=>handleError(res, err)
+    err=>handleError(res, err, '数据库查询失败')
   )
   .catch(
-    err=>handleError(res, err)
+    err=>handleError(res, err, '数据库查询失败')
   )
 })
 
 // use to login in
-router.post('/api/posts/login', (req, res, next)=>{
+router.post('/posts/login', (req, res, next)=>{
   var username = req.body.username
   var password = req.body.password
   console.log(`${username}请求登录系统`)
@@ -60,7 +76,7 @@ router.post('/api/posts/login', (req, res, next)=>{
   )
 })
 
-router.get('/api/posts/logout', (req, res, next)=>{
+router.get('/posts/logout', (req, res, next)=>{
   delete req.session.user
   sendData(res, null)
 })
