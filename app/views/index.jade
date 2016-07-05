@@ -3,4 +3,4 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  a(href="/pdf/test.odp")='test.odp'
+  iframe#viewerFrame(src = "/ViewerJS/#../pdf/test2.pdf" width='800' height='450' allowfullscreen webkitallowfullscreen)
