@@ -22,7 +22,7 @@ gulp.task('develop', function () {
   });
 });
 
-gulp.task('mount', ['umount'], shell.task([
+gulp.task('mount', shell.task([
   'sshfs ubuntu@qykj.com:/home/ubuntu/pdf ./public/pdf'
 ]))
 
