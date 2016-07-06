@@ -46,7 +46,7 @@
 
 先把自己电脑的RSA公钥个人设置里设置好。详情请百度。
 ```bash
-git clonegit@gitlab.com:jungor/LearningHigh.git
+git clone git@github.com:jungor/LearningHigh.git
 ```
 
 ### 4.2 运行方式 
