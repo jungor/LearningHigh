@@ -48,35 +48,3 @@ router.post('/', (req, res, next)=>{
     err=>handleError(res, err, '数据库查询失败')
   )
 })
-
-// use to login in
-router.post('/posts/login', (req, res, next)=>{
-  var username = req.body.username
-  var password = req.body.password
-  console.log(`${username}请求登录系统`)
-  db.user.findOne({
-    attributes: ['id', 'username'],
-    where: {
-      $and: {username, password}
-    }
-  })
-  .then(
-    data=>{
-      if (data) {
-        req.session.use = data
-        sendData(res, data)
-      } else {
-        handleError(res, true)
-      }
-    },
-    err=>handleError(res, err)
-  )
-  .catch(
-    err=>handleError(res, err)
-  )
-})
-
-router.get('/posts/logout', (req, res, next)=>{
-  delete req.session.user
-  sendData(res, null)
-})
