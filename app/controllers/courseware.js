@@ -1,7 +1,15 @@
 var express = require('express'),
   router = express.Router(),
   multer  = require('multer'),
-  upload = multer({ dest: 'public/pdf' }),
+  storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'courseware')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+  })
+  // upload = multer({ dest: 'public/pdf' }),
   utils = require('../utils/utils'),
   sendData = utils.sendData,
   handleError = utils.handleError,
@@ -32,6 +40,10 @@ router.post('/', upload.single('courseware'), (req, res, next)=>{
   // .catch(
   //   err=>handleError(res, err, '数据库查询出错')
   // )
+  var {categoryId} = req.body
+  db.courseware.create({
+
+  })
   console.log(req.file)
   sendData(res, req.file)
 })

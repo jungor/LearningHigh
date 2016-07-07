@@ -43,7 +43,7 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(compress());
-  app.use(express.static(config.root + '/public'));
+  app.use(express.static(config.root + '/courseware'));
   app.use(methodOverride());
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
