@@ -23,11 +23,11 @@ gulp.task('develop', function () {
 });
 
 gulp.task('mount', shell.task([
-  'sshfs ubuntu@qykj.com:/home/ubuntu/pdf ./public/pdf'
+  'ls courseware || mkdir courseware && sshfs ubuntu@qykj.com:/home/ubuntu/courseware courseware'
 ]))
 
 gulp.task('umount', shell.task([
-  'sudo umount ./public/pdf'
+  'sudo umount courseware'
 ]))
 
 gulp.task('model', shell.task([
