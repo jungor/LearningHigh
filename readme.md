@@ -14,7 +14,7 @@
 
 ## 2 项目构架
 
-项目Web服务端采用"MANE" 技术框架，即(MySQL+Express+Angular+Node.js)结合MVC架构进行开发。使用Gulp作为自动化构建工具。
+项目Web服务端采用"MEAN" 技术框架，即(MySQL+Express+Angular+Node.js)结合MVC架构进行开发。使用Gulp作为自动化构建工具。
 
 > 业界说的MEAN指的是：MongoDB, Express, Angular, Nodejs，本项目更换MongoDB为MySQL
 

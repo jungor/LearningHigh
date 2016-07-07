@@ -9,6 +9,7 @@ var express = require('express'),
       cb(null, file.originalname)
     }
   })
+  upload = multer({ storage: storage })
   // upload = multer({ dest: 'public/pdf' }),
   utils = require('../utils/utils'),
   sendData = utils.sendData,
@@ -40,10 +41,24 @@ router.post('/', upload.single('courseware'), (req, res, next)=>{
   // .catch(
   //   err=>handleError(res, err, '数据库查询出错')
   // )
-  var {categoryId} = req.body
+  var {categoryId, pageCount} = req.body
+  var name = req.file.originalname
+  var url = `/courseware/${name}`
+  categoryId = parseInt(categoryId)
+  pageCount = parseInt(pageCount)
+  var inserts = []
   db.courseware.create({
-
-  })
-  console.log(req.file)
-  sendData(res, req.file)
+    categoryId,
+    name,
+    url
+  }).then(
+    data=>{
+      sendData(res, data)
+    }
+  ).catch(
+    err=>{
+      console.log(err)
+      handleError(res, err, '数据库查询出错')
+    }
+  )
 })

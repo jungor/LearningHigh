@@ -11,8 +11,11 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 
+
+
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
+  var utils = require(config.root + '/app/utils/utils')
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
@@ -20,7 +23,7 @@ module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
 
-  // app.use(favicon(config.root + '/public/img/favicon.ico'));
+  app.use(favicon(config.root + '/public/img/favicon.ico'));
   var connection = mysql.createConnection(config.db);
   var sessionStore = new MySQLStore({}, connection);
   app.use(cookieParser());
@@ -43,8 +46,12 @@ module.exports = function(app, config) {
     extended: true
   }));
   app.use(compress());
-  app.use(express.static(config.root + '/courseware'));
+  app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
+
+  app.get('/', (req, res)=>{
+    res.send('hello world')
+  })
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {
@@ -60,21 +67,13 @@ module.exports = function(app, config) {
   if(app.get('env') === 'development'){
     app.use(function (err, req, res, next) {
       res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err,
-        title: 'error'
-      });
+      utils.handleError(res, err, '服务器出错')
     });
   }
 
   app.use(function (err, req, res, next) {
     res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: {},
-        title: 'error'
-      });
+    utils.handleError(res, err, '服务器出错')
   });
 
 };
