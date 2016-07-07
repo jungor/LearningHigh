@@ -45,6 +45,7 @@
 ### 4.1 前置条件
 
 先把自己电脑的RSA公钥个人设置里设置好。详情请百度。
+修改host文件。
 ```bash
 git clone git@github.com:jungor/LearningHigh.git
 ```
@@ -54,6 +55,7 @@ git clone git@github.com:jungor/LearningHigh.git
 ```bash
 cd LearningHigh
 npm install
+gulp mount (会提示让你输入服务器密码)
 gulp
 ```
 运行无误后，直接访问：http://localhost:3000
