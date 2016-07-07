@@ -54,6 +54,8 @@ git clone git@github.com:jungor/LearningHigh.git
 
 ```bash
 cd LearningHigh
+#要安装sshfs
+sudo apt-get install sshfs
 npm install
 gulp mount (会提示让你输入服务器密码)
 gulp
