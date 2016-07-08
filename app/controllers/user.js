@@ -33,7 +33,7 @@ router.post('/', (req, res, next)=>{
 router.post('/login', (req, res, next)=>{
   var username = req.body.username
   var password = req.body.password
-  console.log(`${username}请求登录系统`)
+  // console.log(`${username}请求登录系统`)
   db.user.findOne({
     attributes: ['id', 'username'],
     where: {

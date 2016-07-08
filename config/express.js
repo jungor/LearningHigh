@@ -40,7 +40,13 @@ module.exports = function(app, config) {
       maxAge: 3 * 60 * 60 * 1000
     }
   }))
-  app.use(logger('dev'));
+  logger.token('username', (req, res)=>{
+     req.session.user ? req.session.user.username : '-'
+  })
+  logger.token('userId', (req, res)=>{
+     req.session.user ? req.session.user.methodOverride : '-'
+  })
+  app.use(logger(':date[web] :userId :username :method :url :response-time'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
     extended: true

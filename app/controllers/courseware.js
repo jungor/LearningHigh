@@ -3,7 +3,7 @@ var express = require('express'),
   multer  = require('multer'),
   storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'courseware')
+      cb(null, 'public/courseware')
     },
     filename: function (req, file, cb) {
       cb(null, file.originalname)
@@ -47,18 +47,24 @@ router.post('/', upload.single('courseware'), (req, res, next)=>{
   categoryId = parseInt(categoryId)
   pageCount = parseInt(pageCount)
   var inserts = []
+  console.log('jj')
   db.courseware.create({
     categoryId,
     name,
     url
   }).then(
     data=>{
+      console.log(data)
       sendData(res, data)
-    }
-  ).catch(
+    }, 
     err=>{
-      console.log(err)
       handleError(res, err, '数据库查询出错')
     }
   )
+  // ).catch(
+  //   err=>{
+  //     console.log('aaa')
+  //     handleError(res, err, '数据库查询出错')
+  //   }
+  // )
 })
