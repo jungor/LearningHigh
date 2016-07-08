@@ -24,7 +24,7 @@ module.exports = function(app, config) {
   app.set('views', config.root + '/app/views');
   app.set('view engine', 'jade');
 
-  app.use(favicon(config.root + '/public/img/favicon.ico'));
+  app.use(favicon(config.root + '/public/favicon.ico'));
   var connection = mysql.createConnection(config.db);
   var sessionStore = new MySQLStore({}, connection);
   app.use(cookieParser());
@@ -57,8 +57,9 @@ module.exports = function(app, config) {
   app.use(methodOverride());
 
   app.get('/', (req, res)=>{
-    res.sendFile(path.join(__dirname,
-    '../app_angular/index.html'))
+    // res.sendFile(path.join(__dirname,
+    // '../app_angular/index.html'))
+    res.redirect('/index.html')
   })
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
