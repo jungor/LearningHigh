@@ -67,6 +67,7 @@ gulp
 详情请看[代码贡献](contributing.md)
 
 ## 6 提醒
-前端使用angular_ui_boostrap http://angular-ui.github.io/bootstrap/
-路由使用ui-router 不用angular自带的router
+1. 前端使用angular_ui_boostrap  http://angular-ui.github.io/bootstrap/    
+   **如果觉得麻烦，直接用bootstrap撸也行**
+2. 路由使用ui-router 不用angular自带的router
 
