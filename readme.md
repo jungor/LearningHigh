@@ -44,8 +44,9 @@
 
 ### 4.1 前置条件
 
-先把自己电脑的RSA公钥个人设置里设置好。详情请百度。
-修改host文件。
+1. 把自己电脑的RSA公钥个人设置里设置好。详情请百度。
+2. 修改host文件绑定服务器IP为qykj.com
+3. 安装sshfs
 ```bash
 git clone git@github.com:jungor/LearningHigh.git
 ```
@@ -54,7 +55,6 @@ git clone git@github.com:jungor/LearningHigh.git
 
 ```bash
 cd LearningHigh
-#要安装sshfs
 sudo apt-get install sshfs
 npm install
 gulp mount (会提示让你输入服务器密码)

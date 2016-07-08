@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
+var path = require('path')
 
 
 
@@ -56,7 +57,8 @@ module.exports = function(app, config) {
   app.use(methodOverride());
 
   app.get('/', (req, res)=>{
-    res.send('hello world')
+    res.sendFile(path.join(__dirname,
+    '../app_angular/index.html'))
   })
 
   var controllers = glob.sync(config.root + '/app/controllers/*.js');
