@@ -9,7 +9,50 @@ module.exports = function (app) {
   app.use('/api/users', router);
 };
 
-// Create a user, use to register
+/**
+ * @api {post} /users/ Create a user(Register)
+ * @apiName Register
+ * @apiGroup user
+ *
+ * @apiParam {Number} id Users unique ID.
+ *
+ * @apiSuccess {Object} err be null.
+ * @apiSuccess {String} data info of the user in json format.
+ *
+ * @apiSuccessExample Success-Response:
+ *     {
+ *       "err": null,
+ *       "data": {
+ *         "id": 27,
+ *         "username": "test6",
+ *         "password": "123",
+ *         "updatedAt": "2016-07-08T17:48:51.000Z",
+ *         "createdAt": "2016-07-08T17:48:51.000Z"
+ *       }
+ *     }
+ *
+ * @apiError username_UNIQUE 用户名已存在.
+ *
+ * @apiErrorExample Error-Response:
+ *     {
+ *       "err": {
+ *         "name": "SequelizeUniqueConstraintError",
+ *         "message": "Validation error",
+ *         "errors": [
+ *           {
+ *             "message": "username_UNIQUE must be unique",
+ *             "type": "unique violation",
+ *             "path": "username_UNIQUE",
+ *             "value": "test6"
+ *           }
+ *         ],
+ *         "fields": {
+ *           "username_UNIQUE": "test6"
+ *         }
+ *       },
+ *       "msg": "用户名已存在"
+ *     }
+ */
 router.post('/', (req, res, next)=>{
   var username = req.body.username
   var password = req.body.password

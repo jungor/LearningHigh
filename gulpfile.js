@@ -1,9 +1,16 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
+  apidoc = require('gulp-apidoc')
   livereload = require('gulp-livereload'),
   shell = require('gulp-shell');
 
+gulp.task('api', function(done){
+          apidoc({
+            src: "app/",
+            dest: "apidoc/"
+          },done);
+});
 
 gulp.task('develop', function () {
   livereload.listen();

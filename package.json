@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-apidoc": "^0.2.4",
     "gulp-livereload": "^3.8.0",
     "gulp-nodemon": "^2.0.2",
     "gulp-plumber": "^1.0.0",
