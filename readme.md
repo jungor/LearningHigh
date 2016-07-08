@@ -23,18 +23,25 @@
 ```bash
 .
 ├── app
-    ├── controllers 控制器
-    ├── models      模型
-    ├── utils       工具函数
-    └── views       视图
-├── app.js          入口文件
-├── bower.json
+    ├── controllers     控制器
+    ├── models          模型
+    ├── utils           工具函数
+├── app.js              入口文件
+├── bower.json          bower模块依赖
 ├── config
-├── gulpfile.js
-├── jsconfig.json
-├── node_modules
-├── package.json
-└── public          静态文件
+    ├── config.js       配置文件
+    └── express.js      express服务器
+├── gulpfile.js         gulp任务
+├── jsconfig.json       
+├── node_modules        npm模块
+├── package.json        npm模块依赖
+└── public              静态文件
+    ├── app_angular     angular文件
+    ├── components      bower库
+    ├── courseware      共享文件夹挂载点
+    ├── favicon.ico
+    └── index.html
+
 
 ```
 
