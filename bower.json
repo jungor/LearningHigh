@@ -7,6 +7,12 @@
     "components"
   ], 
   "dependencies": {
-    "angular": "1.5.7"
+    "angular": "1.5.7",
+    "angular-animate": "1.4.9",
+    "angular-cookies": "1.4.9",
+    "angular-translate": "2.8.1",
+    "angular-translate-loader-partial": "2.8.1",
+    "angular-ui-router": "0.2.15",
+    "jquery": "2.1.4"
   }
 }
