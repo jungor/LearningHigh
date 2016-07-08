@@ -2,10 +2,14 @@
 <html ng-app>
     <head>
         <script src="/components/angular/angular.min.js"></script>
+        <script src="/app_angular/angular_bootstrap/ui-bootstrap-tpls-1.3.3.min.js"></script>
+        <script src="/components/angular-animate/angular-animate.min.js"></script>
+		<script src="/components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        
     </head>
     <body>
-         Your name: <input type="text" ng-model="yourname" placeholder="World">
-        <hr>
-        Hello {{yourname || 'World'}}!
+        <div ui-view>
+        	replace me
+        </div>
     </body>
 </html>
