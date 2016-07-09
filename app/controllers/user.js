@@ -2,7 +2,7 @@ var express = require('express'),
   router = express.Router(),
   utils = require('../utils/utils'),
   sendData = utils.sendData,
-  handleError = utils.handleError
+  handleError = utils.handleError,
   db = require('../models');
 
 module.exports = function (app) {
@@ -10,18 +10,18 @@ module.exports = function (app) {
 };
 
 /**
- * @api {post} /users/ Create a user(Register)
+ * @api {post} /users/ Register
  * @apiName Register
  * @apiGroup user
  *
- * @apiParam {Number} id Users unique ID.
+ * @apiParam {Number} username username
  *
- * @apiSuccess {Object} err be null.
- * @apiSuccess {String} data info of the user in json format.
+ * @apiSuccess {Boolean} err false.
+ * @apiSuccess {Object} data user info
  *
  * @apiSuccessExample Success-Response:
  *     {
- *       "err": null,
+ *       "err": false,
  *       "data": {
  *         "id": 27,
  *         "username": "test6",
@@ -31,51 +31,37 @@ module.exports = function (app) {
  *       }
  *     }
  *
- * @apiError username_UNIQUE 用户名已存在.
+ * @apiError UserExists 用户名已存在
  *
- * @apiErrorExample Error-Response:
+ * @apiErrorExample UserExists:
  *     {
- *       "err": {
- *         "name": "SequelizeUniqueConstraintError",
- *         "message": "Validation error",
- *         "errors": [
- *           {
- *             "message": "username_UNIQUE must be unique",
- *             "type": "unique violation",
- *             "path": "username_UNIQUE",
- *             "value": "test6"
- *           }
- *         ],
- *         "fields": {
- *           "username_UNIQUE": "test6"
- *         }
- *       },
+ *       "err": true,
  *       "msg": "用户名已存在"
  *     }
  */
 router.post('/', (req, res, next)=>{
-  var username = req.body.username
-  var password = req.body.password
+  var username = req.body.username;
+  var password = req.body.password;
   db.user.create({
     username,
     password
   })
   .then(
     data=>{
-      req.session.user = data
-      sendData(res, data)
+      req.session.user = data;
+      sendData(res, data);
     },
     err=>handleError(res, err, '用户名已存在')
   )
   .catch(
     err=>handleError(res, err, '数据库查询出错')
-  )
-})
+  );
+});
 
 // use to login in
 router.post('/login', (req, res, next)=>{
-  var username = req.body.username
-  var password = req.body.password
+  var username = req.body.username;
+  var password = req.body.password;
   // console.log(`${username}请求登录系统`)
   db.user.findOne({
     attributes: ['id', 'username'],
@@ -86,20 +72,20 @@ router.post('/login', (req, res, next)=>{
   .then(
     data=>{
       if (data) {
-        req.session.user = data
-        sendData(res, data)
+        req.session.user = data;
+        sendData(res, data);
       } else {
-        handleError(res, true, '用户名或密码错误')
+        handleError(res, true, '用户名或密码错误');
       }
     },
     err=>handleError(res, err, '数据库查询出错')
   )
   .catch(
     err=>handleError(res, err, '数据库查询出错')
-  )
-})
+  );
+});
 
 router.get('/logout', (req, res, next)=>{
-  delete req.session.user
-  sendData(res, null)
-})
+  delete req.session.user;
+  sendData(res, null);
+});

@@ -1,16 +1,11 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
-  apidoc = require('gulp-apidoc')
+  apidoc = require('gulp-apidoc'),
+  open = require('gulp-open'),
   livereload = require('gulp-livereload'),
   shell = require('gulp-shell');
 
-gulp.task('api', function(done){
-          apidoc({
-            src: "app/",
-            dest: "apidoc/"
-          },done);
-});
 
 gulp.task('develop', function () {
   livereload.listen();
@@ -30,16 +25,30 @@ gulp.task('develop', function () {
 });
 
 gulp.task('mount', shell.task([
-  'sudo ls public/courseware || mkdir public/courseware && sshfs ubuntu@qykj.com:/home/ubuntu/courseware public/courseware'
-]))
+  'sudo ls public/courseware || '+
+  'mkdir public/courseware && '+
+  'sshfs ubuntu@qykj.com:/home/ubuntu/courseware public/courseware'
+]));
 
 gulp.task('umount', shell.task([
   'sudo umount public/courseware'
-]))
+]));
 
 gulp.task('model', shell.task([
-  'cd app && sequelize-auto -h qykj.com -d qykj -u root -x admin123 -p 3306 -e mysql && rm models/sessions.js',
-]))
+  'cd app && '+
+  'sequelize-auto -h qykj.com -d qykj -u root -x admin123 -p 3306 -e mysql && '+
+  'rm models/sessions.js',
+]));
+
+gulp.task('apidoc', shell.task([
+  'rm -r ./doc && '+
+  'apidoc -i ./app  -o ./doc',
+]));
+
+gulp.task('api', ['apidoc'], function(){
+  gulp.src('./doc/index.html')
+  .pipe(open());
+});
 
 gulp.task('default', [
   'develop'

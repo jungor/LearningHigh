@@ -3,13 +3,13 @@ var express = require('express'),
   multer  = require('multer'),
   storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public/courseware')
+      cb(null, 'public/courseware');
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname)
+      cb(null, file.originalname);
     }
-  })
-  upload = multer({ storage: storage })
+  });
+  upload = multer({ storage: storage });
   // upload = multer({ dest: 'public/pdf' }),
   utils = require('../utils/utils'),
   sendData = utils.sendData,
@@ -22,7 +22,7 @@ module.exports = function (app) {
   app.use('/api/coursewares', router);
 };
 
-router.all('*', utils.requireAuth)
+router.all('*', utils.requireAuth);
 
 // Create a courseware, use to register
 router.post('/', upload.single('courseware'), (req, res, next)=>{
@@ -41,30 +41,30 @@ router.post('/', upload.single('courseware'), (req, res, next)=>{
   // .catch(
   //   err=>handleError(res, err, '数据库查询出错')
   // )
-  var {categoryId, pageCount} = req.body
-  var name = req.file.originalname
-  var url = `/courseware/${name}`
-  categoryId = parseInt(categoryId)
-  pageCount = parseInt(pageCount)
-  var inserts = []
-  console.log('jj')
+  var {categoryId, pageCount} = req.body;
+  var name = req.file.originalname;
+  var url = `/courseware/${name}`;
+  categoryId = parseInt(categoryId);
+  pageCount = parseInt(pageCount);
+  var inserts = [];
+  console.log('jj');
   db.courseware.create({
     categoryId,
     name,
     url
   }).then(
     data=>{
-      console.log(data)
-      sendData(res, data)
+      console.log(data);
+      sendData(res, data);
     }, 
     err=>{
-      handleError(res, err, '数据库查询出错')
+      handleError(res, err, '数据库查询出错');
     }
-  )
+  );
   // ).catch(
   //   err=>{
   //     console.log('aaa')
   //     handleError(res, err, '数据库查询出错')
   //   }
   // )
-})
+});

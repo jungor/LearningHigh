@@ -5,3 +5,5 @@ courseware/
 *~
 .vscode/
 apidoc/
+typings/
+doc/

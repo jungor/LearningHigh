@@ -20,27 +20,29 @@
 
 * 动手开发前，先使本地仓库与远程仓库同步：
 
-```bash
+```
 git pull origin master
 ```
 
 * 开发过程中，如果觉得可以把代码提交了：
 
-```bash
+```
 git add -A && git commit -m 'your comment'
 ```
 
-> 'your comment'是你对此次提交的评论
-
 * 提交到远程仓库前，再次同步远程仓库的最新版本：
 
-```bash
+```
 git pull origin master
 ```
 
 * 提交到远程仓库：
 
-```bash
+```
 git push origin master
 ```
 
+* 避免冲突的经验
+1. 不修改不是自己负责的代码
+2. `git pull` 之前确保自己的工作区是干净的，也就是说 `git status`不会显示红红绿绿的东西。
+如果有，先 `git add -A && git commit -m 'your comment'`

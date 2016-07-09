@@ -32,7 +32,7 @@
     ├── config.js       配置文件
     └── express.js      express服务器
 ├── gulpfile.js         gulp任务
-├── jsconfig.json       
+├── jsconfig.json
 ├── node_modules        npm模块
 ├── package.json        npm模块依赖
 └── public              静态文件
@@ -52,15 +52,15 @@
 ### 4.1 前置条件
 
 1. 把自己电脑的RSA公钥个人设置里设置好。详情请百度。
-2. 修改host文件绑定服务器IP为qykj.com
+2. 修改host文件绑定服务器IP为 `qykj.com`
 3. 安装sshfs
-```bash
+```
 git clone git@github.com:jungor/LearningHigh.git
 ```
 
-### 4.2 运行方式 
+### 4.2 运行方式
 
-```bash
+```
 cd LearningHigh
 sudo apt-get install sshfs
 npm install
@@ -68,13 +68,13 @@ bower install
 gulp mount (会提示让你输入服务器密码)
 gulp
 ```
-运行无误后，直接访问：http://localhost:3000
+运行无误后，直接访问：`http://localhost:3000`
 
 ## 5 代码贡献
 详情请看[代码贡献](contributing.md)
 
 ## 6 提醒
-1. 前端使用angular_ui_boostrap  http://angular-ui.github.io/bootstrap/    
+1. 前端使用angular_ui_boostrap  http://angular-ui.github.io/bootstrap/
    **如果觉得麻烦，直接用bootstrap撸也行**
 2. 路由使用ui-router 不用angular自带的router
 
