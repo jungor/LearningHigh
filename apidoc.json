@@ -1,7 +1,11 @@
 {
-  "name": "learninghigh",
+  "name": "LearningHigh",
   "version": "0.0.0",
-  "description": "LearningHigh RESTful API",
-  "title": "API Doc | LearningHigh",
-  "url" : ""
+  "description": "LearningHigh API Document",
+  "title": "API | LearningHigh",
+  "url" : "/api",
+  "order": [
+    "user",
+    "courseware"
+  ]
 }

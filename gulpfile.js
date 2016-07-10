@@ -20,9 +20,13 @@ gulp.task('develop', function () {
   });
 });
 
-gulp.task('mount', shell.task([
-  'sudo ls public/courseware || '+
-  'mkdir public/courseware && '+
+gulp.task('mkdir', shell.task([
+  'test -d public/courseware || '+
+  'mkdir public/courseware'
+]));
+
+gulp.task('mount', ['mkdir'], shell.task([
+  'mountpoint public/courseware || '+
   'sshfs ubuntu@qykj.com:/home/ubuntu/courseware public/courseware'
 ]));
 

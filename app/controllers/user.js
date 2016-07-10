@@ -47,10 +47,10 @@ router.post('/', (req, res, next)=>{
       req.session.user = data;
       sendData(res, data);
     },
-    err=>handleError(res, err, '用户名已存在')
+    err=>handleError(res, '用户名已存在')
   )
   .catch(
-    err=>handleError(res, err, '数据库查询出错')
+    err=>handleError(res, '数据库查询出错')
   );
 });
 
@@ -83,7 +83,6 @@ router.post('/', (req, res, next)=>{
 router.post('/login', (req, res, next)=>{
   var username = req.body.username;
   var password = req.body.password;
-  // console.log(`${username}请求登录系统`)
   db.user.findOne({
     attributes: ['id', 'username'],
     where: {
@@ -99,10 +98,10 @@ router.post('/login', (req, res, next)=>{
         handleError(res, true, '用户名或密码错误');
       }
     },
-    err=>handleError(res, err, '数据库查询出错')
+    err=>handleError(res, '数据库查询出错')
   )
   .catch(
-    err=>handleError(res, err, '数据库查询出错')
+    err=>handleError(res, '数据库查询出错')
   );
 });
 
