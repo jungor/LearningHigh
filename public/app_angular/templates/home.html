@@ -1,3 +1,15 @@
-<div>
-	fuck you
+<div id="home">
+	<div class="headBar">
+		<div class="logo">
+			<img src="/app_angular/images/home/logo.png" alt="lll">
+		</div>
+		<div class="loginBox">
+			<span class="user-btn user-login">Log In</span>
+			<span class="user-btn user-signup">Sign Up</span>
+		</div>
+	</div>
+	<div class="SearchBox" ng-controller="HomeSearchController">
+		<img src="/app_angular/images/home/icon-search.png" alt="searchIcon" class="searchLogo">
+		<input type="text" id="searchInput" ng-model="search.input" ng-click="HomeSearch()">
+	</div>
 </div>
