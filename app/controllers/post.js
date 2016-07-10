@@ -1,50 +1,39 @@
-var express = require('express'),
+const express = require("express"),
   router = express.Router(),
-  utils = require('../utils/utils'),
+  utils = require("../utils/utils"),
   sendData = utils.sendData,
-  handleError = utils.handleError;
-  db = require('../models');
+  handleError = utils.handleError,
+  db = require("../models");
 
 module.exports = function (app) {
-  app.use('/api/posts', router);
+  app.use("/api/posts", router);
 };
 
-router.all('*', utils.requireAuth);
+router.all("*", utils.requireAuth);
 
 
-// Create a post, use to register
-router.post('/', (req, res, next)=>{
-  var authorId = req.session.user.id;
-  // var title = req.body.title || null
-  // var body = req.body.body
-  // var type = req.body.type
-  // var parentId = req.body.parentId || null
-  // var absParentId = req.body.absParentId || null
-  var {title, body, type, parentId, absParentId} = req.body;
-  var isValid = true;
+router.post("/", (req, res)=>{
+  let {title, body, type, parentId, absParentId} = req.body;
   type = parseInt(type);
+  let newPost = null;
   switch (type) {
   case 0:
-    if (!title) isValid = false;
+    newPost = {body, type, absParentId, title};
     break;
   case 1:
-    if (!parentId || !absParentId) isValid = false;
+    newPost = {body, type, absParentId, parentId};
+    break;
+  case 2:
+    newPost = {body, type, absParentId, parentId};
     break;
   default:
-    isValid = false;
+    handleError(res, {}, "参数不符合要求");
     break;
   }
-  if (!isValid) {
-    handleError(res, err, '参数不符合要求');
-  }
-  db.post.create({authorId, title, body, type, parentId, absParentId})
-  .then(
-    data=>{
-      sendData(res, data);
-    },
-    err=>handleError(res, err, '数据库查询失败')
-  )
-  .catch(
-    err=>handleError(res, err, '数据库查询失败')
-  );
+  newPost.authorId = req.session.user.id;
+  db.post.create(newPost).then(data=>{
+    sendData(res, data);
+  }).catch(err=>{
+    handleError(res, err, "数据库查询失败");
+  });
 });

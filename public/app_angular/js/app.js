@@ -3,11 +3,13 @@
 *
 * Description
 */
-var qingYun = angular.module('qingYun', ['ui.router', 'detail']);
+
+var qingYun = angular.module('qingYun', ['ui.router', 'detail', 'home', 'login_signup']);
+
 
 qingYun.run(function($rootScope, $state, $stateParams){
-	$rootScope.$state = $state;
-	$rootScope.$stateParams = $stateParams;
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
 });
 
 qingYun.config(function($stateProvider, $urlRouterProvider) {
@@ -21,4 +23,5 @@ qingYun.config(function($stateProvider, $urlRouterProvider) {
 				}
 			}
 		});
+
 });
