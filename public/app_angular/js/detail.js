@@ -19,6 +19,7 @@ detail.config(function($stateProvider, $urlRouterProvider) {
                 'pdf@detail': {
                     templateUrl: '/app_angular/templates/pdf.html',
                     controller: function($scope) {
+
                         //console.log(angular.element("#fuck").val());
                         // console.log($("#myIframe").contents().find("#pageNumber").val());
                         // $("#myIframe").contents().find("#pageNumber").bind('input propertychange', function($scope) {
@@ -29,26 +30,48 @@ detail.config(function($stateProvider, $urlRouterProvider) {
 
                         // }
 
+                       
 
-                        // var pageNumber = null;
-                        // var tid = setInterval(function() {
-                        //     if (pageNumber) {
-                        //         $("#myIframe").contents().find("#pageNumber").on('clcik', )
-
+                        var pageNumber = null;
+                        var tid = setInterval(function() {
+                        	var content = document.getElementById("myIframe").contentWindow;
+                            if (pageNumber) {
+                            	
+                            	//  content.document.getElementById("pageNumber").onpropertychange = function() {
+                            	// 	console.log("changed");
+                            	// };
+                            	// document.querySelector("#myIframe #pageNumber").addEventListener('change', function() {
+                            	// 	console.log("changed");
+                            	// });
+                                // $("#myIframe").contents().find("#pageNumber").on('clcik', )
+                                var temp = content.document.getElementById("pageNumber").value;
+                                if (temp != $scope.myPageNumber) {
+                                	// $scope.myPageNumber = temp;
+                                	// console.log('success');
+                                	// console.log($scope.myPageNumber);
+                                	document.getElementById("fuck").value = temp;
+                                	console.log(document.getElementById("fuck").value);
+                                }
+  
                                 
-                        //         clearInterval(tid);
-                        //     } else {
-                        //         pageNumber = $("#myIframe").contents().find("#pageNumber").val();
+                                
+                            } else {
+                            	
+                            	pageNumber = content.document.getElementById("pageNumber").value;
+                            	// pageNumber = document.querySelector("#myIframe > #pageNumber").value;
+                                // pageNumber = $("#myIframe").contents().find("#pageNumber").val();
+                                console.log('fdsf')
+                            }
 
-                        //     }
-
-                        // }, 1000);
+                        }, 1000);
 
                         
                         // document.getElementById('myIframe').onload(function() {
                         // 	// body...
                         // 	console.log($("#myIframe").contents().find("#pageNumber").val());
                         // })
+
+
 
                     }
                 },
