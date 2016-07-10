@@ -3,7 +3,7 @@
 *
 * Description
 */
-var qingYun = angular.module('qingYun', ['ui.router', 'home']);
+var qingYun = angular.module('qingYun', ['ui.router', 'home', 'login_signup']);
 
 qingYun.run(function($rootScope, $state, $stateParams){
     $rootScope.$state = $state;
