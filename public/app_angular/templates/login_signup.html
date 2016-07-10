@@ -1,30 +1,28 @@
-<div id="login_register">
-  <div class="main-box" ng-controller="loginsignupController">
-    <form name="outerForm" class="tab-form-demo">
-      <uib-tabset active="activeForm">
-        <uib-tab index="0" heading="Login">
-          <ng-form name="logInForm" ng-submit="login()">
-            <div class="form-group">
-              <label>User Name</label>
-              <input type="text" class="form-control" required ng-model="user.username"/>
-              <label>Password</label>
-              <input type="password" class="form-control" required ng-model="user.password" ">
-              <input type="submit" value="Login">
-            </div>
-          </ng-form>
-        </uib-tab>
-        <uib-tab index="1" heading="Signup">
-          <ng-form name="signUpForm" ng-submit="signup()">
-            <div class="form-group">
-              <label>User Name</label>
-              <input type="text" class="form-control" required ng-model="user.username"/>
-              <label>Password</label>
-              <input type="password" class="form-control" required ng-model="user.password" ">
-              <input type="submit" value="Login">
-            </div>
-          </ng-form>
-        </uib-tab>
-      </uib-tabset>
-    </form>
-  </div>
+<div id="login_register" ng-controller="loginsignupController">
+  <form name="outerForm" class="tab-form-demo">
+    <uib-tabset active="activeForm" id="mainBox">
+      <uib-tab index="0" heading="Login">
+        <ng-form name="logInForm">
+          <div class="form-group">
+            <label>User Name</label>
+            <input type="text" class="form-control" required ng-model="user.username"/>
+            <label>Password</label>
+            <input type="password" class="form-control" required ng-model="user.password" ">
+            <input type="button" value="Login" ng-click="login()">
+          </div>
+        </ng-form>
+      </uib-tab>
+      <uib-tab index="1" heading="Signup">
+        <ng-form name="signUpForm">
+          <div class="form-group">
+            <label>User Name</label>
+            <input type="text" class="form-control" required ng-model="user.username"/>
+            <label>Password</label>
+            <input type="password" class="form-control" required ng-model="user.password" ">
+            <input type="button" value="Signup" ng-click="signup()">
+          </div>
+        </ng-form>
+      </uib-tab>
+    </uib-tabset>
+  </form>
 </div>

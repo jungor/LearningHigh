@@ -1,0 +1,10 @@
+#login_register {
+	width: 500px;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+#login_register #mainBox {
+	border: 1px solid #fff;
+	padding: 5px 20px;
+	box-sizing: border-box;
+}

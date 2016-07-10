@@ -12,20 +12,24 @@ login_signup.config(function($stateProvider, $urlRouterProvider) {
         });
 });
 
-login_signup.controller("loginsignupController", ["$scope", function($scope) {
+login_signup.controller("loginsignupController", ["$scope", '$rootScope','$http', '$location', function($scope,$rootScope, $http, $location) {
 	$scope.login = function() {
 		$http({
 			url: '/api/users/login',
 			method: 'POST',
 			data: {username: $scope.user.username, password: $scope.user.password}
 		}).success(function(data, header, config, status) {
-			$rootScope.id = data.id;
-			$rootScope.username = data.username;
-			$location.path('/index');
+			if (data.err == false) {
+				$rootScope.id = data.data.id;
+				$rootScope.username = data.data.username;
+				$location.path('/index');
+			} else {
+				console.log("Log in failed");
+				$location.path('/login_signup');
+			}
 		}).error(function(data, header, config, status) {
-			console.log("Log in failed");
-			$location.path('/login_signup');
-		})
+			console.log(data.err);
+		});
 	}
 	$scope.signup = function() {
 		$http({
@@ -33,12 +37,16 @@ login_signup.controller("loginsignupController", ["$scope", function($scope) {
 			method: 'POST',
 			data: {username: $scope.user.username, password: $scope.user.password}
 		}).success(function(data, header, config, status) {
-			$rootScope.id = data.id;
-			$rootScope.username = data.username;
-			$location.path('/index');
+			if (data.err == false) {
+				$rootScope.id = data.data.id;
+				$rootScope.username = data.data.username;
+				$location.path('/index');
+			} else {
+				console.log("Sign up failed");
+				$location.path('/login_signup');
+			}
 		}).error(function(data, header, config, status) {
-			console.log("Sign up failed");
-			$location.path('/login_signup');
+			console.log(data.err);
 		})
 	}
  }]);
