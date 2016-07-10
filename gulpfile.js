@@ -1,13 +1,11 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
-  plumber = require('gulp-plumber'),
-  apidoc = require('gulp-apidoc'),
   open = require('gulp-open'),
   livereload = require('gulp-livereload'),
   shell = require('gulp-shell');
 
 
-gulp.task('develop', function () {
+gulp.task('develop', ['mount'], function () {
   livereload.listen();
   nodemon().on('readable', function () {
     this.stdout.on('data', function (chunk) {
@@ -37,12 +35,12 @@ gulp.task('umount', shell.task([
 gulp.task('model', shell.task([
   'cd app && '+
   'sequelize-auto -h qykj.com -d qykj -u root -x admin123 -p 3306 -e mysql && '+
-  'rm models/sessions.js',
+  'rm models/sessions.js'
 ]));
 
 gulp.task('apidoc', shell.task([
   'rm -r ./doc ; '+
-  'apidoc -i ./app  -o ./doc',
+  'apidoc -i ./app  -o ./doc'
 ]));
 
 gulp.task('api', ['apidoc'], function(){

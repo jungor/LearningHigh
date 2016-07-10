@@ -1,22 +1,21 @@
-var express = require('express');
-var session = require('express-session');
-var mysql = require('mysql');
-var MySQLStore = require('express-mysql-session')(session);
-var glob = require('glob');
+let express = require('express');
+let session = require('express-session');
+let mysql = require('mysql');
+let MySQLStore = require('express-mysql-session')(session);
+let glob = require('glob');
 
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compress = require('compression');
-var methodOverride = require('method-override');
-var path = require('path');
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+let compress = require('compression');
+let methodOverride = require('method-override');
 
 
 
 module.exports = function(app, config) {
-  var env = process.env.NODE_ENV || 'development';
-  var utils = require(config.root + '/app/utils/utils');
+  let env = process.env.NODE_ENV || 'development';
+  let utils = require(config.root + '/app/utils/utils');
   app.locals.ENV = env;
   app.locals.ENV_DEVELOPMENT = env == 'development';
 
@@ -25,8 +24,8 @@ module.exports = function(app, config) {
   app.set('view engine', 'jade');
 
   app.use(favicon(config.root + '/public/favicon.ico'));
-  var connection = mysql.createConnection(config.db);
-  var sessionStore = new MySQLStore({}, connection);
+  let connection = mysql.createConnection(config.db);
+  let sessionStore = new MySQLStore({}, connection);
   app.use(cookieParser());
   app.use(session({
     name: 'sid',
@@ -64,25 +63,25 @@ module.exports = function(app, config) {
     res.redirect('/index.html');
   });
 
-  var controllers = glob.sync(config.root + '/app/controllers/*.js');
+  let controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function (controller) {
     require(controller)(app);
   });
 
   app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
 
   if(app.get('env') === 'development'){
-    app.use(function (err, req, res, next) {
+    app.use(function (err, req, res) {
       res.status(err.status || 500);
       utils.handleError(res, err, '服务器出错');
     });
   }
 
-  app.use(function (err, req, res, next) {
+  app.use(function (err, req, res) {
     res.status(err.status || 500);
     utils.handleError(res, err, '服务器出错');
   });
