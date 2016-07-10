@@ -26,21 +26,6 @@ router.all('*', utils.requireAuth);
 
 // Create a courseware, use to register
 router.post('/', upload.single('courseware'), (req, res, next)=>{
-  // var {username, } = req.body
-  // db.courseware.create({
-  //   username,
-  //   password
-  // })
-  // .then(
-  //   data=>{
-  //     req.session.user = data
-  //     sendData(res, data)
-  //   },
-  //   err=>handleError(res, err, '用户名已存在')
-  // )
-  // .catch(
-  //   err=>handleError(res, err, '数据库查询出错')
-  // )
   var {categoryId, pageCount} = req.body;
   var name = req.file.originalname;
   var url = `/courseware/${name}`;
@@ -56,15 +41,9 @@ router.post('/', upload.single('courseware'), (req, res, next)=>{
     data=>{
       console.log(data);
       sendData(res, data);
-    }, 
+    },
     err=>{
       handleError(res, err, '数据库查询出错');
     }
   );
-  // ).catch(
-  //   err=>{
-  //     console.log('aaa')
-  //     handleError(res, err, '数据库查询出错')
-  //   }
-  // )
 });

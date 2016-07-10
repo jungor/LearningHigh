@@ -9,11 +9,7 @@ var gulp = require('gulp'),
 
 gulp.task('develop', function () {
   livereload.listen();
-  nodemon({
-    script: 'app.js',
-    ext: 'js coffee jade',
-    stdout: false
-  }).on('readable', function () {
+  nodemon().on('readable', function () {
     this.stdout.on('data', function (chunk) {
       if(/^Express server listening on port/.test(chunk)){
         livereload.changed(__dirname);
@@ -41,7 +37,7 @@ gulp.task('model', shell.task([
 ]));
 
 gulp.task('apidoc', shell.task([
-  'rm -r ./doc && '+
+  'rm -r ./doc ; '+
   'apidoc -i ./app  -o ./doc',
 ]));
 

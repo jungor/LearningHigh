@@ -10,16 +10,14 @@ module.exports = function (app) {
 };
 
 /**
- * @api {post} /users/ Register
+ * @api {post} /users Register
  * @apiName Register
  * @apiGroup user
  *
- * @apiParam {Number} username username
+ * @apiParam {String} username 用户名
+ * @apiParam {String} password 密码
  *
- * @apiSuccess {Boolean} err false.
- * @apiSuccess {Object} data user info
- *
- * @apiSuccessExample Success-Response:
+ * @apiSuccessExample Success
  *     {
  *       "err": false,
  *       "data": {
@@ -31,9 +29,7 @@ module.exports = function (app) {
  *       }
  *     }
  *
- * @apiError UserExists 用户名已存在
- *
- * @apiErrorExample UserExists:
+ * @apiErrorExample Error
  *     {
  *       "err": true,
  *       "msg": "用户名已存在"
@@ -58,7 +54,32 @@ router.post('/', (req, res, next)=>{
   );
 });
 
-// use to login in
+/**
+ * @api {post} /users/login Login
+ * @apiName Login
+ * @apiGroup user
+ *
+ * @apiParam {String} username 用户名
+ * @apiParam {String} password 密码
+ *
+ * @apiSuccessExample Success
+ *     {
+ *       "err": false,
+ *       "data": {
+ *         "id": 27,
+ *         "username": "test6",
+ *         "password": "123",
+ *         "updatedAt": "2016-07-08T17:48:51.000Z",
+ *         "createdAt": "2016-07-08T17:48:51.000Z"
+ *       }
+ *     }
+ *
+ * @apiErrorExample Error
+ *     {
+ *       "err": true,
+ *       "msg": "用户名或密码错误"
+ *     }
+ */
 router.post('/login', (req, res, next)=>{
   var username = req.body.username;
   var password = req.body.password;
