@@ -45,3 +45,6 @@ body {
     border: none;
     outline: none;
 }
+#home .hide {
+	display: none;
+}
