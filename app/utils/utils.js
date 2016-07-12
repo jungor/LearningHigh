@@ -1,5 +1,5 @@
 exports.handleError = (res, err, msg)=>{
-  Console.log({err})
+  console.log({err})
   res.json({err: true, msg});
 };
 exports.sendData = (res, data)=>{

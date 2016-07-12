@@ -9,6 +9,34 @@ module.exports = function (app) {
   app.use("/api/posts", router);
 };
 
+// let beautifyQuestion = (posts)=>{
+//   console.log(JSON.stringify(posts));
+//   let question = null;
+//   for (let p of posts) {
+//     if (p.type == 0) {
+//       question = p;
+//       break;
+//     }
+//   }
+//   question.answers = [];
+//   question.comments = [];
+//   console.log(question);
+//   for (let post of posts) {
+//     if (post.parentId == question.id) {
+//       if (post.type == 1) question.answers.push(post);
+//       if (post.type == 2) question.comments.push(post);
+//     }
+//   }
+//   for (let answer of question.answers) {
+//     answer.comments = [];
+//     for (let post of posts) {
+//       if (answer.id == post.parentId) answer.comments.push(post);
+//     }
+//   }
+//   return question;
+// }
+
+
 router.all("*", utils.requireAuth);
 
 /**
@@ -74,3 +102,108 @@ router.post("/", (req, res)=>{
     handleError(res, err, "数据库查询失败");
   });
 });
+
+
+/**
+ * @api {get} /posts/questionId Retrieve a question
+ * @apiGroup Retrieve a question
+ *
+ * @apiSuccessExample Success
+ *     {
+ *       "err": false,
+ *       "data": [
+ *         {
+ *           "id": 1,
+ *           "title": "t1",
+ *           "authorId": 1,
+ *           "body": "q1",
+ *           "type": 0,
+ *           "parentId": null,
+ *           "absParentId": null,
+ *           "createdAt": "2016-07-13T01:14:05.000Z",
+ *           "updatedAt": "2016-07-13T01:14:05.000Z"
+ *         },
+ *         {
+ *           "id": 2,
+ *           "title": null,
+ *           "authorId": 31,
+ *           "body": "a1",
+ *           "type": 1,
+ *           "parentId": 1,
+ *           "absParentId": 1,
+ *           "createdAt": "2016-07-13T01:15:30.000Z",
+ *           "updatedAt": "2016-07-13T01:15:30.000Z"
+ *         },
+ *         {
+ *           "id": 3,
+ *           "title": null,
+ *           "authorId": 32,
+ *           "body": "a2",
+ *           "type": 1,
+ *           "parentId": 1,
+ *           "absParentId": 1,
+ *           "createdAt": "2016-07-13T01:15:39.000Z",
+ *           "updatedAt": "2016-07-13T01:15:39.000Z"
+ *         },
+ *         {
+ *           "id": 4,
+ *           "title": null,
+ *           "authorId": 27,
+ *           "body": "c1",
+ *           "type": 2,
+ *           "parentId": 1,
+ *           "absParentId": 1,
+ *           "createdAt": "2016-07-13T01:17:17.000Z",
+ *           "updatedAt": "2016-07-13T01:17:17.000Z"
+ *         },
+ *         {
+ *           "id": 5,
+ *           "title": null,
+ *           "authorId": 28,
+ *           "body": "c2",
+ *           "type": 2,
+ *           "parentId": 2,
+ *           "absParentId": 1,
+ *           "createdAt": "2016-07-13T01:17:18.000Z",
+ *           "updatedAt": "2016-07-13T01:17:18.000Z"
+ *         },
+ *         {
+ *           "id": 6,
+ *           "title": null,
+ *           "authorId": 29,
+ *           "body": "c3",
+ *           "type": 2,
+ *           "parentId": 3,
+ *           "absParentId": 1,
+ *           "createdAt": "2016-07-13T01:17:19.000Z",
+ *           "updatedAt": "2016-07-13T01:17:19.000Z"
+ *         }
+ *       ]
+ *     }
+ * 
+ * @apiErrorExample DatabaseError
+ *     {
+ *       "err": true,
+ *       "msg": "数据库查询失败"
+ *     }
+ * 
+ */
+router.get('/:questionId', (req, res)=>{
+  sendData(res, req.question);
+})
+
+router.param("questionId", (req, res, next, id)=>{
+  db.post.findAll({
+    where: {
+      $or: [
+        {id, type: 0}, {absParentId: id}
+      ]
+    },
+    order: 'createdAt'
+  }).then(data=>{
+    req.question=data;
+    next();
+  }).catch(err=>{
+    next(err);
+  })
+})
