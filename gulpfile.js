@@ -1,15 +1,21 @@
 var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
-  apidoc = require('gulp-apidoc')
+  apidoc = require('gulp-apidoc'),
+  open = require('gulp-open'),
   livereload = require('gulp-livereload'),
   shell = require('gulp-shell');
 
-gulp.task('api', function(done){
+gulp.task('apidoc', function(done){
           apidoc({
             src: "app/",
             dest: "apidoc/"
           },done);
+});
+
+gulp.task('api', ['apidoc'],function(){
+  gulp.src('apidoc/index.html')
+  .pipe(open());
 });
 
 gulp.task('develop', function () {
