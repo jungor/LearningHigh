@@ -3,11 +3,17 @@
         <div ui-view="navigation-bar">
             loading...
         </div>
-        <div id="detail-content">
+        <div id="detail-content" ng-controller="detail-content">
             <div ui-view="pdf">
                 loading...
             </div>
-            <div ui-view="discuss">
+            <div ui-view='submit-question'>
+                loading...
+            </div>
+            <div ui-view="questions">
+                loading...
+            </div>
+            <div ui-view="one-question">
                 loading...
             </div>
         </div>
