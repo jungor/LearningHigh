@@ -28,12 +28,12 @@ module.exports = function (app) {
  *         "createdAt": "2016-07-08T17:48:51.000Z"
  *       }
  *     }
- *
  * @apiErrorExample Error
  *     {
  *       "err": true,
  *       "msg": "用户名已存在"
  *     }
+ * 
  */
 router.post('/', (req, res)=>{
   var username = req.body.username;

@@ -4,7 +4,6 @@ var gulp = require('gulp'),
   livereload = require('gulp-livereload'),
   shell = require('gulp-shell');
 
-
 gulp.task('develop', ['mount'], function () {
   livereload.listen();
   nodemon().on('readable', function () {

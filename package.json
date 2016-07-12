@@ -13,6 +13,7 @@
     "express-mysql-session": "^1.1.1",
     "express-session": "^1.14.0",
     "glob": "^6.0.4",
+    "gulp-open": "^2.0.0",
     "jade": "^1.11.0",
     "method-override": "^2.3.0",
     "morgan": "^1.6.1",
