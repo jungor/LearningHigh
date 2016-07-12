@@ -11,7 +11,44 @@ module.exports = function (app) {
 
 router.all("*", utils.requireAuth);
 
-
+/**
+ * @api {post} /posts Create a post
+ * @apiName Create a post
+ * @apiGroup post
+ *
+ * @apiParam {String} title 标题，只有type=0的时候需要传
+ * @apiParam {String} body 内容
+ * @apiParam {Number} type 用户名
+ * @apiParam {Number} parentId 所属问题的id
+ * @apiParam {Number} absParentId 所属页面的id
+ *
+ * @apiSuccessExample Success
+ *     {
+ *       "err": false,
+ *       "data": {
+ *         "id": 2,
+ *         "body": "你好吗",
+ *         "type": 0,
+ *         "absParentId": "13",
+ *         "title": "试试中文2",
+ *         "authorId": 1,
+ *         "updatedAt": "2016-07-12T13:51:57.000Z",
+ *         "createdAt": "2016-07-12T13:51:57.000Z"
+ *       }
+ *     }
+ * 
+ * @apiErrorExample DatabaseError
+ *     {
+ *       "err": true,
+ *       "msg": "数据库查询失败"
+ *     }
+ * 
+ * @apiErrorExample ParamError
+ *     {
+ *       "err": true,
+ *       "msg": "参数不符合要求"
+ *     }
+ */
 router.post("/", (req, res)=>{
   let {title, body, type, parentId, absParentId} = req.body;
   type = parseInt(type);
