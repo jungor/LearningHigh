@@ -19,7 +19,7 @@ detail.config(function($stateProvider, $urlRouterProvider) {
                 'pdf@detail': {
                     templateUrl: '/app_angular/templates/pdf.html'
                 },
-                'submit-question@detail':{
+                'submit-question@detail': {
                     templateUrl: '/app_angular/templates/submit-question.html'
                 },
                 'questions@detail': {
@@ -69,7 +69,7 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', function($s
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHide = true;
     })
-    
+
     var pageNumber = null;
     $interval(function() {
         var content = document.getElementById("myIframe").contentWindow;
@@ -77,12 +77,12 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', function($s
             var temp = content.document.getElementById("pageNumber").value;
             if ($rootScope.pageNumber === null) {
                 //get current page questions
-                $scope.questionsList = {'1':1};
+                $scope.questionsList = { '1': 1 };
                 $rootScope.pageNumber = temp;
             }
             if (pageNumber != temp) {
                 //get current page questions
-                $scope.questionsList = {'1':1, '2':2};
+                $scope.questionsList = { '1': 1, '2': 2 };
                 console.log('test 2');
                 $rootScope.pageNumber = temp;
                 pageNumber = temp;
@@ -100,6 +100,8 @@ detail.controller('one-question', ['$scope', function($scope) {
     $scope.name = "one-question";
     $scope.myHide = true;
 
+    $scope.title = 'tetredsf';
+
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHide = false;
         console.log('root get comments:');
@@ -112,13 +114,14 @@ detail.controller('one-question', ['$scope', function($scope) {
 }]);
 
 
-detail.controller('submit-question', ['$scope', function($scope){
+detail.controller('submit-question', ['$scope', function($scope) {
     $scope.myHide = true;
     $scope.myHideOut = false;
 
 
     $scope.submit = function() {
-        console.log($scope.title + $scope.content);
+        
+
     }
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHideOut = true;
@@ -126,5 +129,5 @@ detail.controller('submit-question', ['$scope', function($scope){
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
     }
-    
+
 }])
