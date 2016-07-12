@@ -18,7 +18,7 @@ router.all("*", utils.requireAuth);
  *
  * @apiParam {String} title 标题，只有type=0的时候需要传
  * @apiParam {String} body 内容
- * @apiParam {Number} type 用户名
+ * @apiParam {Number} type 类型
  * @apiParam {Number} parentId 所属问题的id
  * @apiParam {Number} absParentId 所属页面的id
  *
