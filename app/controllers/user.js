@@ -90,7 +90,7 @@ router.post('/login', (req, res)=>{
       req.session.user = data;
       sendData(res, data);
     } else {
-      handleError(res, true, '用户名或密码错误');
+      handleError(res, err, '用户名或密码错误');
     }
   },err=>{
     handleError(res, err, '数据库查询出错');
