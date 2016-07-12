@@ -81,6 +81,7 @@ router.post('/', upload.single('courseware'), (req, res)=>{
  * @apiGroup courseware
  *
  * @apiParam {String} key 关键词
+ * @apiParam {String} pageId 结果页的页数，用于分页，默认1
  *
  * @apiSuccessExample Success
  *     {
@@ -147,8 +148,12 @@ router.post('/', upload.single('courseware'), (req, res)=>{
  *
  */
 router.get('/', (req, res)=>{
-  let {key} = req.query;
+  let {key, pageId} = req.query;
+  const limit = 2;
+  if (!pageId) pageId = 1;
   db.courseware.findAll({
+    offset:limit*(pageId-1),
+    limit,
     where: {
       name: {
         $like: `%${key}%`
