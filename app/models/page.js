@@ -5,21 +5,26 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     coursewareId: {
       type: DataTypes.INTEGER(11),
-      allowNull: false
+      allowNull: true,
+      references: {
+        model: 'courseware',
+        key: 'id'
+      }
     },
     number: {
       type: DataTypes.INTEGER(11),
       allowNull: false
     },
-    createAt: {
+    createdAt: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    updateAt: {
+    updatedAt: {
       type: DataTypes.DATE,
       allowNull: false
     }

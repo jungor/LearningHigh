@@ -1,0 +1,50 @@
+body {
+	background-color: #ddd;
+}
+#home .logo {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+}
+#home .logo img {
+	width: 200px;
+}
+#home .loginBox {
+	position: fixed;
+	top: 15px;
+	right: 0px;
+}
+#home .loginBox .user-btn {
+	margin-right: 20px;
+    padding: 3px 20px;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    transition: all .35s ease-in-out;
+    -webkit-transition: all .35s ease-in-out;
+}
+#home .loginBox .user-btn:hover {
+    background: #fff;
+    color: #000;
+}
+#home .SearchBox {
+	position: fixed;
+	top: 40%;
+	left: 40%;
+}
+#home .SearchBox img {
+	width: 40px;
+	position: absolute;
+	left: 0px;
+}
+#home #searchInput {
+	height: 40px;
+	width: 300px;
+	padding-left: 40px;
+	font-size: 30px;
+	box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+#home .hide {
+	display: none;
+}

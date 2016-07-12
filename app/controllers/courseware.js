@@ -1,16 +1,15 @@
-var express = require('express'),
+const express = require('express'),
   router = express.Router(),
   multer  = require('multer'),
   storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public/courseware')
+      cb(null, 'public/courseware');
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname)
+      cb(null, file.originalname);
     }
-  })
-  upload = multer({ storage: storage })
-  // upload = multer({ dest: 'public/pdf' }),
+  }),
+  upload = multer({ storage: storage }),
   utils = require('../utils/utils'),
   sendData = utils.sendData,
   handleError = utils.handleError,
@@ -22,49 +21,56 @@ module.exports = function (app) {
   app.use('/api/coursewares', router);
 };
 
-router.all('*', utils.requireAuth)
+router.all('*', utils.requireAuth);
 
-// Create a courseware, use to register
-router.post('/', upload.single('courseware'), (req, res, next)=>{
-  // var {username, } = req.body
-  // db.courseware.create({
-  //   username,
-  //   password
-  // })
-  // .then(
-  //   data=>{
-  //     req.session.user = data
-  //     sendData(res, data)
-  //   },
-  //   err=>handleError(res, err, '用户名已存在')
-  // )
-  // .catch(
-  //   err=>handleError(res, err, '数据库查询出错')
-  // )
-  var {categoryId, pageCount} = req.body
-  var name = req.file.originalname
-  var url = `/courseware/${name}`
-  categoryId = parseInt(categoryId)
-  pageCount = parseInt(pageCount)
-  var inserts = []
-  console.log('jj')
+/**
+ * @api {post} /coursewares Upload
+ * @apiName Upload
+ * @apiGroup courseware
+ *
+ * @apiParam {Number} categoryId 分类
+ * @apiParam {Number} pageCount 页数
+ * @apiParam {File} courseware 课件
+ *
+ * @apiSuccessExample Success
+ *     {
+ *       "err": false,
+ *       "data": [
+ *        ...
+ *       ]
+ *     }
+ *
+ * @apiErrorExample Error
+ *     {
+ *       "err": true,
+ *       "msg": "上传失败"
+ *     }
+ */
+router.post('/', upload.single('courseware'), (req, res)=>{
+  let {categoryId, pageCount} = req.body;
+  let name = req.file.originalname;
+  console.log(`${name}上传成功`);
+  let url = `/courseware/${name}`;
   db.courseware.create({
     categoryId,
     name,
+    pageCount,
     url
-  }).then(
-    data=>{
-      console.log(data)
-      sendData(res, data)
-    }, 
-    err=>{
-      handleError(res, err, '数据库查询出错')
+  }).then(data=>{
+    // console.log(data);
+    let {pageCount} = req.body;
+    let coursewareId = data.dataValues.id;
+    let bulk = [];
+    for (let number = 1; number <= pageCount; number++) {
+      bulk.push({
+        coursewareId,
+        number
+      })
     }
-  )
-  // ).catch(
-  //   err=>{
-  //     console.log('aaa')
-  //     handleError(res, err, '数据库查询出错')
-  //   }
-  // )
-})
+    return db.page.bulkCreate(bulk);
+  }).then(data=>{
+    sendData(res, data)
+  }).catch(err=>{
+    handleError(res, '数据库错误')
+  })
+});

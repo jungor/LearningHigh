@@ -1,0 +1,16 @@
+<div id="home">
+	<div class="headBar">
+		<div class="logo">
+			<img src="/app_angular/images/home/logo.png" alt="lll">
+		</div>
+		<div class="loginBox" ng-controller="loginBoxController">
+			<span class="user-btn user-login" ng-class="{'hide': islogin}" ng-click="login()">Login</span>
+			<span class="user-btn user-signup" ng-class="{'hide': islogin}" ng-click="signup()">Signup</span>
+			<span class="user-btn user-logout" ng-class="{'hide': notlogin}" ng-click="logout()">Logout</span>
+		</div>
+	</div>
+	<div class="SearchBox" ng-controller="HomeSearchController">
+		<img src="/app_angular/images/home/icon-search.png" alt="searchIcon" class="searchLogo">
+		<input type="text" id="searchInput" ng-model="search.input" ng-click="HomeSearch()">
+	</div>
+</div>
