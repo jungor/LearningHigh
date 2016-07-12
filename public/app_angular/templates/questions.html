@@ -1,8 +1,13 @@
 <!-- id title authorId body type parentId absParentId  createdAt updatedAt -->
 <div id="questions" ng-controller="questions" ng-hide="myHide">
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="item in questionsList" ng-click="getQA()">
-            <span class="badge">14</span> Cras justo odio
-        </li>
-    </ul>
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-click="show()">Question List</div>
+        <div class="panel-body" ng-hide="myHideList">
+            <ul class="list-group">
+                <li class="list-group-item table-hover" ng-repeat="item in questionsList" ng-click="getQA()">
+                    <span class="badge ">14</span> Cras justo odio
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
