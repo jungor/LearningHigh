@@ -47,8 +47,9 @@ router.all("*", utils.requireAuth);
  * @apiParam {String} title 标题，只有type=0的时候需要传
  * @apiParam {String} body 内容
  * @apiParam {Number} type 类型
- * @apiParam {Number} parentId 所属问题的id
- * @apiParam {Number} absParentId 所属页面的id
+ * @apiParam {Number} parentId 所属上级元素的id
+ * @apiParam {Number} absParentId 所属问题的id
+ * @apiParam {Number} pageId 所属页面的id
  *
  * @apiSuccessExample Success
  *     {
@@ -78,18 +79,18 @@ router.all("*", utils.requireAuth);
  *     }
  */
 router.post("/", (req, res)=>{
-  let {title, body, type, parentId, absParentId} = req.body;
+  let {title, body, type, parentId, absParentId, pageId} = req.body;
   type = parseInt(type);
   let newPost = null;
   switch (type) {
   case 0:
-    newPost = {body, type, absParentId, title};
+    newPost = {body, type, absParentId, title, pageId};
     break;
   case 1:
-    newPost = {body, type, absParentId, parentId};
+    newPost = {body, type, absParentId, parentId, pageId};
     break;
   case 2:
-    newPost = {body, type, absParentId, parentId};
+    newPost = {body, type, absParentId, parentId, pageId};
     break;
   default:
     handleError(res, {}, "参数不符合要求");
@@ -106,7 +107,7 @@ router.post("/", (req, res)=>{
 
 /**
  * @api {get} /posts Retrieve  questions of a page
- * @apiName Retrieve  questions of a page
+ * @apiName Retrieve questions of a page
  * @apiGroup post
  *
  * @apiSuccessExample Success
@@ -173,7 +174,7 @@ router.get('/', (req, res)=>{
 
 
 /**
- * @api {get} /posts/questionId Retrieve a question
+ * @api {get} /posts/:questionId Retrieve a question
  * @apiName Retrieve a question
  * @apiGroup post
  *

@@ -10,9 +10,9 @@ module.exports = function (app) {
 };
 
 /**
- * @api {get} /pages Retrieve a queston
- * @apiName Retrieve a queston
- * @apiGroup post
+ * @api {get} /pages Retrieve a page
+ * @apiName Retrieve a page
+ * @apiGroup page
  *
  * @apiParam {String} coursewareId 课件id
   * @apiParam {Number} number 页码
