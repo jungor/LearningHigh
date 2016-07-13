@@ -1,6 +1,6 @@
 var home = angular.module('home', []);
 
-home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', '$location' ,function($scope, $rootScope, $http, $location) {
     $scope.search = {}
     $scope.HomeSearch = function() {
     	console.log($scope.search.input);
@@ -14,7 +14,7 @@ home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', functi
                     console.log(data)
                     console.log('success');
                     $rootScope.searchList = data;
-                    // $location.path('/index');
+                    $location.path('/search-result');
                 } else {
                     console.log("failed");
                    	console.log(data)

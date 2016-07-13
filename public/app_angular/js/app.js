@@ -4,7 +4,7 @@
 * Description
 */
 
-var qingYun = angular.module('qingYun', ['ui.router', 'ui.tinymce','detail', 'home', 'login_signup']);
+var qingYun = angular.module('qingYun', ['ui.router', 'detail', 'home', 'login_signup', 'search-result']);
 
 
 qingYun.run(function($rootScope, $state, $stateParams){
@@ -22,6 +22,20 @@ qingYun.config(function($stateProvider, $urlRouterProvider) {
 					templateUrl: "/app_angular/templates/home.html"
 				}
 			}
-		});
+		})
+		.state('search-result', {
+            url: '/search-result',
+            views: {
+                '': {
+                    templateUrl: "/app_angular/templates/search-result.html"
+                },
+                'navigation-bar@search-result': {
+                    templateUrl: '/app_angular/templates/navigation-bar.html'
+                },
+                'search-list@search-result': {
+                	templateUrl:'app_angular/templates/search-list.html'
+                }
+            }
+        });
 
 });
