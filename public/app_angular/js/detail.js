@@ -96,11 +96,56 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', function($s
 }]);
 
 
+
+detail.controller('submit-question', ['$scope', '$http',function($scope, $http) {
+    $scope.myHide = true;
+    $scope.myHideOut = false;
+    $scope.username = 'test_user';
+
+
+    $scope.submit = function() {
+        $http({
+            url: '/api/posts',
+            method: 'POST',
+            data: { title: $scope.title, body: $scope.content ,type : 0, parentId:null, absParentId:13}
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                console.log('success');
+                // $rootScope.id = data.data.id;
+                // $rootScope.username = data.data.username;
+                // $location.path('/index');
+            } else {
+                console.log('failed');
+                // console.log("Log in failed");
+                // $location.path('/login_signup');
+            }
+        }).error(function(data, header, config, status) {
+            console.log(data.err);
+        });
+
+        BootstrapDialog.show({
+            message: 'nima'
+        });
+
+    }
+    $scope.$on('hide-and-get', function(event, data) {
+        $scope.myHideOut = true;
+    })
+    $scope.show = function() {
+        $scope.myHide = !$scope.myHide;
+    }
+
+}])
+
+
 detail.controller('one-question', ['$scope', function($scope) {
     $scope.name = "one-question";
     $scope.myHide = true;
 
-    $scope.title = 'tetredsf';
+    $scope.answers = {};
+    $scope.qComments = {}
+    // answer id : 
+    $scope.aComments = {    }
 
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHide = false;
@@ -112,22 +157,3 @@ detail.controller('one-question', ['$scope', function($scope) {
     };
 
 }]);
-
-
-detail.controller('submit-question', ['$scope', function($scope) {
-    $scope.myHide = true;
-    $scope.myHideOut = false;
-
-
-    $scope.submit = function() {
-        
-
-    }
-    $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHideOut = true;
-    })
-    $scope.show = function() {
-        $scope.myHide = !$scope.myHide;
-    }
-
-}])

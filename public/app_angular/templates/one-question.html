@@ -1,26 +1,28 @@
 <div id="one-question" ng-controller="one-question" ng-hide="myHide">
-    <div class="panel panel-default">
-        <div class="panel-heading">{{title}}</div>
+    <!-- <div class="panel panel-default">
+        <div class="panel-heading"><span class="label label-primary" style="margin-right:10px;">Question:</span> What's your name? </div>
         <div class="panel-body">
-            Question
+            content
         </div>
         <div class="panel-footer">
-            <p>dfasdf</p>
-            <p>dfadfasfsd</p>
-            <p>rvcskdjlf</p>
+            <div class="column left-padding" >
+                <p>dfasdf</p>
+                <p>dfadfasfsd</p>
+                <p>rvcskdjlf</p>
+            </div>
         </div>
-    </div>
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading">answer</div>
+    </div> -->
+    <!-- <div class="panel panel-default" ng-repeat="item in Answers">
+        <div class="panel-heading"><span class="label label-success" style="margin-right:10px;">Answer:</span>My name is liujunyi {{item.title}}</div>
         <div class="panel-body">
-            Question
+            {{item.body}}
         </div>
         <div class="panel-footer">
-            <p>dfasdf</p>
-            <p>dfadfasfsd</p>
-            <p>rvcskdjlf</p>
+            <div class="column left-padding" >
+                <div id="comment" ng-repeat="v in aComments[item.id]" >
+                	
+                </div>
+            </div>
         </div>
-    </div>
+    </div> -->
 </div>
