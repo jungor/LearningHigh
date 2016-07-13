@@ -4,8 +4,8 @@
         <div class="panel-heading" ng-click="show()">Question List</div>
         <div class="panel-body" ng-hide="myHideList">
             <ul class="list-group">
-                <li class="list-group-item table-hover" ng-repeat="item in questionsList" ng-click="getQA()">
-                    <span class="badge ">14</span> Cras justo odio
+                <li class="list-group-item table-hover" ng-repeat="item in questionsList" ng-click="getQA(item.id)">
+                    {{item.title}}
                 </li>
             </ul>
         </div>

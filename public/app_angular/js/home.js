@@ -3,7 +3,7 @@ var home = angular.module('home', []);
 home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', '$location' ,function($scope, $rootScope, $http, $location) {
     $scope.search = {}
     $scope.HomeSearch = function() {
-    	console.log($scope.search.input);
+    	// console.log($scope.search.input);
         if ($scope.search.input != '') {
             $http({
                 url: '/api/coursewares',
@@ -11,16 +11,17 @@ home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', '$loca
                 params: {key: $scope.search.input, pageId:'1'}
             }).success(function(data, header, config, status) {
                 if (data.err == false) {
-                    console.log(data)
-                    console.log('success');
+                    // console.log(data)
+                    // console.log('success');
                     $rootScope.searchList = data;
                     $location.path('/search-result');
                 } else {
-                    console.log("failed");
-                   	console.log(data)
+                    // console.log("failed");
+                   	// console.log(data)
                 }
             }).error(function(data, header, config, status) {
-                console.log(data.err);
+                // console.log(data.err);
+                // console.log('shenmegui');
             });
         }
     }

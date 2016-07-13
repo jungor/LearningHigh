@@ -34,32 +34,33 @@ detail.config(function($stateProvider, $urlRouterProvider) {
 
 
 detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $rootScope) {
-    $scope.name = 'detail-content';
     $rootScope.pageNumber = null;
     $rootScope.questionId = null;
 
 
-    $scope.getQA = function() {
+    $scope.getQA = function(id) {
         // get question answers comments
-
+        $rootScope.questionId = id;
         $scope.$broadcast('hide-and-get', '666');
-        console.log('get question answers comments');
+        $scope.$broadcast('to-get-AC', 'AC');
+
     }
 }]);
 
 
 detail.controller('pdf', ['$scope', '$rootScope', function($scope, $rootScope) {
+    $scope.fileUrl = '/components/viewerjs/ViewerJS/#../../..' + $rootScope.selectedFile.url;
     $scope.name = 'pdf';
     $scope.myHide = false;
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHide = true;
-    })
+    });
 
 }]);
 
 
-detail.controller('questions', ['$scope', '$rootScope', '$interval', function($scope, $rootScope, $interval) {
-    $scope.questionsList = {};
+detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', function($scope, $rootScope, $interval, $http) {
+    $scope.questionsList = null;
     $scope.myHide = false;
     $scope.myHideList = true;
 
@@ -77,18 +78,77 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', function($s
             var temp = content.document.getElementById("pageNumber").value;
             if ($rootScope.pageNumber === null) {
                 //get current page questions
-                $scope.questionsList = { '1': 1 };
                 $rootScope.pageNumber = temp;
+                $http({
+                    url: '/api/pages',
+                    method: 'GET',
+                    params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
+                }).success(function(data, header, config, status) {
+                    if (data.err == false) {
+                        console.log('get ID' + data.data.id);
+                        $rootScope.pageId = data.data.id;
+                    } else {
+                        console.log("failed");
+                    }
+                }).error(function(data, header, config, status) {
+                    console.log('shenmegui');
+                });
+
+                $http({
+                    url: '/api/posts?pageId=' + $rootScope.pageId,
+                    method: 'GET',
+                }).success(function(data, header, config, status) {
+                    if (data.err == false) {
+                        console.log('success');
+                        console.log(data.data);
+                        $scope.questionsList = data.data;
+                    } else {
+                        console.log("failed");
+                    }
+                }).error(function(data, header, config, status) {
+                    console.log('shenmegui');
+                });
+
             }
             if (pageNumber != temp) {
                 //get current page questions
-                $scope.questionsList = { '1': 1, '2': 2 };
-                console.log('test 2');
                 $rootScope.pageNumber = temp;
                 pageNumber = temp;
+
+                $http({
+                    url: '/api/pages',
+                    method: 'GET',
+                    params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
+                }).success(function(data, header, config, status) {
+                    if (data.err == false) {
+                        console.log('get ID' + data.data.id);
+                        $rootScope.pageId = data.data.id;
+                    } else {
+                        console.log("failed");
+                    }
+                }).error(function(data, header, config, status) {
+                    console.log('shenmegui');
+                });
+
+                $http({
+                    url: '/api/posts?pageId=' + $rootScope.pageId,
+                    method: 'GET',
+                }).success(function(data, header, config, status) {
+                    if (data.err == false) {
+                        console.log('success');
+                        console.log(data.data);
+                        $scope.questionsList = data.data;
+                    } else {
+                        console.log("failed");
+                    }
+                }).error(function(data, header, config, status) {
+                    console.log('shenmegui');
+                });
+
             }
         } else {
             pageNumber = content.document.getElementById("pageNumber").value;
+
         }
 
     }, 1000);
@@ -97,20 +157,24 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', function($s
 
 
 
-detail.controller('submit-question', ['$scope', '$http',function($scope, $http) {
+detail.controller('submit-question', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
     $scope.myHide = true;
     $scope.myHideOut = false;
     $scope.username = 'test_user';
 
 
     $scope.submit = function() {
+        console.log(parseInt($rootScope.pageId));
         $http({
             url: '/api/posts',
             method: 'POST',
-            data: { title: $scope.title, body: $scope.content ,type : 0, parentId:null, absParentId:13}
+            data: { title: $scope.title, body: $scope.content, type: 0, parentId: null, absParentId: null, pageId: $rootScope.pageId }
         }).success(function(data, header, config, status) {
             if (data.err == false) {
                 console.log('success');
+                BootstrapDialog.show({
+                    message: 'success'
+                });
                 // $rootScope.id = data.data.id;
                 // $rootScope.username = data.data.username;
                 // $location.path('/index');
@@ -123,9 +187,7 @@ detail.controller('submit-question', ['$scope', '$http',function($scope, $http) 
             console.log(data.err);
         });
 
-        BootstrapDialog.show({
-            message: 'nima'
-        });
+
 
     }
     $scope.$on('hide-and-get', function(event, data) {
@@ -138,14 +200,130 @@ detail.controller('submit-question', ['$scope', '$http',function($scope, $http) 
 }])
 
 
-detail.controller('one-question', ['$scope', function($scope) {
+detail.controller('one-question', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
     $scope.name = "one-question";
     $scope.myHide = true;
 
-    $scope.answers = {};
-    $scope.qComments = {}
-    // answer id : 
-    $scope.aComments = {    }
+
+
+    // $scope.answers = {};
+    // $scope.qComments = {}
+    //     // answer id : 
+    // $scope.aComments = {}
+
+    $scope.qComments = { 'question': null, 'comments': [] };
+    $scope.aComments = [];
+
+    $scope.classify = function(data) {
+        console.log('data');
+        console.log(data);
+        var question = [];
+        var answers = [];
+        var comments = [];
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].type == 0) question.push(data[i]);
+            if (data[i].type == 1) answers.push(data[i]);
+            if (data[i].type == 2) comments.push(data[i]);
+        }
+
+        $scope.qComments.question = question[0];
+        for (var i = 0; i < comments.length; i++) {
+            if (comments[i].parentId == question[0].id) $scope.qComments.comments.push(comments[i]);
+        }
+
+        console.log('classify');
+        // console.log()
+
+    };
+
+
+    $scope.$on('to-get-AC', function(event, data) {
+        // $http({
+        //     url: '/api/posts/:'+$rootScope.questionId,
+        //     method: 'GET'
+        // }).success(function(data, header, config, status) {
+        //     if (data.err == false) {
+        //         console.log('success');
+        //         console.log(data);
+        //         // $rootScope.id = data.data.id;
+        //         // $rootScope.username = data.data.username;
+        //         // $location.path('/index');
+        //     } else {
+        //         console.log('failed');
+        //         // console.log("Log in failed");
+        //         // $location.path('/login_signup');
+        //     }
+        // }).error(function(data, header, config, status) {
+        //     console.log(data.err);
+        // });
+
+
+        // console.log($scope.QAC);
+        $scope.QAC = [{
+            "id": 1,
+            "title": "t1",
+            "authorId": 1,
+            "body": "q1",
+            "type": 0,
+            "parentId": null,
+            "absParentId": null,
+            "createdAt": "2016-07-13T01:14:05.000Z",
+            "updatedAt": "2016-07-13T01:14:05.000Z"
+        }, {
+            "id": 2,
+            "title": null,
+            "authorId": 31,
+            "body": "a1",
+            "type": 1,
+            "parentId": 1,
+            "absParentId": 1,
+            "createdAt": "2016-07-13T01:15:30.000Z",
+            "updatedAt": "2016-07-13T01:15:30.000Z"
+        }, {
+            "id": 3,
+            "title": null,
+            "authorId": 32,
+            "body": "a2",
+            "type": 1,
+            "parentId": 1,
+            "absParentId": 1,
+            "createdAt": "2016-07-13T01:15:39.000Z",
+            "updatedAt": "2016-07-13T01:15:39.000Z"
+        }, {
+            "id": 4,
+            "title": null,
+            "authorId": 27,
+            "body": "c1",
+            "type": 2,
+            "parentId": 1,
+            "absParentId": 1,
+            "createdAt": "2016-07-13T01:17:17.000Z",
+            "updatedAt": "2016-07-13T01:17:17.000Z"
+        }, {
+            "id": 5,
+            "title": null,
+            "authorId": 28,
+            "body": "c2",
+            "type": 2,
+            "parentId": 2,
+            "absParentId": 1,
+            "createdAt": "2016-07-13T01:17:18.000Z",
+            "updatedAt": "2016-07-13T01:17:18.000Z"
+        }, {
+            "id": 6,
+            "title": null,
+            "authorId": 29,
+            "body": "c3",
+            "type": 2,
+            "parentId": 3,
+            "absParentId": 1,
+            "createdAt": "2016-07-13T01:17:19.000Z",
+            "updatedAt": "2016-07-13T01:17:19.000Z"
+        }];
+        $scope.classify($scope.QAC);
+
+    });
+
 
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHide = false;

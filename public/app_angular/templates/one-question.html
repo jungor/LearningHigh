@@ -1,17 +1,23 @@
 <div id="one-question" ng-controller="one-question" ng-hide="myHide">
-    <!-- <div class="panel panel-default">
-        <div class="panel-heading"><span class="label label-primary" style="margin-right:10px;">Question:</span> What's your name? </div>
-        <div class="panel-body">
-            content
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="label label-primary" style="margin-right:10px;">Question:</span>{{qComments.question.title}}
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{qComments.question.authorId}} 
+            <span>{{qComments.question.createdAt}}</span>
         </div>
+        <div class="panel-body">
+            {{qComments.question.body}}
         <div class="panel-footer">
-            <div class="column left-padding" >
-                <p>dfasdf</p>
-                <p>dfadfasfsd</p>
-                <p>rvcskdjlf</p>
+            <div class="column left-padding">
+                <div ng-repeat="item in qComments.comments">
+                    <p>{{item.body}}</p>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{item.authorId}}
+                    <span>{{item.createdAt}}</span>
+                    <hr>
+                </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- <div class="panel panel-default" ng-repeat="item in Answers">
         <div class="panel-heading"><span class="label label-success" style="margin-right:10px;">Answer:</span>My name is liujunyi {{item.title}}</div>
         <div class="panel-body">
@@ -20,7 +26,7 @@
         <div class="panel-footer">
             <div class="column left-padding" >
                 <div id="comment" ng-repeat="v in aComments[item.id]" >
-                	
+                    
                 </div>
             </div>
         </div>
