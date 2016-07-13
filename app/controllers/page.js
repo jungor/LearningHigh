@@ -21,17 +21,17 @@ module.exports = function (app) {
  *     {
  *       "err": false,
  *       "data": {
- *         "id": 27,
- *         "username": "test6",
- *         "password": "123",
- *         "updatedAt": "2016-07-08T17:48:51.000Z",
- *         "createdAt": "2016-07-08T17:48:51.000Z"
+ *          "id": 37,
+ *          "coursewareId": 6,
+ *          "number": 3,
+ *          "createdAt": "2016-07-12T15:02:34.000Z",
+ *          "updatedAt": "2016-07-12T15:02:34.000Z"
  *       }
  *     }
  * @apiErrorExample Error
  *     {
  *       "err": true,
- *       "msg": "用户名已存在"
+ *       "msg": "数据库查询错误"
  *     }
  * 
  */
@@ -43,7 +43,6 @@ router.get('/', (req, res)=>{
       number
     }
   }).then(data=>{
-    id 
     sendData(res, data)
   }).catch(err=>{
     handleError(res, err, "数据库查询错误");
