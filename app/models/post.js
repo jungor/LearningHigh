@@ -40,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       references: {
-        model: 'page',
+        model: 'post',
         key: 'id'
       }
     },
@@ -51,6 +51,14 @@ module.exports = function(sequelize, DataTypes) {
     updatedAt: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    pageId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      references: {
+        model: 'page',
+        key: 'id'
+      }
     }
   }, {
     tableName: 'post'
