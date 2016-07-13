@@ -149,7 +149,7 @@ router.post('/', upload.single('courseware'), (req, res)=>{
  */
 router.get('/', (req, res)=>{
   let {key, pageId} = req.query;
-  const limit = 2;
+  const limit = 10;
   if (!pageId) pageId = 1;
   db.courseware.findAll({
     offset:limit*(pageId-1),
