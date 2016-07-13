@@ -114,6 +114,17 @@ router.post("/", (req, res)=>{
  *       "err": false,
  *       "data": [
  *         {
+ *           "id": 15,
+ *           "title": "试试中文",
+ *           "authorId": 1,
+ *           "body": "你好吗",
+ *           "type": 0,
+ *           "parentId": null,
+ *           "absParentId": 13,
+ *           "createdAt": "2016-07-12T18:26:50.000Z",
+ *           "updatedAt": "2016-07-12T18:26:50.000Z"
+ *         },
+ *         {
  *           "id": 1,
  *           "title": "t1",
  *           "authorId": 1,
@@ -125,59 +136,15 @@ router.post("/", (req, res)=>{
  *           "updatedAt": "2016-07-13T01:14:05.000Z"
  *         },
  *         {
- *           "id": 2,
- *           "title": null,
- *           "authorId": 31,
- *           "body": "a1",
- *           "type": 1,
- *           "parentId": 1,
- *           "absParentId": 1,
- *           "createdAt": "2016-07-13T01:15:30.000Z",
- *           "updatedAt": "2016-07-13T01:15:30.000Z"
- *         },
- *         {
- *           "id": 3,
- *           "title": null,
- *           "authorId": 32,
- *           "body": "a2",
- *           "type": 1,
- *           "parentId": 1,
- *           "absParentId": 1,
- *           "createdAt": "2016-07-13T01:15:39.000Z",
- *           "updatedAt": "2016-07-13T01:15:39.000Z"
- *         },
- *         {
- *           "id": 4,
- *           "title": null,
- *           "authorId": 27,
- *           "body": "c1",
- *           "type": 2,
- *           "parentId": 1,
- *           "absParentId": 1,
- *           "createdAt": "2016-07-13T01:17:17.000Z",
- *           "updatedAt": "2016-07-13T01:17:17.000Z"
- *         },
- *         {
- *           "id": 5,
- *           "title": null,
- *           "authorId": 28,
- *           "body": "c2",
- *           "type": 2,
- *           "parentId": 2,
- *           "absParentId": 1,
- *           "createdAt": "2016-07-13T01:17:18.000Z",
- *           "updatedAt": "2016-07-13T01:17:18.000Z"
- *         },
- *         {
- *           "id": 6,
- *           "title": null,
- *           "authorId": 29,
- *           "body": "c3",
- *           "type": 2,
- *           "parentId": 3,
- *           "absParentId": 1,
- *           "createdAt": "2016-07-13T01:17:19.000Z",
- *           "updatedAt": "2016-07-13T01:17:19.000Z"
+ *           "id": 9,
+ *           "title": "t2",
+ *           "authorId": 1,
+ *           "body": "q2",
+ *           "type": 0,
+ *           "parentId": null,
+ *           "absParentId": null,
+ *           "createdAt": "2016-07-13T01:36:31.000Z",
+ *           "updatedAt": "2016-07-13T01:36:31.000Z"
  *         }
  *       ]
  *     }
@@ -190,11 +157,11 @@ router.post("/", (req, res)=>{
  * 
  */
 router.get('/', (req, res)=>{
-  let {pageId} = req.query.pageId;
+  let {pageId} = req.query;
     db.post.findAll({
     where: {
       pageId,
-      type
+      type: 0
     },
     order: 'createdAt'
   }).then(data=>{
