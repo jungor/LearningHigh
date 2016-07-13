@@ -230,6 +230,22 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
         for (var i = 0; i < comments.length; i++) {
             if (comments[i].parentId == question[0].id) $scope.qComments.comments.push(comments[i]);
         }
+        console.log('qComments');
+        console.log($scope.qComments);
+
+        for (var i = 0; i < answers.length; i++) {
+            $scope.aComments.push({ 'answer': answers[i], 'comments': [] });
+            for (var j = 0; j < comments.length; j++) {
+                if (answers[i].id == comments[j].parentId) $scope.aComments[i].comments.push(comments[j]);
+            }
+        }
+        console.log('aComments');
+        console.log($scope.aComments);
+
+
+
+
+
 
         console.log('classify');
         // console.log()
@@ -295,7 +311,7 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
             "authorId": 27,
             "body": "c1",
             "type": 2,
-            "parentId": 1,
+            "parentId": 2,
             "absParentId": 1,
             "createdAt": "2016-07-13T01:17:17.000Z",
             "updatedAt": "2016-07-13T01:17:17.000Z"
@@ -315,7 +331,7 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
             "authorId": 29,
             "body": "c3",
             "type": 2,
-            "parentId": 3,
+            "parentId": 2,
             "absParentId": 1,
             "createdAt": "2016-07-13T01:17:19.000Z",
             "updatedAt": "2016-07-13T01:17:19.000Z"

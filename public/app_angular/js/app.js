@@ -4,7 +4,7 @@
 * Description
 */
 
-var qingYun = angular.module('qingYun', ['ui.router', 'detail', 'home', 'login_signup', 'search-result']);
+var qingYun = angular.module('qingYun', ['ui.router', 'detail', 'home', 'login_signup','search-result']);
 
 
 qingYun.run(function($rootScope, $state, $stateParams){
@@ -28,9 +28,6 @@ qingYun.config(function($stateProvider, $urlRouterProvider) {
             views: {
                 '': {
                     templateUrl: "/app_angular/templates/search-result.html"
-                },
-                'navigation-bar@search-result': {
-                    templateUrl: '/app_angular/templates/navigation-bar.html'
                 },
                 'search-list@search-result': {
                 	templateUrl:'app_angular/templates/search-list.html'
