@@ -32,6 +32,34 @@ detail.config(function($stateProvider, $urlRouterProvider) {
         });
 })
 
+detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', function($scope, $rootScope, $location, $http) {
+    $scope.search = function() {
+        //console.log('ffff');
+        console.log('searchKey : ' + $scope.searchKey);
+        $http({
+            url: '/api/coursewares',
+            method: 'GET',
+            params: { key: $scope.searchKey, pageId: '1' }
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                $rootScope.searchList = data;
+                $location.path('/search-result');
+            } else {
+                console.log("failed");
+            }
+        }).error(function(data, header, config, status) {
+            // console.log(data.err);
+            // console.log('shenmegui');
+        });
+    }
+
+    $scope.$on('to-detail-all', function(e, d) {
+        // body...
+        $scope.detailHide = true;
+    })
+
+}])
+
 
 detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $rootScope) {
     $rootScope.pageNumber = null;
@@ -48,13 +76,19 @@ detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $r
 }]);
 
 
-detail.controller('pdf', ['$scope', '$rootScope', function($scope, $rootScope) {
-    $scope.fileUrl = '/components/viewerjs/ViewerJS/#../../..' + $rootScope.selectedFile.url;
-    $scope.name = 'pdf';
-    $scope.myHide = false;
-    $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHide = true;
-    });
+detail.controller('pdf', ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
+    if ($rootScope.selectedFile == undefined) {
+        $scope.$emit('to-detail-all', 'hide');
+        $location.path('/index');
+    } else {
+        $scope.fileUrl = '/components/viewerjs/ViewerJS/#../../..' + $rootScope.selectedFile.url;
+        $scope.name = 'pdf';
+        $scope.myHide = false;
+        $scope.$on('hide-and-get', function(event, data) {
+            $scope.myHide = true;
+        });
+    }
+
 
 }]);
 
@@ -71,85 +105,99 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
         $scope.myHide = true;
     })
 
-    var pageNumber = null;
-    $interval(function() {
-        var content = document.getElementById("myIframe").contentWindow;
-        if (pageNumber) {
-            var temp = content.document.getElementById("pageNumber").value;
-            if ($rootScope.pageNumber === null) {
-                //get current page questions
-                $rootScope.pageNumber = temp;
-                $http({
-                    url: '/api/pages',
-                    method: 'GET',
-                    params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
-                }).success(function(data, header, config, status) {
-                    if (data.err == false) {
-                        console.log('get ID' + data.data.id);
-                        $rootScope.pageId = data.data.id;
-                    } else {
-                        console.log("failed");
-                    }
-                }).error(function(data, header, config, status) {
-                    console.log('shenmegui');
-                });
-
-                $http({
-                    url: '/api/posts?pageId=' + $rootScope.pageId,
-                    method: 'GET',
-                }).success(function(data, header, config, status) {
-                    if (data.err == false) {
-                        console.log('success');
-                        console.log(data.data);
-                        $scope.questionsList = data.data;
-                    } else {
-                        console.log("failed");
-                    }
-                }).error(function(data, header, config, status) {
-                    console.log('shenmegui');
-                });
-
-            }
-            if (pageNumber != temp) {
-                //get current page questions
-                $rootScope.pageNumber = temp;
-                pageNumber = temp;
-
-                $http({
-                    url: '/api/pages',
-                    method: 'GET',
-                    params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
-                }).success(function(data, header, config, status) {
-                    if (data.err == false) {
-                        console.log('get ID' + data.data.id);
-                        $rootScope.pageId = data.data.id;
-                    } else {
-                        console.log("failed");
-                    }
-                }).error(function(data, header, config, status) {
-                    console.log('shenmegui');
-                });
-
-                $http({
-                    url: '/api/posts?pageId=' + $rootScope.pageId,
-                    method: 'GET',
-                }).success(function(data, header, config, status) {
-                    if (data.err == false) {
-                        console.log('success');
-                        console.log(data.data);
-                        $scope.questionsList = data.data;
-                    } else {
-                        console.log("failed");
-                    }
-                }).error(function(data, header, config, status) {
-                    console.log('shenmegui');
-                });
-
-            }
-        } else {
-            pageNumber = content.document.getElementById("pageNumber").value;
-
+    $scope.stopFight = function() {
+        if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
         }
+    };
+
+
+    var pageNumber = null;
+    var stop = $interval(function() {
+        if (document.getElementById("myIframe") == null) {
+            $scope.stopFight();
+            console.log('stop');
+        } else {
+            var content = document.getElementById("myIframe").contentWindow;
+            if (pageNumber) {
+                var temp = content.document.getElementById("pageNumber").value;
+                if ($rootScope.pageNumber === null) {
+                    //get current page questions
+                    $rootScope.pageNumber = temp;
+                    $http({
+                        url: '/api/pages',
+                        method: 'GET',
+                        params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
+                    }).success(function(data, header, config, status) {
+                        if (data.err == false) {
+                            console.log('get ID' + data.data.id);
+                            $rootScope.pageId = data.data.id;
+                        } else {
+                            console.log("failed");
+                        }
+                    }).error(function(data, header, config, status) {
+                        console.log('shenmegui');
+                    });
+
+                    $http({
+                        url: '/api/posts?pageId=' + $rootScope.pageId,
+                        method: 'GET',
+                    }).success(function(data, header, config, status) {
+                        if (data.err == false) {
+                            console.log('success');
+                            console.log(data.data);
+                            $scope.questionsList = data.data;
+                        } else {
+                            console.log("failed");
+                        }
+                    }).error(function(data, header, config, status) {
+                        console.log('shenmegui');
+                    });
+
+                }
+                if (pageNumber != temp) {
+                    //get current page questions
+                    $rootScope.pageNumber = temp;
+                    pageNumber = temp;
+
+                    $http({
+                        url: '/api/pages',
+                        method: 'GET',
+                        params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
+                    }).success(function(data, header, config, status) {
+                        if (data.err == false) {
+                            console.log('get ID' + data.data.id);
+                            $rootScope.pageId = data.data.id;
+                        } else {
+                            console.log("failed");
+                        }
+                    }).error(function(data, header, config, status) {
+                        console.log('shenmegui');
+                    });
+
+                    $http({
+                        url: '/api/posts?pageId=' + $rootScope.pageId,
+                        method: 'GET',
+                    }).success(function(data, header, config, status) {
+                        if (data.err == false) {
+                            console.log('success');
+                            console.log(data.data);
+                            $scope.questionsList = data.data;
+                        } else {
+                            console.log("failed");
+                        }
+                    }).error(function(data, header, config, status) {
+                        console.log('shenmegui');
+                    });
+
+                }
+            } else {
+                pageNumber = content.document.getElementById("pageNumber").value;
+
+            }
+        }
+
 
     }, 1000);
 
@@ -192,7 +240,7 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
     }
     $scope.$on('hide-and-get', function(event, data) {
         $scope.myHideOut = true;
-    })
+    });
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
     }
