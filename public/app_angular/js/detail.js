@@ -66,6 +66,7 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
 
     $scope.showTop = function() {
         $scope.$broadcast('detail-top-show', 'show');
+        $scope.$broadcast('clearQA', 'clear');
         // $scope.buttonHide = !$scope.buttonHide;
         // $scope.$broadcast('hide-and-get', 'shwotop');
         $scope.buttonHide = true;
@@ -291,6 +292,11 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
     $scope.qComments = { 'question': null, 'comments': [] };
     $scope.aComments = [];
 
+    $scope.$on('clearQA', function(v, d) {
+        $scope.qComments = { 'question': null, 'comments': [] };
+        $scope.aComments = [];
+    });
+
     $scope.classify = function(data) {
         console.log('data');
         console.log(data);
@@ -320,89 +326,92 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
 
 
     $scope.$on('to-get-AC', function(event, data) {
-        // $http({
-        //     url: '/api/posts/:'+$rootScope.questionId,
-        //     method: 'GET'
-        // }).success(function(data, header, config, status) {
-        //     if (data.err == false) {
-        //         console.log('success');
-        //         console.log(data);
-        //         // $rootScope.id = data.data.id;
-        //         // $rootScope.username = data.data.username;
-        //         // $location.path('/index');
-        //     } else {
-        //         console.log('failed');
-        //         // console.log("Log in failed");
-        //         // $location.path('/login_signup');
-        //     }
-        // }).error(function(data, header, config, status) {
-        //     console.log(data.err);
-        // });
+        console.log('$rootScope.questionId ' + $rootScope.questionId);
+        $http({
+            url: '/api/posts/' + $rootScope.questionId,
+            method: 'GET'
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                console.log('success');
+                console.log(data);
+                $rootScope.QAC = data.data;
+                $scope.classify($scope.QAC);
+                // $rootScope.id = data.data.id;
+                // $rootScope.username = data.data.username;
+                // $location.path('/index');
+            } else {
+                console.log('failed');
+                // console.log("Log in failed");
+                // $location.path('/login_signup');
+            }
+        }).error(function(data, header, config, status) {
+            console.log(data.err);
+        });
 
 
-        // console.log($scope.QAC);
-        $scope.QAC = [{
-            "id": 1,
-            "title": "t1",
-            "authorId": 1,
-            "body": "q1",
-            "type": 0,
-            "parentId": null,
-            "absParentId": null,
-            "createdAt": "2016-07-13T01:14:05.000Z",
-            "updatedAt": "2016-07-13T01:14:05.000Z"
-        }, {
-            "id": 2,
-            "title": null,
-            "authorId": 31,
-            "body": "a1",
-            "type": 1,
-            "parentId": 1,
-            "absParentId": 1,
-            "createdAt": "2016-07-13T01:15:30.000Z",
-            "updatedAt": "2016-07-13T01:15:30.000Z"
-        }, {
-            "id": 3,
-            "title": null,
-            "authorId": 32,
-            "body": "a2",
-            "type": 1,
-            "parentId": 1,
-            "absParentId": 1,
-            "createdAt": "2016-07-13T01:15:39.000Z",
-            "updatedAt": "2016-07-13T01:15:39.000Z"
-        }, {
-            "id": 4,
-            "title": null,
-            "authorId": 27,
-            "body": "c1",
-            "type": 2,
-            "parentId": 2,
-            "absParentId": 1,
-            "createdAt": "2016-07-13T01:17:17.000Z",
-            "updatedAt": "2016-07-13T01:17:17.000Z"
-        }, {
-            "id": 5,
-            "title": null,
-            "authorId": 28,
-            "body": "c2",
-            "type": 2,
-            "parentId": 2,
-            "absParentId": 1,
-            "createdAt": "2016-07-13T01:17:18.000Z",
-            "updatedAt": "2016-07-13T01:17:18.000Z"
-        }, {
-            "id": 6,
-            "title": null,
-            "authorId": 29,
-            "body": "c3",
-            "type": 2,
-            "parentId": 2,
-            "absParentId": 1,
-            "createdAt": "2016-07-13T01:17:19.000Z",
-            "updatedAt": "2016-07-13T01:17:19.000Z"
-        }];
-        $scope.classify($scope.QAC);
+
+        // $scope.QAC = [{
+        //     "id": 1,
+        //     "title": "t1",
+        //     "authorId": 1,
+        //     "body": "q1",
+        //     "type": 0,
+        //     "parentId": null,
+        //     "absParentId": null,
+        //     "createdAt": "2016-07-13T01:14:05.000Z",
+        //     "updatedAt": "2016-07-13T01:14:05.000Z"
+        // }, {
+        //     "id": 2,
+        //     "title": null,
+        //     "authorId": 31,
+        //     "body": "a1",
+        //     "type": 1,
+        //     "parentId": 1,
+        //     "absParentId": 1,
+        //     "createdAt": "2016-07-13T01:15:30.000Z",
+        //     "updatedAt": "2016-07-13T01:15:30.000Z"
+        // }, {
+        //     "id": 3,
+        //     "title": null,
+        //     "authorId": 32,
+        //     "body": "a2",
+        //     "type": 1,
+        //     "parentId": 1,
+        //     "absParentId": 1,
+        //     "createdAt": "2016-07-13T01:15:39.000Z",
+        //     "updatedAt": "2016-07-13T01:15:39.000Z"
+        // }, {
+        //     "id": 4,
+        //     "title": null,
+        //     "authorId": 27,
+        //     "body": "c1",
+        //     "type": 2,
+        //     "parentId": 2,
+        //     "absParentId": 1,
+        //     "createdAt": "2016-07-13T01:17:17.000Z",
+        //     "updatedAt": "2016-07-13T01:17:17.000Z"
+        // }, {
+        //     "id": 5,
+        //     "title": null,
+        //     "authorId": 28,
+        //     "body": "c2",
+        //     "type": 2,
+        //     "parentId": 2,
+        //     "absParentId": 1,
+        //     "createdAt": "2016-07-13T01:17:18.000Z",
+        //     "updatedAt": "2016-07-13T01:17:18.000Z"
+        // }, {
+        //     "id": 6,
+        //     "title": null,
+        //     "authorId": 29,
+        //     "body": "c3",
+        //     "type": 2,
+        //     "parentId": 2,
+        //     "absParentId": 1,
+        //     "createdAt": "2016-07-13T01:17:19.000Z",
+        //     "updatedAt": "2016-07-13T01:17:19.000Z"
+        // }];
+        // $scope.classify($scope.QAC);
 
     });
 
