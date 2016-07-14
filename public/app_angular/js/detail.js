@@ -13,9 +13,6 @@ detail.config(function($stateProvider, $urlRouterProvider) {
                 '': {
                     templateUrl: "/app_angular/templates/detail.html"
                 },
-                'navigation-bar@detail': {
-                    templateUrl: '/app_angular/templates/navigation-bar.html'
-                },
                 'pdf@detail': {
                     templateUrl: '/app_angular/templates/pdf.html'
                 },
@@ -56,7 +53,16 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
     $scope.$on('to-detail-all', function(e, d) {
         // body...
         $scope.detailHide = true;
-    })
+    });
+    $scope.buttonHide = true;
+
+    $scope.showTop =function() {
+        $scope.$broadcast('hide-and-get', 'shwotop');
+        $scope.buttonHide = true;
+        console.log('buttonHide'+ $scope.buttonHide);
+    }
+
+
 
 }])
 
@@ -71,12 +77,13 @@ detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $r
         $rootScope.questionId = id;
         $scope.$broadcast('hide-and-get', '666');
         $scope.$broadcast('to-get-AC', 'AC');
-
+        $scope.buttonHide = !$scope.buttonHide;
     }
 }]);
 
 
 detail.controller('pdf', ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
+    $scope.myHide = false;
     if ($rootScope.selectedFile == undefined) {
         $scope.$emit('to-detail-all', 'hide');
         $location.path('/index');
@@ -85,7 +92,7 @@ detail.controller('pdf', ['$scope', '$rootScope', '$location', function($scope, 
         $scope.name = 'pdf';
         $scope.myHide = false;
         $scope.$on('hide-and-get', function(event, data) {
-            $scope.myHide = true;
+            $scope.myHide = !$scope.myHide;
         });
     }
 
@@ -102,7 +109,7 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
         $scope.myHideList = !$scope.myHideList;
     }
     $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHide = true;
+        $scope.myHide = !$scope.myHide;
     })
 
     $scope.stopFight = function() {
@@ -238,8 +245,9 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
 
 
     }
+    $scope.myHideOut = false;
     $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHideOut = true;
+        $scope.myHideOut = !$scope.myHideOut;
     });
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
@@ -388,9 +396,10 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
 
     });
 
+    $scope.myHide = true;
 
     $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHide = false;
+        $scope.myHide = !$scope.myHide;
         console.log('root get comments:');
     });
 
