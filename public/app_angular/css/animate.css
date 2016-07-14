@@ -1,4 +1,4 @@
-.animate-repeat {
+/*.animate-repeat {
     list-style: none;
     box-sizing: border-box;
 }
@@ -7,36 +7,36 @@
 .animate-repeat.ng-enter {
     /*    transition-delay: 1s;*/
     /*    animation-delay: 1s;*/
-    transition: all linear 1s;
+    /*transition: all linear 1s;
 }
 
 .animate-repeat.ng-leave {
     transition: all linear 0s;
-}
+}*/
 
-.animate-repeat.ng-leave.ng-leave-active,
+/*.animate-repeat.ng-leave.ng-leave-active,
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
     opacity: 0;
-    /*  max-height:0;*/
+      max-height:0;
 }
-
-.animate-repeat.ng-leave,
+*/
+/*.animate-repeat.ng-leave,
 .animate-repeat.ng-move.ng-move-active,
 .animate-repeat.ng-enter.ng-enter-active {
     opacity: 1;
     /*  max-height:30px;*/
-}
+/*}
 
 div.result-highlight:hover {
     border: 3px #38B0DE solid;
 }
-
+*/
 /*.detail-top {
     transition: 1s linear all;
     -webkit-transition: 1s linear all;
     /*display: block !important;*/
-}
+/*}*/
 
 /*@keyframes slideUp {
     from {

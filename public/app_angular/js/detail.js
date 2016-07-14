@@ -125,12 +125,9 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
     $scope.questionsList = null;
     $scope.myHide = false;
     $scope.myHideList = true;
-
     $scope.show = function() {
         $scope.myHideList = !$scope.myHideList;
     };
-
-
     $scope.stopFight = function() {
         if (angular.isDefined(stop)) {
             $interval.cancel(stop);
@@ -142,7 +139,6 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
         console.log('add-a-question');
         $scope.questionsList.push(d);
     });
-
 
     var pageNumber = null;
     var stop = $interval(function() {
@@ -156,14 +152,29 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                 if ($rootScope.pageNumber === null) {
                     //get current page questions
                     $rootScope.pageNumber = temp;
+                    console.log('in first if');
                     $http({
                         url: '/api/pages',
                         method: 'GET',
                         params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
                     }).success(function(data, header, config, status) {
                         if (data.err == false) {
-                            console.log('get ID' + data.data.id);
+                            console.log('get ID in first' + data.data.id);
                             $rootScope.pageId = data.data.id;
+                            $http({
+                                url: '/api/posts?pageId=' + $rootScope.pageId,
+                                method: 'GET',
+                            }).success(function(data, header, config, status) {
+                                if (data.err == false) {
+                                    console.log('success');
+                                    console.log(data.data);
+                                    $scope.questionsList = data.data;
+                                } else {
+                                    console.log("failed");
+                                }
+                            }).error(function(data, header, config, status) {
+                                console.log('shenmegui');
+                            });
                         } else {
                             console.log("failed");
                         }
@@ -171,27 +182,13 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                         console.log('shenmegui');
                     });
 
-                    $http({
-                        url: '/api/posts?pageId=' + $rootScope.pageId,
-                        method: 'GET',
-                    }).success(function(data, header, config, status) {
-                        if (data.err == false) {
-                            console.log('success');
-                            console.log(data.data);
-                            $scope.questionsList = data.data;
-                        } else {
-                            console.log("failed");
-                        }
-                    }).error(function(data, header, config, status) {
-                        console.log('shenmegui');
-                    });
 
                 }
                 if (pageNumber != temp) {
                     //get current page questions
                     $rootScope.pageNumber = temp;
                     pageNumber = temp;
-
+                    console.log('in second if');
                     $http({
                         url: '/api/pages',
                         method: 'GET',
@@ -200,27 +197,28 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                         if (data.err == false) {
                             console.log('get ID' + data.data.id);
                             $rootScope.pageId = data.data.id;
+                            $http({
+                                url: '/api/posts?pageId=' + $rootScope.pageId,
+                                method: 'GET',
+                            }).success(function(data, header, config, status) {
+                                if (data.err == false) {
+                                    console.log('success');
+                                    console.log(data.data);
+                                    $scope.questionsList = data.data;
+                                } else {
+                                    console.log("failed");
+                                }
+                            }).error(function(data, header, config, status) {
+                                console.log('shenmegui');
+                            });
                         } else {
                             console.log("failed");
                         }
                     }).error(function(data, header, config, status) {
                         console.log('shenmegui');
                     });
+                    console.log('root scope pageId in second' + $rootScope.pageId);
 
-                    $http({
-                        url: '/api/posts?pageId=' + $rootScope.pageId,
-                        method: 'GET',
-                    }).success(function(data, header, config, status) {
-                        if (data.err == false) {
-                            console.log('success');
-                            console.log(data.data);
-                            $scope.questionsList = data.data;
-                        } else {
-                            console.log("failed");
-                        }
-                    }).error(function(data, header, config, status) {
-                        console.log('shenmegui');
-                    });
 
                 }
             } else {
