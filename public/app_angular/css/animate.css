@@ -5,10 +5,9 @@
 
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter {
-/*    transition-delay: 1s;*/
-/*    animation-delay: 1s;*/
+    /*    transition-delay: 1s;*/
+    /*    animation-delay: 1s;*/
     transition: all linear 1s;
-
 }
 
 .animate-repeat.ng-leave {
@@ -29,8 +28,38 @@
     /*  max-height:30px;*/
 }
 
-
 div.result-highlight:hover {
     border: 3px #38B0DE solid;
 }
 
+/*.detail-top {
+    transition: 1s linear all;
+    -webkit-transition: 1s linear all;
+    /*display: block !important;*/
+}
+
+/*@keyframes slideUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-500%);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-500%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.detail-top.ng-hide-remove {
+    animation: slideDown 1s both ease-in;
+}
+
+.detail-top.ng-hide-add {
+    animation: slideUp 1s both ease-in;
+}*/

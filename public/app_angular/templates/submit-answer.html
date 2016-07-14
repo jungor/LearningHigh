@@ -1,0 +1,13 @@
+<div id="submit-answer" ng-controller="submit-answer" ng-hide="myHideOut">
+    <div class="panel panel-default">
+        <div class="panel-heading table-hover">Submit Your answer <span class="glyphicon glyphicon-plus" ng-click="show()" style="color:#38B0DE;"></div>
+        <div class="panel-body" ng-hide="myHide">
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control" ng-model='content' rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

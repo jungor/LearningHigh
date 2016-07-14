@@ -1,4 +1,4 @@
-<div id="detail"  ng-controller="detail-all" ng-hide="detailHide">
+<div id="detail" ng-controller="detail-all" ng-hide="detailHide">
     <div class="column">
         <div id="navigation-bar">
             <nav class="navbar navbar-default">
@@ -28,16 +28,18 @@
             </nav>
         </div>
         <div id="detail-content" ng-controller="detail-content">
-            <div ui-view="pdf">
-                loading...
+            <div ng-controller="detail-top" ng-hide="detailTopHide" class="detail-top">
+                <div ui-view="pdf">
+                    loading...
+                </div>
+                <div ui-view='submit-question'>
+                    loading...
+                </div>
+                <div ui-view="questions">
+                    loading...
+                </div>
             </div>
-            <div ui-view='submit-question'>
-                loading...
-            </div>
-            <div ui-view="questions">
-                loading...
-            </div>
-            <button ng-click="showTop()" ng-hide="buttonHide">button</button>
+            <button  class='btn btn-info' ng-click="showTop()" ng-hide="buttonHide" style="width:100%;margin-bottom:10px;">back</button>
             <div ui-view="one-question">
                 loading...
             </div>

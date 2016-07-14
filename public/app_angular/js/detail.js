@@ -24,15 +24,17 @@ detail.config(function($stateProvider, $urlRouterProvider) {
                 },
                 'one-question@detail': {
                     templateUrl: '/app_angular/templates/one-question.html'
+                },
+                'submit-answer@one-question': {
+                    templateUrl: 'app_angular/templates/submit-answer.html'
                 }
             }
         });
 })
 
 detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', function($scope, $rootScope, $location, $http) {
+    $scope.buttonHide = true;
     $scope.search = function() {
-        //console.log('ffff');
-        console.log('searchKey : ' + $scope.searchKey);
         $http({
             url: '/api/coursewares',
             method: 'GET',
@@ -45,25 +47,40 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
                 console.log("failed");
             }
         }).error(function(data, header, config, status) {
-            // console.log(data.err);
-            // console.log('shenmegui');
+            console.log("failed");
         });
     }
 
     $scope.$on('to-detail-all', function(e, d) {
-        // body...
         $scope.detailHide = true;
     });
-    $scope.buttonHide = true;
 
-    $scope.showTop =function() {
-        $scope.$broadcast('hide-and-get', 'shwotop');
+    $scope.$on('detail-top-hide-and-show-as-emit', function() {
+        $scope.buttonHide = false;
+    })
+
+
+    $scope.showTop = function() {
+        $scope.$broadcast('detail-top-show', 'show');
+        // $scope.buttonHide = !$scope.buttonHide;
+        // $scope.$broadcast('hide-and-get', 'shwotop');
         $scope.buttonHide = true;
-        console.log('buttonHide'+ $scope.buttonHide);
+        // console.log('buttonHide'+ $scope.buttonHide);
     }
 
 
 
+}])
+
+detail.controller('detail-top', ['$scope', function($scope) {
+    $scope.detailTopHide = false;
+    $scope.$on('detail-top-hide-and-show-as', function(e, d) {
+        $scope.detailTopHide = !$scope.detailTopHide;
+    });
+
+    $scope.$on('detail-top-show', function(e, d) {
+        $scope.detailTopHide = !$scope.detailTopHide;
+    });
 }])
 
 
@@ -75,9 +92,11 @@ detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $r
     $scope.getQA = function(id) {
         // get question answers comments
         $rootScope.questionId = id;
-        $scope.$broadcast('hide-and-get', '666');
+        // $scope.$broadcast('hide-and-get', '666');
+        $scope.$broadcast('detail-top-hide-and-show-as', 'hide');
+        $scope.$emit('detail-top-hide-and-show-as-emit', 'fuck');
         $scope.$broadcast('to-get-AC', 'AC');
-        $scope.buttonHide = !$scope.buttonHide;
+
     }
 }]);
 
@@ -91,12 +110,10 @@ detail.controller('pdf', ['$scope', '$rootScope', '$location', function($scope, 
         $scope.fileUrl = '/components/viewerjs/ViewerJS/#../../..' + $rootScope.selectedFile.url;
         $scope.name = 'pdf';
         $scope.myHide = false;
-        $scope.$on('hide-and-get', function(event, data) {
-            $scope.myHide = !$scope.myHide;
-        });
+        // $scope.$on('hide-and-get', function(event, data) {
+        //     $scope.myHide = !$scope.myHide;
+        // });
     }
-
-
 }]);
 
 
@@ -106,11 +123,11 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
     $scope.myHideList = true;
 
     $scope.show = function() {
-        $scope.myHideList = !$scope.myHideList;
-    }
-    $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHide = !$scope.myHide;
-    })
+            $scope.myHideList = !$scope.myHideList;
+        }
+        // $scope.$on('hide-and-get', function(event, data) {
+        //     $scope.myHide = !$scope.myHide;
+        // })
 
     $scope.stopFight = function() {
         if (angular.isDefined(stop)) {
@@ -217,7 +234,6 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
     $scope.myHideOut = false;
     $scope.username = 'test_user';
 
-
     $scope.submit = function() {
         console.log(parseInt($rootScope.pageId));
         $http({
@@ -246,9 +262,9 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
 
     }
     $scope.myHideOut = false;
-    $scope.$on('hide-and-get', function(event, data) {
-        $scope.myHideOut = !$scope.myHideOut;
-    });
+    // $scope.$on('hide-and-get', function(event, data) {
+    //     $scope.myHideOut = !$scope.myHideOut;
+    // });
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
     }
@@ -259,13 +275,6 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
 detail.controller('one-question', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
     $scope.name = "one-question";
     $scope.myHide = true;
-
-
-
-    // $scope.answers = {};
-    // $scope.qComments = {}
-    //     // answer id : 
-    // $scope.aComments = {}
 
     $scope.qComments = { 'question': null, 'comments': [] };
     $scope.aComments = [];
@@ -295,17 +304,6 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
                 if (answers[i].id == comments[j].parentId) $scope.aComments[i].comments.push(comments[j]);
             }
         }
-        console.log('aComments');
-        console.log($scope.aComments);
-
-
-
-
-
-
-        console.log('classify');
-        // console.log()
-
     };
 
 
@@ -398,13 +396,109 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
 
     $scope.myHide = true;
 
-    $scope.$on('hide-and-get', function(event, data) {
+    // $scope.$on('hide-and-get', function(event, data) {
+    //     $scope.myHide = !$scope.myHide;
+    //     console.log('root get comments:');
+    // });
+
+    $scope.$on('detail-top-hide-and-show-as', function() {
         $scope.myHide = !$scope.myHide;
-        console.log('root get comments:');
+    });
+    $scope.$on('detail-top-show', function() {
+        $scope.myHide = !$scope.myHide;
     });
 
-    $scope.show = function() {
-        console.log($scope.tinymceModel);
-    };
+    $scope.$on('add-a-comment', function(v, d) {
+        console.log('data');
+        console.log(d);
+        for (var i = 0; i < $scope.aComments.length; i++) {
+            if (d.parentId == $scope.aComments[i].answer.id) {$scope.aComments[i].comments.push(d)}
+        }
+    });
+
+    $scope.$on('add-a-answer', function(v, d) {
+        console.log("add-a-answer");
+        $scope.aComments.push({'answer':d, 'comments':[]});
+    });
+
+
+
 
 }]);
+
+
+detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    $scope.myHide = true;
+    $scope.myHideOut = false;
+    $scope.username = 'test_user';
+
+    $scope.submit = function() {
+        // console.log(parseInt($rootScope.pageId));
+        $http({
+            url: '/api/posts',
+            method: 'POST',
+            data: { title: null, body: $scope.content, type: 1, parentId: $rootScope.questionId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                console.log('success');
+                BootstrapDialog.show({
+                    message: 'success'
+                });
+               $scope.$emit('add-a-answer', data.data);
+                // $rootScope.id = data.data.id;
+                // $rootScope.username = data.data.username;
+                // $location.path('/index');
+            } else {
+                console.log('failed');
+                // console.log("Log in failed");
+                // $location.path('/login_signup');
+            }
+        }).error(function(data, header, config, status) {
+            console.log(data.err);
+        });
+
+
+
+    }
+    $scope.myHideOut = false;
+    // $scope.$on('hide-and-get', function(event, data) {
+    //     $scope.myHideOut = !$scope.myHideOut;
+    // });
+    $scope.show = function() {
+        $scope.myHide = !$scope.myHide;
+    }
+
+}])
+
+detail.controller('edit-comment', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    $scope.commentEditHide = true;
+    $scope.show_comment_edit = function() {
+        $scope.commentEditHide = !$scope.commentEditHide;
+    };
+
+    $scope.create_comment = function(parentId) {
+        $http({
+            url: '/api/posts',
+            method: 'POST',
+            data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                console.log(data.data);
+                BootstrapDialog.show({
+                    message: 'success'
+                });
+
+                $scope.$emit('add-a-comment', data.data);
+                // $rootScope.id = data.data.id;
+                // $rootScope.username = data.data.username;
+                // $location.path('/index');
+            } else {
+                console.log('failed');
+                // console.log("Log in failed");
+                // $location.path('/login_signup');
+            }
+        }).error(function(data, header, config, status) {
+            console.log(data.err);
+        });
+    }
+}])
