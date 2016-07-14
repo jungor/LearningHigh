@@ -15,7 +15,7 @@ login_signup.config(function($stateProvider, $urlRouterProvider) {
 login_signup.controller("loginsignupController", ["$scope", '$rootScope', '$http', '$stateParams', '$location', function($scope, $rootScope, $http, $stateParams, $location) {
 	var state = $stateParams.state;
 	$scope.activeForm = state == "login" ? 0 : 1;
-	$scope.user = {}
+	$scope.user = {};
 	$scope.login = function() {
 		$http({
 			url: '/api/users/login',

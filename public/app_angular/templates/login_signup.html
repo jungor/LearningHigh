@@ -1,28 +1,53 @@
 <div id="login_register" ng-controller="loginsignupController">
-  <form name="outerForm" class="tab-form-demo">
-    <uib-tabset active="activeForm" id="mainBox">
-      <uib-tab index="0" heading="Login">
-        <ng-form name="logInForm">
-          <div class="form-group">
-            <label>User Name</label>
-            <input type="text" class="form-control" required ng-model="user.username"/>
-            <label>Password</label>
-            <input type="password" class="form-control" required ng-model="user.password" ">
-            <input type="button" value="Login" ng-click="login()">
-          </div>
-        </ng-form>
-      </uib-tab>
-      <uib-tab index="1" heading="Signup">
-        <ng-form name="signUpForm">
-          <div class="form-group">
-            <label>User Name</label>
-            <input type="text" class="form-control" required ng-model="user.username"/>
-            <label>Password</label>
-            <input type="password" class="form-control" required ng-model="user.password" ">
-            <input type="button" value="Signup" ng-click="signup()">
-          </div>
-        </ng-form>
-      </uib-tab>
-    </uib-tabset>
-  </form>
+  <div class="logo">
+    <img src="/app_angular/images/home/logo-big.png" alt="logo-big">
+  </div>
+  <div id="lrMainBox">
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Log In</a></li>
+        <li><a href="#tab2" data-toggle="tab">Sign Up</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <span class="glyphicon glyphicon-user" style="color:white;"></span>
+          <input class="userNameInput" type="text" ng-model="user.username" required="required">
+          <br>
+          <span class="glyphicon glyphicon-lock" style="color:white;"></span>
+          <input class="passwordInput" type="password" ng-model="user.password" required="required">
+          <p class="loginButton" ng-click="login()">Log In</p>
+        </div>
+        <div class="tab-pane" id="tab2">
+          <span class="glyphicon glyphicon-user" style="color:white;"></span>
+          <input class="userNameInput" type="text" ng-model="user.username" required="required">
+          <br>
+          <span class="glyphicon glyphicon-lock" style="color:white;"></span>
+          <input class="passwordInput" type="password" ng-model="user.password" required="required">
+          <p class="signUpButton" ng-click="signup()">Sign Up</p>
+        </div>
+      </div>
+    </div>
+    <!-- <form name="outerForm" class="tab-form-demo">
+      <uib-tabset active="activeForm" id="mainBox">
+        <uib-tab index="0" heading="Log In" class="buttonleft">
+          <ng-form name="logInForm">
+            <div class="form-group">
+              <input type="text" class="form-control usernameInput" required ng-model="user.username">
+              <input type="password" class="form-control passwordInput" required ng-model="user.password">
+              <input type="button" value="Login" ng-click="login()">
+            </div>
+          </ng-form>
+        </uib-tab>
+        <uib-tab index="1" heading="Sign Up" class="buttonleft">
+          <ng-form name="signUpForm">
+            <div class="form-group">
+              <input type="text" class="form-control usernameInput" required ng-model="user.username">
+              <input type="password" class="form-control passwordInput" required ng-model="user.password">
+              <input type="button" value="Signup" ng-click="signup()">
+            </div>
+          </ng-form>
+        </uib-tab>
+      </uib-tabset>
+    </form> -->
+  </div>
 </div>

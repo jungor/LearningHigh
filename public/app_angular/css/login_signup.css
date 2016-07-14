@@ -1,10 +1,112 @@
 #login_register {
-	width: 500px;
-	margin: 0 auto;
-	margin-top: 50px;
+	width: 100%;
+	height: 927px;
+	background-image: url('/app_angular/images/background.jpg');
 }
-#login_register #mainBox {
+#login_register .logo {
+	position: fixed;
+	top: 10%;
+	left: 35%;
+	width: 30%;
+}
+#login_register .logo img {
+	display: block;
+	width: 100%;
+}
+#lrMainBox {
+	width: 26%;
+	position: fixed;
+	top: 35%;
+	left: 37%;
+}
+.nav-tabs {
+	border-bottom: none;
+}
+.nav-tabs li {
+	margin-bottom: 0px;
+}
+.nav {
+	width: 100%;
+	text-align: center;
+	font-family:STHeitiSC-Light;
+	font-size:16px;
+	color:#ffffff;
+}
+#lrMainBox .nav li {
+	width: 50%;
+}
+#lrMainBox .nav a {
+	color:#cfcfcf;
+	width: 100%;
+	background-color: rgba(255,255,255,0.40);
+}
+
+#lrMainBox .nav .active a {
+	color:#ffffff;
+	background-color: rgba(255,255,255,0.6);
+}
+#lrMainBox .tab-content {
+	background-color: rgba(255,255,255,0.6);
+	border-top: none;
+	z-index: 999;
+}
+.userNameInput {
+	margin-top: 35px;
+	height: 48px;
+	width: 70%;
+	position: relative;
+	left: 6%;
+	border-radius: 8px;
 	border: 1px solid #fff;
-	padding: 5px 20px;
-	box-sizing: border-box;
+	background-color: transparent;
+	line-height: 48px;
+	font-family:STHeitiSC-Light;
+	font-size:16px;
+	color:#ffffff;
+	padding-left: 36px;
+}
+.passwordInput {
+	line-height: 48px;
+	position: relative;
+	left: 6%;
+	font-family:STHeitiSC-Light;
+	font-size:16px;
+	color:#ffffff;
+	margin-top: 12px;
+	margin-bottom: 35px;
+	height: 48px;
+	width: 70%;
+	border-radius: 8px;
+	border: 1px solid #fff;
+	background-color: transparent;
+	padding-left: 36px;
+}
+.glyphicon {
+	position: relative;
+	left: 18%;
+	font-size: 30px;
+	top: 9px;
+}
+.loginButton {
+	width: 70%;
+	height: 47px;
+	line-height: 47px;
+	background-color: #2fa5d3;
+	border-radius: 8px;
+	text-align: center;
+	position: relative;
+	left: 15%;
+}
+.signUpButton {
+	width: 70%;
+	height: 47px;
+	line-height: 47px;
+	background-color: #2fa5d3;
+	border-radius: 8px;
+	text-align: center;
+	position: relative;
+	left: 15%;	
+}
+.tab-pane {
+	padding-bottom: 15px;
 }
