@@ -57,6 +57,10 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
 
     $scope.$on('detail-top-hide-and-show-as-emit', function() {
         $scope.buttonHide = false;
+    });
+
+    $scope.$on('add-a-question-to-all', function(v, d) {
+        $scope.$broadcast('add-a-question', d);
     })
 
 
@@ -123,11 +127,9 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
     $scope.myHideList = true;
 
     $scope.show = function() {
-            $scope.myHideList = !$scope.myHideList;
-        }
-        // $scope.$on('hide-and-get', function(event, data) {
-        //     $scope.myHide = !$scope.myHide;
-        // })
+        $scope.myHideList = !$scope.myHideList;
+    };
+
 
     $scope.stopFight = function() {
         if (angular.isDefined(stop)) {
@@ -135,6 +137,11 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
             stop = undefined;
         }
     };
+
+    $scope.$on('add-a-question', function(v, d) {
+        console.log('add-a-question');
+        $scope.questionsList.push(d);
+    });
 
 
     var pageNumber = null;
@@ -225,6 +232,9 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
 
     }, 1000);
 
+
+
+
 }]);
 
 
@@ -246,6 +256,10 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
                 BootstrapDialog.show({
                     message: 'success'
                 });
+                $scope.$emit('add-a-question-to-all', data.data);
+                $scope.title = '';
+                $scope.content = '';
+                $scope.myHide = !$scope.myHide;
                 // $rootScope.id = data.data.id;
                 // $rootScope.username = data.data.username;
                 // $location.path('/index');
@@ -412,13 +426,13 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
         console.log('data');
         console.log(d);
         for (var i = 0; i < $scope.aComments.length; i++) {
-            if (d.parentId == $scope.aComments[i].answer.id) {$scope.aComments[i].comments.push(d)}
+            if (d.parentId == $scope.aComments[i].answer.id) { $scope.aComments[i].comments.push(d) }
         }
     });
 
     $scope.$on('add-a-answer', function(v, d) {
         console.log("add-a-answer");
-        $scope.aComments.push({'answer':d, 'comments':[]});
+        $scope.aComments.push({ 'answer': d, 'comments': [] });
     });
 
 
@@ -444,7 +458,10 @@ detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($s
                 BootstrapDialog.show({
                     message: 'success'
                 });
-               $scope.$emit('add-a-answer', data.data);
+                $scope.myHide = !$scope.myHide;
+                $scope.content = '';
+                $scope.$emit('add-a-answer', data.data);
+
                 // $rootScope.id = data.data.id;
                 // $rootScope.username = data.data.username;
                 // $location.path('/index');
@@ -487,7 +504,8 @@ detail.controller('edit-comment', ['$scope', '$http', '$rootScope', function($sc
                 BootstrapDialog.show({
                     message: 'success'
                 });
-
+                $scope.commentEditHide = !$scope.commentEditHide;
+                $scope.content = '';
                 $scope.$emit('add-a-comment', data.data);
                 // $rootScope.id = data.data.id;
                 // $rootScope.username = data.data.username;
