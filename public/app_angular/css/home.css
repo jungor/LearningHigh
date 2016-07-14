@@ -1,13 +1,12 @@
 body {
-	background-color: #ddd;
+	background-image: url('/app_angular/images/background.jpg');
+	background-size: 100%;
 }
 #home .logo {
-	position: fixed;
-	top: 10px;
-	left: 10px;
+	margin: 100px; auto;
 }
 #home .logo img {
-	width: 200px;
+	width: 300px;
 }
 #home .loginBox {
 	position: fixed;
