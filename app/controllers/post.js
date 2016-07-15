@@ -78,28 +78,28 @@ router.all("*", utils.requireAuth);
  *       "msg": "参数不符合要求"
  *     }
  */
-router.post("/", (req, res)=>{
+router.post("/", (req, res) => {
   let {title, body, type, parentId, absParentId, pageId} = req.body;
   type = parseInt(type);
   let newPost = null;
   switch (type) {
   case 0:
-    newPost = {body, type, absParentId, title, pageId};
+    newPost = { body, type, absParentId, title, pageId };
     break;
   case 1:
-    newPost = {body, type, absParentId, parentId, pageId};
+    newPost = { body, type, absParentId, parentId, pageId };
     break;
   case 2:
-    newPost = {body, type, absParentId, parentId, pageId};
+    newPost = { body, type, absParentId, parentId, pageId };
     break;
   default:
     handleError(res, {}, "参数不符合要求");
     break;
   }
   newPost.authorId = req.session.user.id;
-  db.post.create(newPost).then(data=>{
+  db.post.create(newPost).then(data => {
     sendData(res, data);
-  }).catch(err=>{
+  }).catch(err => {
     handleError(res, err, "数据库查询失败");
   });
 });
@@ -157,20 +157,20 @@ router.post("/", (req, res)=>{
  *     }
  * 
  */
-router.get('/', (req, res)=>{
+router.get('/', (req, res) => {
   let {pageId} = req.query;
-    db.post.findAll({
+  db.post.findAll({
     where: {
       pageId,
       type: 0
     },
     order: 'createdAt'
-  }).then(data=>{
-    sendData(res, data)
-  }).catch(err=>{
-    handleError(res, err, "数据库查询失败")
-  })
-})
+  }).then(data => {
+    sendData(res, data);
+  }).catch(err => {
+    handleError(res, err, "数据库查询失败");
+  });
+});
 
 
 /**
@@ -258,22 +258,22 @@ router.get('/', (req, res)=>{
  *     }
  * 
  */
-router.get('/:questionId', (req, res)=>{
+router.get('/:questionId', (req, res) => {
   sendData(res, req.question);
-})
+});
 
-router.param("questionId", (req, res, next, id)=>{
+router.param("questionId", (req, res, next, id) => {
   db.post.findAll({
     where: {
       $or: [
-        {id, type: 0}, {absParentId: id}
+        { id, type: 0 }, { absParentId: id }
       ]
     },
     order: 'createdAt'
-  }).then(data=>{
-    req.question=data;
+  }).then(data => {
+    req.question = data;
     next();
-  }).catch(err=>{
+  }).catch(err => {
     next(err);
-  })
-})
+  });
+});

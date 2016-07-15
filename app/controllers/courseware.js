@@ -64,14 +64,14 @@ router.post('/', upload.single('courseware'), (req, res)=>{
       bulk.push({
         coursewareId,
         number
-      })
+      });
     }
     return db.page.bulkCreate(bulk);
   }).then(data=>{
     sendData(res, data);
   }).catch(err=>{
     handleError(res, err, '数据库错误');
-  })
+  });
 });
 
 
@@ -163,7 +163,7 @@ router.get('/', (req, res)=>{
     sendData(res, data);
   }).catch(err=>{
     handleError(res, err, '数据库错误');
-  })
-})
+  });
+});
 
 

@@ -43,8 +43,8 @@ router.get('/', (req, res)=>{
       number
     }
   }).then(data=>{
-    sendData(res, data)
+    sendData(res, data);
   }).catch(err=>{
     handleError(res, err, "数据库查询错误");
-  })
+  });
 });
