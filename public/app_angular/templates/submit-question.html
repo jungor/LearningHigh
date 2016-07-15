@@ -1,6 +1,6 @@
 <div id="submit-question" ng-controller="submit-question" ng-hide="myHideOut">
     <div class="panel panel-default">
-        <div class="panel-heading table-hover">Submit Your Question <span class="glyphicon glyphicon-plus cursor-poninter" ng-click="show()" style="color:#38B0DE;"></div>
+        <div class="panel-heading table-hover">Submit Your Question <span class="glyphicon cursor-poninter" ng-class="{'glyphicon-plus':isPlus, 'glyphicon-minus':isMinus}" ng-click="show()" style="color:#38B0DE;"></div>
         <div class="panel-body" ng-hide="myHide">
             <form>
                 <div class="form-group">

@@ -237,6 +237,8 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
     $scope.myHideOut = false;
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
+        $scope.isPlus = $scope.myHide;
+        $scope.isMinus = !$scope.myHide;
     }
 
 }])

@@ -4,6 +4,7 @@
 	top: 0px;
 	left: 0px;
 	width: 100%;
+	z-index: 100;
 }
 #detail #detail-content {
 	width: 70%;
