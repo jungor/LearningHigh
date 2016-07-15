@@ -1,0 +1,225 @@
+﻿body {
+  margin:0px;
+  background-image:none;
+  position:static;
+  left:auto;
+  width:657px;
+  margin-left:0;
+  margin-right:0;
+  text-align:left;
+}
+#base {
+  position:absolute;
+  z-index:0;
+}
+#u9_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:646px;
+  height:430px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+#u9 {
+  position:absolute;
+  left:11px;
+  top:10px;
+  width:646px;
+  height:430px;
+}
+#u10 {
+  position:absolute;
+  left:2px;
+  top:207px;
+  width:642px;
+  visibility:hidden;
+  word-wrap:break-word;
+}
+#u11_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:354px;
+  height:225px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+#u11 {
+  position:absolute;
+  left:139px;
+  top:95px;
+  width:354px;
+  height:225px;
+}
+#u12 {
+  position:absolute;
+  left:2px;
+  top:104px;
+  width:350px;
+  visibility:hidden;
+  word-wrap:break-word;
+}
+#u13_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:300px;
+  height:40px;
+  background:inherit;
+  background-color:rgba(22, 155, 213, 1);
+  border:none;
+  border-radius:5px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'STHeitiSC-Light', 'Heiti SC Light', 'Heiti SC';
+  font-weight:200;
+  font-style:normal;
+}
+#u13 {
+  position:absolute;
+  left:165px;
+  top:252px;
+  width:300px;
+  height:40px;
+  font-family:'STHeitiSC-Light', 'Heiti SC Light', 'Heiti SC';
+  font-weight:200;
+  font-style:normal;
+}
+#u14 {
+  position:absolute;
+  left:2px;
+  top:14px;
+  width:296px;
+  word-wrap:break-word;
+}
+#u15_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:173px;
+  height:49px;
+  background:inherit;
+  background-color:rgba(242, 242, 242, 1);
+  border:none;
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'STHeitiSC-Light', 'Heiti SC Light', 'Heiti SC';
+  font-weight:200;
+  font-style:normal;
+}
+#u15 {
+  position:absolute;
+  left:320px;
+  top:46px;
+  width:173px;
+  height:49px;
+  font-family:'STHeitiSC-Light', 'Heiti SC Light', 'Heiti SC';
+  font-weight:200;
+  font-style:normal;
+}
+#u16 {
+  position:absolute;
+  left:2px;
+  top:18px;
+  width:169px;
+  word-wrap:break-word;
+}
+#u17_div {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:181px;
+  height:49px;
+  background:inherit;
+  background-color:rgba(255, 255, 255, 1);
+  box-sizing:border-box;
+  border-width:1px;
+  border-style:solid;
+  border-color:rgba(121, 121, 121, 1);
+  border-radius:0px;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+  font-family:'STHeitiSC-Light', 'Heiti SC Light', 'Heiti SC';
+  font-weight:200;
+  font-style:normal;
+}
+#u17 {
+  position:absolute;
+  left:139px;
+  top:46px;
+  width:181px;
+  height:49px;
+  font-family:'STHeitiSC-Light', 'Heiti SC Light', 'Heiti SC';
+  font-weight:200;
+  font-style:normal;
+}
+#u18 {
+  position:absolute;
+  left:2px;
+  top:18px;
+  width:177px;
+  word-wrap:break-word;
+}
+#u19 {
+  position:absolute;
+  left:165px;
+  top:127px;
+  width:300px;
+  height:40px;
+}
+#u19_input {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:300px;
+  height:40px;
+  font-family:'ArialMT', 'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+#u20 {
+  position:absolute;
+  left:165px;
+  top:188px;
+  width:300px;
+  height:40px;
+}
+#u20_input {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:300px;
+  height:40px;
+  font-family:'ArialMT', 'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
