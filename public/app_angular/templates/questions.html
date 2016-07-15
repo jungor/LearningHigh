@@ -1,10 +1,10 @@
 <!-- id title authorId body type parentId absParentId  createdAt updatedAt -->
 <div id="questions" ng-controller="questions" ng-hide="myHide">
     <div class="panel panel-default">
-        <div class="panel-heading" >Question List <span class="glyphicon glyphicon-plus" ng-click="show()" style="color:#38B0DE;"></span></div>
+        <div class="panel-heading" >Question List <span class="glyphicon glyphicon-plus cursor-poninter" ng-click="show()" style="color:#38B0DE;"></span></div>
         <div class="panel-body" ng-hide="myHideList">
             <ul class="list-group">
-                <li class="list-group-item table-hover" ng-repeat="item in questionsList" ng-click="getQA(item.id)">
+                <li class="list-group-item table-hover  cursor-poninter" ng-repeat="item in questionsList" ng-click="getQA(item.id)">
                     {{item.title}}
                 </li>
             </ul>

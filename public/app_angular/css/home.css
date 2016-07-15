@@ -69,4 +69,9 @@ body {
 	display: none;
 }
 
+/*如果需要鼠标移动到该元素上，箭头变小手，请添加此类*/
+.cursor-poninter {
+	cursor:pointer;
+}
+
 
