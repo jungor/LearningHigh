@@ -11,5 +11,9 @@
 	<div class="SearchBox" ng-controller="HomeSearchController">
 		<input type="text" id="searchInput" ng-model="search.input" onkeypress="if(event.keyCode==13) {searchButton.click();return false;}">
 		<p ng-click="HomeSearch()" id="searchButton">Search File</p>
+		<div id="failedinfo" ng-show="isfailed">
+			<button type="button" class="close" ng-click="closealert()">&times;</button>
+	        {{message}}
+		</div>
 	</div>
 </div>

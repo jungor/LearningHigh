@@ -120,7 +120,7 @@
 	margin: 0 auto;
 	color: #fff;
 }
-#failedinfo {
+#login_register #failedinfo {
 	width: 330px;
 	color: red;
 	margin: 0 auto;
