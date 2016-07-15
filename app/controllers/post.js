@@ -263,17 +263,25 @@ router.get('/:questionId', (req, res) => {
 });
 
 router.param("questionId", (req, res, next, id) => {
-  db.post.findAll({
-    where: {
-      $or: [
-        { id, type: 0 }, { absParentId: id }
-      ]
-    },
-    order: 'createdAt'
-  }).then(data => {
+  // db.post.findAll({
+  //   where: {
+  //     $or: [
+  //       { id, type: 0 }, { absParentId: id }
+  //     ]
+  //   },
+  //   order: 'createdAt'
+  // }).then(data => {
+  //   req.question = data;
+  //   next();
+  // }).catch(err => {
+  //   next(err);
+  // });
+  db.sequelize.query(`select * from post p, user u where p.authorId = u.id and p.id=${id}`, { type: db.sequelize.QueryTypes.SELECT})
+  .then(data=>{
+    for (let d of data) {
+      delete d.password;
+    }
     req.question = data;
     next();
-  }).catch(err => {
-    next(err);
   });
 });
