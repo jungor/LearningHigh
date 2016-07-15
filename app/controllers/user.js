@@ -106,3 +106,19 @@ router.get('/logout', (req, res)=>{
   delete req.session.user;
   sendData(res, null);
 });
+
+/**
+ * @api {get} /users/logout Logout
+ * @apiName Logout
+ * @apiGroup user
+ *
+ * @apiSuccessExample Success
+ *     {
+ *       "err": false,
+ *       "data": null;
+ *     }
+ */
+router.get('/logout', (req, res)=>{
+  req.session.user = null;
+  return sendData(res, null);
+});

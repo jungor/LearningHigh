@@ -9,7 +9,7 @@
 |谭 笑|设计|
 |刘俊义|前端|
 |谢仁强|前端|
-|林逸凡|前端|
+|林逸凡|产品|
 |李俊杰|后台|
 
 ## 2 项目构架
@@ -26,13 +26,13 @@
     ├── controllers     控制器
     ├── models          模型
     ├── utils           工具函数
-├── app.js              入口文件
+├── app.js              服务端入口文件
 ├── bower.json          bower模块依赖
 ├── config
     ├── config.js       配置文件
     └── express.js      express服务器
 ├── gulpfile.js         gulp任务
-├── jsconfig.json
+├── jsconfig.json       IDE配置文件
 ├── node_modules        npm模块
 ├── package.json        npm模块依赖
 └── public              静态文件
@@ -40,7 +40,7 @@
     ├── components      bower库
     ├── courseware      共享文件夹挂载点
     ├── favicon.ico
-    └── index.html
+    └── index.html      前端入口文件
 
 
 ```
