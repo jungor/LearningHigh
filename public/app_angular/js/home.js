@@ -15,9 +15,10 @@ home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', '$loca
                     // console.log('success');
                     $rootScope.searchList = data;
                     $location.path('/search-result');
+                    jQuery('html,body').animate({scrollTop:0}, 200);
                 } else {
                     // console.log("failed");
-                   	// console.log(data)
+                   	console.log(data.err);
                 }
             }).error(function(data, header, config, status) {
                 // console.log(data.err);
@@ -36,9 +37,6 @@ home.controller('loginBoxController', ['$scope', '$rootScope', '$location', func
         $scope.notlogin = $rootScope.id == undefined ? true : false;
     }
     $scope.login = function() {
-        $location.path('/login_signup/login');
-    }
-    $scope.signup = function() {
-        $location.path('/login_signup/signup');
+        $location.path('/login_signup');
     }
 }]);

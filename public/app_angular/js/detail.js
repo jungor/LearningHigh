@@ -43,6 +43,7 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
             if (data.err == false) {
                 $rootScope.searchList = data;
                 $location.path('/search-result');
+                jQuery('html,body').animate({ scrollTop: 0 }, 200);
             } else {
                 console.log("failed");
             }
@@ -91,6 +92,7 @@ detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $r
         $scope.$broadcast('detail-top-hide-and-show-as', 'hide');
         $scope.$emit('detail-top-hide-and-show-as-emit', 'fuck');
         $scope.$broadcast('to-get-AC', 'AC');
+        jQuery('html,body').animate({ scrollTop: 0 }, 200);
     }
 }]);
 
@@ -213,26 +215,38 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
     $scope.myHideOut = false;
     $scope.username = 'test_user';
     $scope.submit = function() {
-        $http({
-            url: '/api/posts',
-            method: 'POST',
-            data: { title: $scope.title, body: $scope.content, type: 0, parentId: null, absParentId: null, pageId: $rootScope.pageId }
-        }).success(function(data, header, config, status) {
-            if (data.err == false) {
-                console.log('success');
-                BootstrapDialog.show({
-                    message: 'success'
-                });
-                $scope.$emit('add-a-question-to-all', data.data);
-                $scope.title = '';
-                $scope.content = '';
-                $scope.myHide = !$scope.myHide;
-            } else {
-                console.log('failed');
-            }
-        }).error(function(data, header, config, status) {
-            console.log(data.err);
-        });
+        if ($scope.title == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your question title')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else if ($scope.content == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your question content')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else {
+            $http({
+                url: '/api/posts',
+                method: 'POST',
+                data: { title: $scope.title, body: $scope.content, type: 0, parentId: null, absParentId: null, pageId: $rootScope.pageId }
+            }).success(function(data, header, config, status) {
+                if (data.err == false) {
+                    console.log('success');
+                    BootstrapDialog.show({
+                        message: 'success'
+                    });
+                    $scope.$emit('add-a-question-to-all', data.data);
+                    $scope.title = '';
+                    $scope.content = '';
+                    $scope.myHide = !$scope.myHide;
+                } else {
+                    console.log('failed');
+                }
+            }).error(function(data, header, config, status) {
+                console.log(data.err);
+            });
+        }
     }
     $scope.myHideOut = false;
     $scope.show = function() {
@@ -308,6 +322,7 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
     });
 
     $scope.$on('add-a-comment', function(v, d) {
+        d.username = $rootScope.username;
         d.createdAt = $scope.toMyDate(d.createdAt);
         for (var i = 0; i < $scope.aComments.length; i++) {
             if (d.parentId == $scope.aComments[i].answer.id) { $scope.aComments[i].comments.push(d) }
@@ -315,10 +330,13 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
     });
 
     $scope.$on('add-a-answer', function(v, d) {
+        d.username = $rootScope.username;
+        console.log(d);
         $scope.aComments.push({ 'answer': d, 'comments': [] });
     });
 
     $scope.$on('add-q-comment', function(v, d) {
+        d.username = $rootScope.username;
         d.createdAt = $scope.toMyDate(d.createdAt);
         $scope.qComments.comments.push(d);
     })
@@ -328,37 +346,37 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
 detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
     $scope.myHide = true;
     $scope.myHideOut = false;
-    $scope.username = 'test_user';
+    $scope.content = null;
+    // $scope.username = 'test_user';
 
     $scope.submit = function() {
-        $http({
-            url: '/api/posts',
-            method: 'POST',
-            data: { title: null, body: $scope.content, type: 1, parentId: $rootScope.questionId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
-        }).success(function(data, header, config, status) {
-            if (data.err == false) {
-                console.log('success');
-                BootstrapDialog.show({
-                    message: 'success'
-                });
-                $scope.myHide = !$scope.myHide;
-                $scope.content = '';
-                $scope.$emit('add-a-answer', data.data);
-                $scope.content = null;
-            } else {
-                console.log('failed');
-
-                var dialog = new BootstrapDialog()
-                    .setMessage('Please input your answer')
-                    .setType(BootstrapDialog.TYPE_DANGER)
-                    .open();
-            }
-        }).error(function(data, header, config, status) {
-            console.log(data.err);
-        });
-
-
-
+        if ($scope.content == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your answer')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else {
+            $http({
+                url: '/api/posts',
+                method: 'POST',
+                data: { title: null, body: $scope.content, type: 1, parentId: $rootScope.questionId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
+            }).success(function(data, header, config, status) {
+                if (data.err == false) {
+                    console.log('success');
+                    BootstrapDialog.show({
+                        message: 'success'
+                    });
+                    $scope.myHide = !$scope.myHide;
+                    $scope.content = '';
+                    $scope.$emit('add-a-answer', data.data);
+                    $scope.content = null;
+                } else {
+                    console.log('failed');
+                }
+            }).error(function(data, header, config, status) {
+                console.log(data.err);
+            });
+        }
     }
     $scope.myHideOut = false;
     $scope.show = function() {
@@ -369,65 +387,78 @@ detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($s
 
 detail.controller('edit-comment', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
     $scope.commentEditHide = true;
+    $scope.content = null;
     $scope.show_comment_edit = function() {
         $scope.commentEditHide = !$scope.commentEditHide;
     };
 
     $scope.create_comment = function(parentId) {
-        $http({
-            url: '/api/posts',
-            method: 'POST',
-            data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
-        }).success(function(data, header, config, status) {
-            if (data.err == false) {
-                BootstrapDialog.show({
-                    message: 'success'
-                });
-                $scope.commentEditHide = !$scope.commentEditHide;
-                $scope.content = null;
-                $scope.$emit('add-a-comment', data.data);
-            } else {
-                console.log('failed');
-                var dialog = new BootstrapDialog()
-                    .setMessage('Please input your comment')
-                    .setType(BootstrapDialog.TYPE_DANGER)
-                    .open();
-            }
-        }).error(function(data, header, config, status) {
-            console.log(data.err);
-        });
+        if ($scope.content == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your comment')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else {
+            $http({
+                url: '/api/posts',
+                method: 'POST',
+                data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
+            }).success(function(data, header, config, status) {
+                if (data.err == false) {
+                    BootstrapDialog.show({
+                        message: 'success'
+                    });
+                    $scope.commentEditHide = !$scope.commentEditHide;
+                    $scope.content = null;
+                    $scope.$emit('add-a-comment', data.data);
+                } else {
+                    console.log('failed');
+                }
+            }).error(function(data, header, config, status) {
+                console.log(data.err);
+            });
+        }
     }
 }]);
 
 detail.controller('edit-q-comment', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
     $scope.qCommentEditHide = true;
+    $scope.content = null;
     $scope.show_q_comment_edit = function() {
         $scope.qCommentEditHide = !$scope.qCommentEditHide;
     };
     $scope.create_q_comment = function(parentId) {
-        $http({
-            url: '/api/posts',
-            method: 'POST',
-            data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
-        }).success(function(data, header, config, status) {
-            if (data.err == false) {
-                BootstrapDialog.show({
-                    message: 'success'
-                });
-                $scope.qCommentEditHide = !$scope.qCommentEditHide;
-                $scope.content = null;
-                $scope.$emit('add-q-comment', data.data);
-            } else {
-                console.log('failed');
-                var dialog = new BootstrapDialog()
-                    .setMessage('Please input your answer')
-                    .setType(BootstrapDialog.TYPE_DANGER)
-                    .open();
-            }
-        }).error(function(data, header, config, status) {
-            console.log(data.err);
-        });
+        console.log("parentId " + parentId);
+        console.log("$rootScope.questionId " + $rootScope.questionId);
 
+        if ($scope.content == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your answer')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else {
+            $http({
+                url: '/api/posts',
+                method: 'POST',
+                data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
+            }).success(function(data, header, config, status) {
+                if (data.err == false) {
+                    BootstrapDialog.show({
+                        message: 'success'
+                    });
+                    console.log('fan hui');
+                    console.log(data.data);
+                    $scope.qCommentEditHide = !$scope.qCommentEditHide;
+                    $scope.content = null;
+                    $scope.$emit('add-q-comment', data.data);
+                } else {
+                    console.log('failed');
+                    console.log(data);
+                }
+            }).error(function(data, header, config, status) {
+                console.log(data.err);
+            });
+        }
     };
 
 }])

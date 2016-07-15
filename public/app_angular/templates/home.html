@@ -4,13 +4,12 @@
 			<img src="/app_angular/images/home/logo-big.png" alt="logo-big">
 		</div>
 		<div class="loginBox" ng-controller="loginBoxController">
-			<span class="user-btn user-login" ng-class="{'hide': islogin}" ng-click="login()">Login</span>
-			<span class="user-btn user-signup" ng-class="{'hide': islogin}" ng-click="signup()">Signup</span>
-			<span class="user-btn user-logout" ng-class="{'hide': notlogin}" ng-click="logout()">Logout</span>
+			<span class="user-btn user-login" ng-class="{'hide': islogin}" ng-click="login()">登录\注册</span>
+			<span class="user-btn user-logout" ng-class="{'hide': notlogin}" ng-click="logout()">登出</span>
 		</div>
 	</div>
 	<div class="SearchBox" ng-controller="HomeSearchController">
-		<input type="text" id="searchInput" ng-model="search.input" >
+		<input type="text" id="searchInput" ng-model="search.input" onkeypress="if(event.keyCode==13) {searchButton.click();return false;}">
 		<p ng-click="HomeSearch()" id="searchButton">Search File</p>
 	</div>
 </div>

@@ -3,17 +3,17 @@
         <div class="panel-heading">
             <div style="display:bloack;">
                 <span class="label label-primary" style="margin-right:10px;">Question:</span>
-                <!-- {{qComments.question.title}} -->What's your name?
+                {{qComments.question.title}}<!-- What's your name? -->
             </div>
         </div>
         <div class="panel-body">
             <div style="display:block">
-                <!--  {{qComments.question.body}} -->
-                I am storing time in a MySQL database as a Unix timestamp and that gets sent to some JavaScript code. How would I get just the time out of it?
+                 {{qComments.question.body}}
+               <!--  I am storing time in a MySQL database as a Unix timestamp and that gets sent to some JavaScript code. How would I get just the time out of it? -->
             </div>
             <div style="width:100%;">
                 <div style="float:right;">
-                    -&nbsp;&nbsp;<span class="all-user-color"><!-- {{qComments.question.authorId}} -->Xiao Ye</span>
+                    -&nbsp;&nbsp;<span class="all-user-color">{{qComments.question.username}}<!-- Xiao Ye< --></span>
                     <span class="gray-time">&nbsp;&nbsp;{{qComments.question.createdAt}}</span>
                 </div>
             </div>
@@ -22,8 +22,8 @@
             <div class="column left-padding">
                 <div ng-repeat="item in qComments.comments" style="color:gray;">
                     <div style="display:inline;">
-                        <span><!-- {{item.body}} -->multiplications are trivial on modern CPUs - the string concatenation will require a lot more work!</span>&nbsp;&nbsp;- &nbsp;
-                        <span class="all-user-color">Liu Junyi<!-- {{item.authorId}} --></span>
+                        <span>{{item.body}}<!-- multiplications are trivial on modern CPUs - the string concatenation will require a lot more work! --></span>&nbsp;&nbsp;- &nbsp;
+                        <span class="all-user-color"><!-- Liu Junyi -->{{item.username}} </span>
                         <span class="gray-time">&nbsp;&nbsp;{{item.createdAt}}</span>
                     </div>
                     <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:1px;" />
@@ -44,12 +44,12 @@
         <div class="panel-heading"><span class="label label-success" style="margin-right:10px;">Answer:</span>{{item.answer.title}}</div>
         <div class="panel-body">
             <div style="display:block">
-                Concatenation should consist of reading memory and writing memory..how could someone design something that takes something simple such as appending and make it more complicated than multiplaction...ask a child to concatenate and they can..multiplicaion is more difficult...plus memory is laid out .
-                <!-- {{item.answer.body}} -->
+               <!--  Concatenation should consist of reading memory and writing memory..how could someone design something that takes something simple such as appending and make it more complicated than multiplaction...ask a child to concatenate and they can..multiplicaion is more difficult...plus memory is laid out . -->
+                {{item.answer.body}}
             </div>
             <div style="width:100%;">
                 <div style="float:right;">
-                    -&nbsp;&nbsp;<span class="all-user-color"><!-- {{item.answer.createdAt}} --> li jun jie</span> <span class="gray-time">&nbsp;&nbsp;{{item.answer.createdAt}}</span>
+                    -&nbsp;&nbsp;<span class="all-user-color">{{item.answer.username}} <!-- li jun jie --></span> <span class="gray-time">&nbsp;&nbsp;{{item.answer.createdAt}}</span>
                 </div>
             </div>
         </div>
@@ -57,8 +57,8 @@
             <div class="column left-padding">
                 <div id="comment" ng-repeat="v in item.comments" style="color:gray;">
                     <div style="display:inline;">
-                        <span><!-- {{v.body}} -->multiplications are trivial on modern CPUs - the string concatenation will require a lot more work!</span>&nbsp;&nbsp;- &nbsp;
-                        <span class="all-user-color">Liu Junyi<!-- {{v.authorId}} --></span>
+                        <span>{{v.body}}<!-- multiplications are trivial on modern CPUs - the string concatenation will require a lot more work! --></span>&nbsp;&nbsp;- &nbsp;
+                        <span class="all-user-color"><!-- Liu Junyi -->{{v.username}}</span>
                         <span class="gray-time">&nbsp;&nbsp;{{v.createdAt}}</span>
                     </div>
                     <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:1px;" />

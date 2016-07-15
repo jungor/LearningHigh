@@ -5,26 +5,34 @@
   <div id="lrMainBox">
     <div class="tabbable">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">Log In</a></li>
-        <li><a href="#tab2" data-toggle="tab">Sign Up</a></li>
+        <li class="active"><a href="" data-toggle="tab" ng-click="logintabclick()">Log In</a></li>
+        <li><a href="" data-toggle="tab" ng-click="signuptabclick()">Sign Up</a></li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab1">
-          <span class="glyphicon glyphicon-user" style="color:white;"></span>
-          <input class="userNameInput" type="text" ng-model="user.username" required="required">
-          <br>
-          <span class="glyphicon glyphicon-lock" style="color:white;"></span>
-          <input class="passwordInput" type="password" ng-model="user.password" required="required">
-          <p class="loginButton" ng-click="login()">Log In</p>
+          <div id="usernamebox">
+            <span class="glyphicon glyphicon-user" style="color:white;"></span>
+            <input class="userNameInput" type="text" ng-model="user.username" required="required">
+          </div>
+          <div id="passwordbox">
+            <span class="glyphicon glyphicon-lock" style="color:white;"></span>
+            <input class="passwordInput" type="password" ng-model="user.password" required="required">
+          </div>
+          <p class="loginButton" ng-click="login()" ng-hide="loginHide">Log In</p>
+          <p class="signUpButton" ng-click="signup()" ng-hide="!loginHide">Sign Up</p>
+          <div ng-show="isFailed" id="failedinfo">
+            <button type="button" class="close" ng-click="closealert()">&times;</button>
+            {{message}}
+          </div>
         </div>
-        <div class="tab-pane" id="tab2">
+        <!-- <div class="tab-pane" id="tab2">
           <span class="glyphicon glyphicon-user" style="color:white;"></span>
           <input class="userNameInput" type="text" ng-model="user.username" required="required">
           <br>
           <span class="glyphicon glyphicon-lock" style="color:white;"></span>
           <input class="passwordInput" type="password" ng-model="user.password" required="required">
           <p class="signUpButton" ng-click="signup()">Sign Up</p>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- <form name="outerForm" class="tab-form-demo">
