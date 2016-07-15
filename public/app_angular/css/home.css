@@ -3,9 +3,9 @@ body {
 	padding: 0px;
 }
 #home {
-	width: 100%;
-	height: 927px;
-	background-image: url('/app_angular/images/background.jpg');
+	background-size:100%;
+	background-repeat: no-repeat;
+	background-image: url('/app_angular/images/background.jpg') ;
 }
 #home .logo {
 	position: fixed;
