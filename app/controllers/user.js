@@ -1,6 +1,7 @@
 var express = require('express'),
   router = express.Router(),
   utils = require('../utils/utils'),
+  md5 = require('md5'),
   sendData = utils.sendData,
   handleError = utils.handleError,
   db = require('../models');
@@ -38,6 +39,7 @@ module.exports = function (app) {
 router.post('/', (req, res)=>{
   var username = req.body.username;
   var password = req.body.password;
+  password = md5(password);
   db.user.create({
     username,
     password
@@ -80,6 +82,7 @@ router.post('/', (req, res)=>{
 router.post('/login', (req, res)=>{
   var username = req.body.username;
   var password = req.body.password;
+  password = md5(password);
   db.user.findOne({
     attributes: ['id', 'username'],
     where: {
