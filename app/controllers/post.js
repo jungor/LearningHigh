@@ -281,7 +281,7 @@ router.param("questionId", (req, res, next, id) => {
   // });
   db.sequelize.query(`select p.id, p.title, p.authorId, p.body, p.type, p.parentId,
     p.absParentId, p.createdAt, p.updatedAt, p.pageId, u.username
-    from post p, user u where p.authorId = u.id and p.id=${id}`,
+    from post p, user u where p.authorId = u.id and (p.id=${id} or p.absParentId=${id}) `,
     { type: db.sequelize.QueryTypes.SELECT })
     .then(data => {
       for (let d of data) {
