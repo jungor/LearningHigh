@@ -12,17 +12,15 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#/index"><img style="position: relative;width: 65%;top: -5px;display: block" src="/app_angular/images/logo-toolbar.png" alt=""></a>
+                            <a class="navbar-brand" href="#/index"><img id="toolbarlogo" src="/app_angular/images/logo-toolbar.png" alt=""></a>
                         </div>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <form class="navbar-form navbar-left" role="search" style="width: 43%;">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search" ng-model='searchKey' style="width: 250%;height: 34px;position:relative;top: -5px;border-radius: 34px;">
-                                </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search" ng-model='searchKey' onkeypress="if(event.keyCode==13) {btn.click();return false;}">
+                                <span name="btn" id="btn" ng-click="search()" class="glyphicon glyphicon-search"></span>
+                            </div>
                                 <!-- <button type="submit" class="btn btn-default" ng-click="search()">search</button> -->
-                                <span ng-click="search()" class="glyphicon glyphicon-search" style="color: rgb(47, 165, 214);position: relative;left: 49%;top: 7px;"></span>
-                            </form>
                         </div>
                         <!-- /.navbar-collapse -->
                     </div>

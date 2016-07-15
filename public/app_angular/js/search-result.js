@@ -10,6 +10,7 @@ searchResult.controller('search-all', ['$scope', function($scope) {
         //console.log('ffff');
         console.log('searchKey : ' + $scope.searchKey);
         $scope.$broadcast('to-search-list', $scope.searchKey);
+        $scope.searchKey = ""
     };
 
     $scope.$on('to-search-all', function(e, d) {

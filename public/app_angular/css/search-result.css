@@ -1,7 +1,36 @@
 #search-result .navbar {
 	background-color: #2fa5d3;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
 }
-
+#search-result #toolbarlogo {
+	position: absolute;
+	height: 53px;
+	top: 0px;
+	display: block;
+}
+#search-result .container-fluid {
+	position: relative;
+}
+#search-result #searchInput {
+	width: 500px;
+	height: 35px;
+	position: absolute;
+	left: 300px;
+	top: 8px;
+}
+#search-result .glyphicon {
+	font-size: 30px;
+	color: #2fa5d3;
+	position: absolute;
+	left: 760px;
+	top: 10px;
+}
 div.result-highlight:hover {
-    border: 3px #38B0DE solid;
+    box-shadow: 3px 3px 1px #38B0DE;
+}
+#search-list .row {
+	margin-top: 100px;
 }

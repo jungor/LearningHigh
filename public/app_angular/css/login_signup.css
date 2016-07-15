@@ -19,13 +19,13 @@
 	top: 35%;
 	left: 37%;
 }
-.nav-tabs {
+#login_register .nav-tabs {
 	border-bottom: none;
 }
-.nav-tabs li {
+#login_register .nav-tabs li {
 	margin-bottom: 0px;
 }
-.nav {
+#login_register .nav {
 	width: 100%;
 	text-align: center;
 	font-family:STHeitiSC-Light;
@@ -50,7 +50,7 @@
 	border-top: none;
 	z-index: 999;
 }
-.userNameInput {
+#login_register .userNameInput {
 	margin-top: 35px;
 	height: 48px;
 	width: 70%;
@@ -65,7 +65,7 @@
 	color:#ffffff;
 	padding-left: 36px;
 }
-.passwordInput {
+#login_register .passwordInput {
 	line-height: 48px;
 	position: relative;
 	left: 6%;
@@ -81,13 +81,13 @@
 	background-color: transparent;
 	padding-left: 36px;
 }
-.glyphicon {
+#login_register .glyphicon {
 	position: relative;
 	left: 18%;
 	font-size: 30px;
 	top: 9px;
 }
-.loginButton {
+#login_register .loginButton {
 	width: 70%;
 	height: 47px;
 	line-height: 47px;
@@ -97,7 +97,7 @@
 	position: relative;
 	left: 15%;
 }
-.signUpButton {
+#login_register .signUpButton {
 	width: 70%;
 	height: 47px;
 	line-height: 47px;
@@ -107,6 +107,6 @@
 	position: relative;
 	left: 15%;	
 }
-.tab-pane {
+#login_register .tab-pane {
 	padding-bottom: 15px;
 }
