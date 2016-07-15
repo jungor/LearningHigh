@@ -419,6 +419,8 @@ detail.controller('edit-q-comment', ['$scope', '$http', '$rootScope', function($
         $scope.qCommentEditHide = !$scope.qCommentEditHide;
     };
     $scope.create_q_comment = function(parentId) {
+        console.log("parentId "+parentId);
+        console.log("$rootScope.questionId "+ $rootScope.questionId);
         $http({
             url: '/api/posts',
             method: 'POST',
@@ -428,6 +430,8 @@ detail.controller('edit-q-comment', ['$scope', '$http', '$rootScope', function($
                 BootstrapDialog.show({
                     message: 'success'
                 });
+                console.log('fan hui');
+                console.log(data.data);
                 $scope.qCommentEditHide = !$scope.qCommentEditHide;
                 $scope.content = null;
                 $scope.$emit('add-q-comment', data.data);
