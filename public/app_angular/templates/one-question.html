@@ -16,6 +16,15 @@
                     <span>{{item.createdAt}}</span>
                     <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:0px;" />
                 </div>
+                <div ng-controller="edit-q-comment">
+                    <span class="glyphicon glyphicon-plus" ng-click="show_q_comment_edit()" style="color:#38B0DE;"></span>
+                    <form ng-hide="qCommentEditHide">
+                        <div class="form-group">
+                            <textarea class="form-control" ng-model='content' rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="create_q_comment(qComments.question.id)">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

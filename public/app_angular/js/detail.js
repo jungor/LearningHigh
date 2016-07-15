@@ -67,14 +67,8 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
     $scope.showTop = function() {
         $scope.$broadcast('detail-top-show', 'show');
         $scope.$broadcast('clearQA', 'clear');
-        // $scope.buttonHide = !$scope.buttonHide;
-        // $scope.$broadcast('hide-and-get', 'shwotop');
         $scope.buttonHide = true;
-        // console.log('buttonHide'+ $scope.buttonHide);
     }
-
-
-
 }])
 
 detail.controller('detail-top', ['$scope', function($scope) {
@@ -82,7 +76,6 @@ detail.controller('detail-top', ['$scope', function($scope) {
     $scope.$on('detail-top-hide-and-show-as', function(e, d) {
         $scope.detailTopHide = !$scope.detailTopHide;
     });
-
     $scope.$on('detail-top-show', function(e, d) {
         $scope.detailTopHide = !$scope.detailTopHide;
     });
@@ -92,16 +85,12 @@ detail.controller('detail-top', ['$scope', function($scope) {
 detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $rootScope) {
     $rootScope.pageNumber = null;
     $rootScope.questionId = null;
-
-
     $scope.getQA = function(id) {
         // get question answers comments
         $rootScope.questionId = id;
-        // $scope.$broadcast('hide-and-get', '666');
         $scope.$broadcast('detail-top-hide-and-show-as', 'hide');
         $scope.$emit('detail-top-hide-and-show-as-emit', 'fuck');
         $scope.$broadcast('to-get-AC', 'AC');
-
     }
 }]);
 
@@ -115,9 +104,6 @@ detail.controller('pdf', ['$scope', '$rootScope', '$location', function($scope, 
         $scope.fileUrl = '/components/viewerjs/ViewerJS/#../../..' + $rootScope.selectedFile.url;
         $scope.name = 'pdf';
         $scope.myHide = false;
-        // $scope.$on('hide-and-get', function(event, data) {
-        //     $scope.myHide = !$scope.myHide;
-        // });
     }
 }]);
 
@@ -137,7 +123,6 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
     };
 
     $scope.$on('add-a-question', function(v, d) {
-        console.log('add-a-question');
         $scope.questionsList.push(d);
     });
 
@@ -145,7 +130,6 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
     var stop = $interval(function() {
         if (document.getElementById("myIframe") == null) {
             $scope.stopFight();
-            console.log('stop');
         } else {
             var content = document.getElementById("myIframe").contentWindow;
             if (pageNumber) {
@@ -153,14 +137,12 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                 if ($rootScope.pageNumber === null) {
                     //get current page questions
                     $rootScope.pageNumber = temp;
-                    console.log('in first if');
                     $http({
                         url: '/api/pages',
                         method: 'GET',
                         params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
                     }).success(function(data, header, config, status) {
                         if (data.err == false) {
-                            console.log('get ID in first' + data.data.id);
                             $rootScope.pageId = data.data.id;
                             $http({
                                 url: '/api/posts?pageId=' + $rootScope.pageId,
@@ -189,14 +171,12 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                     //get current page questions
                     $rootScope.pageNumber = temp;
                     pageNumber = temp;
-                    console.log('in second if');
                     $http({
                         url: '/api/pages',
                         method: 'GET',
                         params: { coursewareId: $rootScope.selectedFile.id, number: parseInt($rootScope.pageNumber) }
                     }).success(function(data, header, config, status) {
                         if (data.err == false) {
-                            console.log('get ID' + data.data.id);
                             $rootScope.pageId = data.data.id;
                             $http({
                                 url: '/api/posts?pageId=' + $rootScope.pageId,
@@ -204,7 +184,6 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                             }).success(function(data, header, config, status) {
                                 if (data.err == false) {
                                     console.log('success');
-                                    console.log(data.data);
                                     $scope.questionsList = data.data;
                                 } else {
                                     console.log("failed");
@@ -218,22 +197,13 @@ detail.controller('questions', ['$scope', '$rootScope', '$interval', '$http', fu
                     }).error(function(data, header, config, status) {
                         console.log('shenmegui');
                     });
-                    console.log('root scope pageId in second' + $rootScope.pageId);
-
-
                 }
             } else {
                 pageNumber = content.document.getElementById("pageNumber").value;
 
             }
         }
-
-
     }, 1000);
-
-
-
-
 }]);
 
 
@@ -242,9 +212,7 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
     $scope.myHide = true;
     $scope.myHideOut = false;
     $scope.username = 'test_user';
-
     $scope.submit = function() {
-        console.log(parseInt($rootScope.pageId));
         $http({
             url: '/api/posts',
             method: 'POST',
@@ -259,25 +227,14 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
                 $scope.title = '';
                 $scope.content = '';
                 $scope.myHide = !$scope.myHide;
-                // $rootScope.id = data.data.id;
-                // $rootScope.username = data.data.username;
-                // $location.path('/index');
             } else {
                 console.log('failed');
-                // console.log("Log in failed");
-                // $location.path('/login_signup');
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
         });
-
-
-
     }
     $scope.myHideOut = false;
-    // $scope.$on('hide-and-get', function(event, data) {
-    //     $scope.myHideOut = !$scope.myHideOut;
-    // });
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
     }
@@ -288,18 +245,13 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
 detail.controller('one-question', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
     $scope.name = "one-question";
     $scope.myHide = true;
-
     $scope.qComments = { 'question': null, 'comments': [] };
     $scope.aComments = [];
-
     $scope.$on('clearQA', function(v, d) {
         $scope.qComments = { 'question': null, 'comments': [] };
         $scope.aComments = [];
     });
-
     $scope.classify = function(data) {
-        console.log('data');
-        console.log(data);
         var question = [];
         var answers = [];
         var comments = [];
@@ -313,8 +265,6 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
         for (var i = 0; i < comments.length; i++) {
             if (comments[i].parentId == question[0].id) $scope.qComments.comments.push(comments[i]);
         }
-        console.log('qComments');
-        console.log($scope.qComments);
 
         for (var i = 0; i < answers.length; i++) {
             $scope.aComments.push({ 'answer': answers[i], 'comments': [] });
@@ -326,102 +276,23 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
 
 
     $scope.$on('to-get-AC', function(event, data) {
-        console.log('$rootScope.questionId ' + $rootScope.questionId);
         $http({
             url: '/api/posts/' + $rootScope.questionId,
             method: 'GET'
         }).success(function(data, header, config, status) {
             if (data.err == false) {
                 console.log('success');
-                console.log(data);
                 $rootScope.QAC = data.data;
                 $scope.classify($scope.QAC);
-                // $rootScope.id = data.data.id;
-                // $rootScope.username = data.data.username;
-                // $location.path('/index');
             } else {
                 console.log('failed');
-                // console.log("Log in failed");
-                // $location.path('/login_signup');
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
         });
-
-
-
-        // $scope.QAC = [{
-        //     "id": 1,
-        //     "title": "t1",
-        //     "authorId": 1,
-        //     "body": "q1",
-        //     "type": 0,
-        //     "parentId": null,
-        //     "absParentId": null,
-        //     "createdAt": "2016-07-13T01:14:05.000Z",
-        //     "updatedAt": "2016-07-13T01:14:05.000Z"
-        // }, {
-        //     "id": 2,
-        //     "title": null,
-        //     "authorId": 31,
-        //     "body": "a1",
-        //     "type": 1,
-        //     "parentId": 1,
-        //     "absParentId": 1,
-        //     "createdAt": "2016-07-13T01:15:30.000Z",
-        //     "updatedAt": "2016-07-13T01:15:30.000Z"
-        // }, {
-        //     "id": 3,
-        //     "title": null,
-        //     "authorId": 32,
-        //     "body": "a2",
-        //     "type": 1,
-        //     "parentId": 1,
-        //     "absParentId": 1,
-        //     "createdAt": "2016-07-13T01:15:39.000Z",
-        //     "updatedAt": "2016-07-13T01:15:39.000Z"
-        // }, {
-        //     "id": 4,
-        //     "title": null,
-        //     "authorId": 27,
-        //     "body": "c1",
-        //     "type": 2,
-        //     "parentId": 2,
-        //     "absParentId": 1,
-        //     "createdAt": "2016-07-13T01:17:17.000Z",
-        //     "updatedAt": "2016-07-13T01:17:17.000Z"
-        // }, {
-        //     "id": 5,
-        //     "title": null,
-        //     "authorId": 28,
-        //     "body": "c2",
-        //     "type": 2,
-        //     "parentId": 2,
-        //     "absParentId": 1,
-        //     "createdAt": "2016-07-13T01:17:18.000Z",
-        //     "updatedAt": "2016-07-13T01:17:18.000Z"
-        // }, {
-        //     "id": 6,
-        //     "title": null,
-        //     "authorId": 29,
-        //     "body": "c3",
-        //     "type": 2,
-        //     "parentId": 2,
-        //     "absParentId": 1,
-        //     "createdAt": "2016-07-13T01:17:19.000Z",
-        //     "updatedAt": "2016-07-13T01:17:19.000Z"
-        // }];
-        // $scope.classify($scope.QAC);
-
     });
 
     $scope.myHide = true;
-
-    // $scope.$on('hide-and-get', function(event, data) {
-    //     $scope.myHide = !$scope.myHide;
-    //     console.log('root get comments:');
-    // });
-
     $scope.$on('detail-top-hide-and-show-as', function() {
         $scope.myHide = !$scope.myHide;
     });
@@ -430,21 +301,18 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
     });
 
     $scope.$on('add-a-comment', function(v, d) {
-        console.log('data');
-        console.log(d);
         for (var i = 0; i < $scope.aComments.length; i++) {
             if (d.parentId == $scope.aComments[i].answer.id) { $scope.aComments[i].comments.push(d) }
         }
     });
 
     $scope.$on('add-a-answer', function(v, d) {
-        console.log("add-a-answer");
         $scope.aComments.push({ 'answer': d, 'comments': [] });
     });
 
-
-
-
+    $scope.$on('add-q-comment', function(v, d) {
+        $scope.qComments.comments.push(d);
+    })
 }]);
 
 
@@ -454,7 +322,6 @@ detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($s
     $scope.username = 'test_user';
 
     $scope.submit = function() {
-        // console.log(parseInt($rootScope.pageId));
         $http({
             url: '/api/posts',
             method: 'POST',
@@ -468,14 +335,8 @@ detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($s
                 $scope.myHide = !$scope.myHide;
                 $scope.content = '';
                 $scope.$emit('add-a-answer', data.data);
-
-                // $rootScope.id = data.data.id;
-                // $rootScope.username = data.data.username;
-                // $location.path('/index');
             } else {
                 console.log('failed');
-                // console.log("Log in failed");
-                // $location.path('/login_signup');
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
@@ -485,9 +346,6 @@ detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($s
 
     }
     $scope.myHideOut = false;
-    // $scope.$on('hide-and-get', function(event, data) {
-    //     $scope.myHideOut = !$scope.myHideOut;
-    // });
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
     }
@@ -507,23 +365,46 @@ detail.controller('edit-comment', ['$scope', '$http', '$rootScope', function($sc
             data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
         }).success(function(data, header, config, status) {
             if (data.err == false) {
-                console.log(data.data);
                 BootstrapDialog.show({
                     message: 'success'
                 });
                 $scope.commentEditHide = !$scope.commentEditHide;
                 $scope.content = '';
                 $scope.$emit('add-a-comment', data.data);
-                // $rootScope.id = data.data.id;
-                // $rootScope.username = data.data.username;
-                // $location.path('/index');
             } else {
                 console.log('failed');
-                // console.log("Log in failed");
-                // $location.path('/login_signup');
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
         });
     }
+}]);
+
+detail.controller('edit-q-comment', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    $scope.qCommentEditHide = true;
+    $scope.show_q_comment_edit = function() {
+        $scope.qCommentEditHide = !$scope.qCommentEditHide;
+    };
+    $scope.create_q_comment = function(parentId) {
+        $http({
+            url: '/api/posts',
+            method: 'POST',
+            data: { title: null, body: $scope.content, type: 2, parentId: parentId, absParentId: $rootScope.questionId, pageId: $rootScope.pageId }
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                BootstrapDialog.show({
+                    message: 'success'
+                });
+                $scope.qCommentEditHide = !$scope.qCommentEditHide;
+                $scope.content = '';
+                $scope.$emit('add-q-comment', data.data);
+            } else {
+                console.log('failed');
+            }
+        }).error(function(data, header, config, status) {
+            console.log(data.err);
+        });
+
+    };
+
 }])
