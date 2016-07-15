@@ -4,20 +4,19 @@
 	background-image: url('/app_angular/images/background.jpg');
 }
 #login_register .logo {
-	position: fixed;
-	top: 10%;
-	left: 35%;
-	width: 30%;
+	width: 500px;
+	height: 123px;
+	margin: 0 auto;
+	padding-top: 50px;
 }
 #login_register .logo img {
 	display: block;
 	width: 100%;
 }
 #lrMainBox {
-	width: 26%;
-	position: fixed;
-	top: 35%;
-	left: 37%;
+	width: 400px;
+	height: 340px;
+	margin: 100px auto;
 }
 #login_register .nav-tabs {
 	border-bottom: none;
@@ -50,63 +49,80 @@
 	border-top: none;
 	z-index: 999;
 }
-#login_register .userNameInput {
-	margin-top: 35px;
-	height: 48px;
-	width: 70%;
-	position: relative;
-	left: 6%;
-	border-radius: 8px;
-	border: 1px solid #fff;
-	background-color: transparent;
-	line-height: 48px;
-	font-family:STHeitiSC-Light;
-	font-size:16px;
-	color:#ffffff;
-	padding-left: 36px;
-}
-#login_register .passwordInput {
-	line-height: 48px;
-	position: relative;
-	left: 6%;
-	font-family:STHeitiSC-Light;
-	font-size:16px;
-	color:#ffffff;
-	margin-top: 12px;
-	margin-bottom: 35px;
-	height: 48px;
-	width: 70%;
-	border-radius: 8px;
-	border: 1px solid #fff;
-	background-color: transparent;
-	padding-left: 36px;
-}
-#login_register .glyphicon {
-	position: relative;
-	left: 18%;
-	font-size: 30px;
-	top: 9px;
-}
-#login_register .loginButton {
-	width: 70%;
-	height: 47px;
-	line-height: 47px;
-	background-color: #2fa5d3;
-	border-radius: 8px;
-	text-align: center;
-	position: relative;
-	left: 15%;
-}
-#login_register .signUpButton {
-	width: 70%;
-	height: 47px;
-	line-height: 47px;
-	background-color: #2fa5d3;
-	border-radius: 8px;
-	text-align: center;
-	position: relative;
-	left: 15%;	
-}
 #login_register .tab-pane {
 	padding-bottom: 15px;
+	position: relative;
+}
+#usernamebox, #passwordbox {
+	margin: 0 auto;
+	width: 330px;
+	position: relative;
+	padding-top: 35px; 
+}
+#passwordbox {
+	padding-bottom: 35px;
+	padding-top: 15px;
+}
+#login_register .userNameInput {
+	height: 48px;
+	width: 330px;
+	border-radius: 8px;
+	border: 1px solid #fff;
+	background-color: transparent;
+	line-height: 48px;
+	font-family:STHeitiSC-Light;
+	font-size:16px;
+	color:#ffffff;
+	padding-left: 37px;
+	outline: none;
+}
+#login_register .passwordInput {
+	height: 48px;
+	width: 330px;
+	border-radius: 8px;
+	border: 1px solid #fff;
+	background-color: transparent;
+	line-height: 48px;
+	font-family:STHeitiSC-Light;
+	font-size:16px;
+	color:#ffffff;
+	padding-left: 37px;
+	outline: none;
+}
+#login_register .glyphicon {
+	font-size: 29px;
+	position: absolute;
+	left: 3px;
+}
+#usernamebox .glyphicon {
+	top: 43px;
+}
+#passwordbox .glyphicon {
+	top: 23px;
+}
+#login_register .loginButton {
+	width: 330px;
+	height: 47px;
+	line-height: 47px;
+	background-color: #2fa5d3;
+	border-radius: 8px;
+	text-align: center;
+	margin: 0 auto;
+	color: #fff;
+}
+#login_register .signUpButton {
+	width: 330px;
+	height: 47px;
+	line-height: 47px;
+	background-color: #2fa5d3;
+	border-radius: 8px;
+	text-align: center;
+	margin: 0 auto;
+	color: #fff;
+}
+#failedinfo {
+	width: 330px;
+	color: red;
+	margin: 0 auto;
+	padding: 5px;
 }
