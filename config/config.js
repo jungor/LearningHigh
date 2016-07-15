@@ -6,29 +6,29 @@ var config = {
   development: {
     root: rootPath,
     app: {
-      name: 'learninghigh',
+      name: 'learninghigh'
     },
     port: process.env.PORT || 3000,
-    db: 'mysql://root:admin123@qykj.com/qykj',
+    db: 'mysql://root:admin123@qykj.com/qykj'
   },
 
   test: {
     root: rootPath,
     app: {
-      name: 'learninghigh',
+      name: 'learninghigh'
     },
     port: process.env.PORT || 3000,
-    db: 'mysql://localhost/learninghigh-test',
+    db: 'mysql://localhost/learninghigh-test'
   },
 
   production: {
     root: rootPath,
     app: {
-      name: 'learninghigh',
+      name: 'learninghigh'
     },
     port: process.env.PORT || 3000,
-    db: 'mysql://localhost/learninghigh-production',
-  },
+    db: 'mysql://localhost/learninghigh-production'
+  }
 };
 
 module.exports = config[env];
