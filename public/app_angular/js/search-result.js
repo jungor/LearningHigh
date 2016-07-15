@@ -11,6 +11,7 @@ searchResult.controller('search-all', ['$scope', function($scope) {
         console.log('searchKey : ' + $scope.searchKey);
         $scope.$broadcast('to-search-list', $scope.searchKey);
         $scope.searchKey = ""
+        jQuery('html,body').animate({scrollTop:0}, 200);
     };
 
     $scope.$on('to-search-all', function(e, d) {

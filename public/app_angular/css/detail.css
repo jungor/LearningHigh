@@ -10,7 +10,7 @@
 	width: 70%;
 	margin-left: auto;
 	margin-right: auto;
-
+	margin-top: 65px;
 }
 
 .all-user-color {
@@ -44,4 +44,28 @@
 	position: absolute;
 	left: 760px;
 	top: 10px;
+}
+#questions .list-group-item {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin-bottom: 5px;
+	border-radius: 5px;
+}
+#questions .list-group-item:hover {
+	border: 1px solid #2fa5d3;
+}
+#questions .glyphicon-remove {
+	float: right;
+}
+#submit-question .btn {
+	float: right;
+	background-color: #2fa5d3;
+	color: #fff;
+}
+#submit-question textarea {
+	resize: none;
+}
+#submit-question .glyphicon-remove {
+	float: right;
 }

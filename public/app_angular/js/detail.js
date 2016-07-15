@@ -43,6 +43,7 @@ detail.controller('detail-all', ['$scope', '$rootScope', '$location', '$http', f
             if (data.err == false) {
                 $rootScope.searchList = data;
                 $location.path('/search-result');
+                jQuery('html,body').animate({scrollTop:0}, 200);
             } else {
                 console.log("failed");
             }
@@ -91,6 +92,7 @@ detail.controller('detail-content', ['$scope', '$rootScope', function($scope, $r
         $scope.$broadcast('detail-top-hide-and-show-as', 'hide');
         $scope.$emit('detail-top-hide-and-show-as-emit', 'fuck');
         $scope.$broadcast('to-get-AC', 'AC');
+        jQuery('html,body').animate({scrollTop:0}, 200);
     }
 }]);
 
@@ -213,32 +215,42 @@ detail.controller('submit-question', ['$scope', '$http', '$rootScope', function(
     $scope.myHideOut = false;
     $scope.username = 'test_user';
     $scope.submit = function() {
-        $http({
-            url: '/api/posts',
-            method: 'POST',
-            data: { title: $scope.title, body: $scope.content, type: 0, parentId: null, absParentId: null, pageId: $rootScope.pageId }
-        }).success(function(data, header, config, status) {
-            if (data.err == false) {
-                console.log('success');
-                BootstrapDialog.show({
-                    message: 'success'
-                });
-                $scope.$emit('add-a-question-to-all', data.data);
-                $scope.title = '';
-                $scope.content = '';
-                $scope.myHide = !$scope.myHide;
-            } else {
-                console.log('failed');
-            }
-        }).error(function(data, header, config, status) {
-            console.log(data.err);
-        });
+        if ($scope.title == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your question title')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else if ($scope.content == null) {
+            var dialog = new BootstrapDialog()
+                .setMessage('Please input your question content')
+                .setType(BootstrapDialog.TYPE_DANGER)
+                .open();
+        } else {
+            $http({
+                url: '/api/posts',
+                method: 'POST',
+                data: { title: $scope.title, body: $scope.content, type: 0, parentId: null, absParentId: null, pageId: $rootScope.pageId }
+            }).success(function(data, header, config, status) {
+                if (data.err == false) {
+                    console.log('success');
+                    BootstrapDialog.show({
+                        message: 'success'
+                    });
+                    $scope.$emit('add-a-question-to-all', data.data);
+                    $scope.title = '';
+                    $scope.content = '';
+                    $scope.myHide = !$scope.myHide;
+                } else {
+                    console.log('failed');
+                }
+            }).error(function(data, header, config, status) {
+                console.log(data.err);
+            });
+        }
     }
     $scope.myHideOut = false;
     $scope.show = function() {
         $scope.myHide = !$scope.myHide;
-        $scope.isPlus = $scope.myHide;
-        $scope.isMinus = !$scope.myHide;
     }
 
 }])
