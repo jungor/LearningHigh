@@ -1,23 +1,35 @@
 <div id="one-question" ng-controller="one-question" ng-hide="myHide">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <span class="label label-primary" style="margin-right:10px;">Question:</span>{{qComments.question.title}}
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{qComments.question.authorId}}
-            <span>{{qComments.question.createdAt}}</span>
+            <div style="display:bloack;">
+                <span class="label label-primary" style="margin-right:10px;">Question:</span>
+                <!-- {{qComments.question.title}} -->What's your name?
+            </div>
         </div>
         <div class="panel-body">
-            {{qComments.question.body}}
+            <div style="display:block">
+                <!--  {{qComments.question.body}} -->
+                I am storing time in a MySQL database as a Unix timestamp and that gets sent to some JavaScript code. How would I get just the time out of it?
+            </div>
+            <div style="width:100%;">
+                <div style="float:right;">
+                    -&nbsp;&nbsp;<span class="all-user-color"><!-- {{qComments.question.authorId}} -->Xiao Ye</span>
+                    <span class="gray-time">&nbsp;&nbsp;{{qComments.question.createdAt}}</span>
+                </div>
+            </div>
         </div>
         <div class="panel-footer">
             <div class="column left-padding">
-                <div ng-repeat="item in qComments.comments">
-                    <p>{{item.body}}</p>
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{item.authorId}}
-                    <span>{{item.createdAt}}</span>
-                    <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:0px;" />
+                <div ng-repeat="item in qComments.comments" style="color:gray;">
+                    <div style="display:inline;">
+                        <span><!-- {{item.body}} -->multiplications are trivial on modern CPUs - the string concatenation will require a lot more work!</span>&nbsp;&nbsp;- &nbsp;
+                        <span class="all-user-color">Liu Junyi<!-- {{item.authorId}} --></span>
+                        <span class="gray-time">&nbsp;&nbsp;{{item.createdAt}}</span>
+                    </div>
+                    <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:1px;" />
                 </div>
-                <div ng-controller="edit-q-comment">
-                    <span class="glyphicon glyphicon-plus cursor-poninter" ng-click="show_q_comment_edit()" style="color:#38B0DE;"></span>
+                <div ng-controller="edit-q-comment" style="margin-top:8px;">
+                    <span class="all-user-color cursor-poninter" ng-click="show_q_comment_edit()">edit new comment</span>
                     <form ng-hide="qCommentEditHide">
                         <div class="form-group">
                             <textarea class="form-control" ng-model='content' rows="3"></textarea>
@@ -28,41 +40,53 @@
             </div>
         </div>
     </div>
-    <div id="submit-answer" ng-controller="submit-answer" ng-hide="myHideOut">
-        <div class="panel panel-default">
-            <div class="panel-heading table-hover">Submit Your answer <span class="glyphicon glyphicon-plus cursor-poninter" ng-click="show()" style="color:#38B0DE;"></div>
-        <div class="panel-body" ng-hide="myHide">
-            <form>
-                <div class="form-group">
-                    <textarea class="form-control" ng-model='content' rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
-            </form>
-        </div>
-    </div>
-
     <div class="panel panel-default" ng-repeat="item in aComments">
         <div class="panel-heading"><span class="label label-success" style="margin-right:10px;">Answer:</span>{{item.answer.title}}</div>
-            <div class="panel-body">
-                {{item.answer.body}} - {{item.answer.createdAt}}
+        <div class="panel-body">
+            <div style="display:block">
+                Concatenation should consist of reading memory and writing memory..how could someone design something that takes something simple such as appending and make it more complicated than multiplaction...ask a child to concatenate and they can..multiplicaion is more difficult...plus memory is laid out .
+                <!-- {{item.answer.body}} -->
             </div>
-            <div class="panel-footer">
-                <div class="column left-padding">
-                    <div id="comment" ng-repeat="v in item.comments">
-                        <p>{{v.body}}</p>
-                        <p>{{v.createdAt}}</p>
-                        <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:0px;" />
+            <div style="width:100%;">
+                <div style="float:right;">
+                    -&nbsp;&nbsp;<span class="all-user-color"><!-- {{item.answer.createdAt}} --> li jun jie</span> <span class="gray-time">&nbsp;&nbsp;{{item.answer.createdAt}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="column left-padding">
+                <div id="comment" ng-repeat="v in item.comments" style="color:gray;">
+                    <div style="display:inline;">
+                        <span><!-- {{v.body}} -->multiplications are trivial on modern CPUs - the string concatenation will require a lot more work!</span>&nbsp;&nbsp;- &nbsp;
+                        <span class="all-user-color">Liu Junyi<!-- {{v.authorId}} --></span>
+                        <span class="gray-time">&nbsp;&nbsp;{{v.createdAt}}</span>
                     </div>
-                    <div ng-controller="edit-comment">
-                        <span class="glyphicon glyphicon-plus cursor-poninter" ng-click="show_comment_edit()" style="color:#38B0DE;"></span>
-                        <form ng-hide="commentEditHide">
-                            <div class="form-group">
-                                <textarea class="form-control" ng-model='content' rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-default" ng-click="create_comment(item.answer.id)">Submit</button>
-                        </form>
-                    </div>
+                    <hr style="height:1px;border:none;border-top:1px dashed #0066CC;margin:1px;" />
+                </div>
+                <div ng-controller="edit-comment">
+                    <span class="all-user-color cursor-poninter" ng-click="show_comment_edit()" style="color:#38B0DE;">edit new comment</span>
+                    <form ng-hide="commentEditHide">
+                        <div class="form-group">
+                            <textarea class="form-control" ng-model='content' rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="create_comment(item.answer.id)">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <div id="submit-answer" ng-controller="submit-answer" ng-hide="myHideOut">
+        <div class="panel panel-default">
+            <div style="padding-left:15px;" class="panel-heading table-hover"> <span class="label label-warning" style="margin-right:10px;">Submit Your answer</span>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" ng-model='content' rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

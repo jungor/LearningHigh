@@ -253,11 +253,17 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
         $scope.qComments = { 'question': null, 'comments': [] };
         $scope.aComments = [];
     });
+
+    $scope.toMyDate = function(date) {
+        var d = new Date(date);
+        return d.toLocaleString();
+    };
     $scope.classify = function(data) {
         var question = [];
         var answers = [];
         var comments = [];
         for (var i = 0; i < data.length; i++) {
+            data[i].createdAt = $scope.toMyDate(data[i].createdAt);
             if (data[i].type == 0) question.push(data[i]);
             if (data[i].type == 1) answers.push(data[i]);
             if (data[i].type == 2) comments.push(data[i]);
@@ -284,6 +290,7 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
         }).success(function(data, header, config, status) {
             if (data.err == false) {
                 console.log('success');
+                console.log(data.data);
                 $rootScope.QAC = data.data;
                 $scope.classify($scope.QAC);
             } else {
@@ -303,6 +310,7 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
     });
 
     $scope.$on('add-a-comment', function(v, d) {
+        d.createdAt = $scope.toMyDate(d.createdAt);
         for (var i = 0; i < $scope.aComments.length; i++) {
             if (d.parentId == $scope.aComments[i].answer.id) { $scope.aComments[i].comments.push(d) }
         }
@@ -313,6 +321,7 @@ detail.controller('one-question', ['$scope', '$rootScope', '$http', function($sc
     });
 
     $scope.$on('add-q-comment', function(v, d) {
+        d.createdAt = $scope.toMyDate(d.createdAt);
         $scope.qComments.comments.push(d);
     })
 }]);
@@ -337,8 +346,14 @@ detail.controller('submit-answer', ['$scope', '$http', '$rootScope', function($s
                 $scope.myHide = !$scope.myHide;
                 $scope.content = '';
                 $scope.$emit('add-a-answer', data.data);
+                $scope.content = null;
             } else {
                 console.log('failed');
+
+                var dialog = new BootstrapDialog()
+                    .setMessage('Please input your answer')
+                    .setType(BootstrapDialog.TYPE_DANGER)
+                    .open();
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
@@ -371,10 +386,14 @@ detail.controller('edit-comment', ['$scope', '$http', '$rootScope', function($sc
                     message: 'success'
                 });
                 $scope.commentEditHide = !$scope.commentEditHide;
-                $scope.content = '';
+                $scope.content = null;
                 $scope.$emit('add-a-comment', data.data);
             } else {
                 console.log('failed');
+                var dialog = new BootstrapDialog()
+                    .setMessage('Please input your comment')
+                    .setType(BootstrapDialog.TYPE_DANGER)
+                    .open();
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
@@ -398,10 +417,14 @@ detail.controller('edit-q-comment', ['$scope', '$http', '$rootScope', function($
                     message: 'success'
                 });
                 $scope.qCommentEditHide = !$scope.qCommentEditHide;
-                $scope.content = '';
+                $scope.content = null;
                 $scope.$emit('add-q-comment', data.data);
             } else {
                 console.log('failed');
+                var dialog = new BootstrapDialog()
+                    .setMessage('Please input your answer')
+                    .setType(BootstrapDialog.TYPE_DANGER)
+                    .open();
             }
         }).error(function(data, header, config, status) {
             console.log(data.err);
