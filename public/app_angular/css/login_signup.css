@@ -1,6 +1,6 @@
 #login_register {
-	width: 100%;
-	height: 927px;
+	background-size:100%;
+	background-repeat: no-repeat;
 	background-image: url('/app_angular/images/background.jpg');
 }
 #login_register .logo {
