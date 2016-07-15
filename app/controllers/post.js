@@ -83,18 +83,18 @@ router.post("/", (req, res) => {
   type = parseInt(type);
   let newPost = null;
   switch (type) {
-    case 0:
-      newPost = { body, type, absParentId, title, pageId };
-      break;
-    case 1:
-      newPost = { body, type, absParentId, parentId, pageId };
-      break;
-    case 2:
-      newPost = { body, type, absParentId, parentId, pageId };
-      break;
-    default:
-      handleError(res, {}, "参数不符合要求");
-      break;
+  case 0:
+    newPost = { body, type, absParentId, title, pageId };
+    break;
+  case 1:
+    newPost = { body, type, absParentId, parentId, pageId };
+    break;
+  case 2:
+    newPost = { body, type, absParentId, parentId, pageId };
+    break;
+  default:
+    handleError(res, {}, "参数不符合要求");
+    break;
   }
   newPost.authorId = req.session.user.id;
   db.post.create(newPost).then(data => {
@@ -282,12 +282,12 @@ router.param("questionId", (req, res, next, id) => {
   db.sequelize.query(`select p.id, p.title, p.authorId, p.body, p.type, p.parentId,
     p.absParentId, p.createdAt, p.updatedAt, p.pageId, u.username
     from post p, user u where p.authorId = u.id and p.id=${id}`,
-  { type: db.sequelize.QueryTypes.SELECT})
-  .then(data=>{
-    for (let d of data) {
-      delete d.password;
-    }
-    req.question = data;
-    next();
-  });
+    { type: db.sequelize.QueryTypes.SELECT })
+    .then(data => {
+      for (let d of data) {
+        delete d.password;
+      }
+      req.question = data;
+      next();
+    });
 });
