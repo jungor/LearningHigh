@@ -21,12 +21,27 @@ searchResult.controller('search-all', ['$scope', function($scope) {
 
 
 searchResult.controller('search-list', ['$scope', '$rootScope', '$location', '$http', function($scope, $rootScope, $location, $http) {
+    $scope.labelColor = {
+        'pdf': 'label-success',
+        'ppt': 'label-primary',
+        'odp': 'info'
+    };
+    $scope.addFileType = function() {
+        console.log('addFileType');
+        for (var i = 0; i < $scope.slist.length; i++) {
+
+            $scope.slist[i].fileType = $scope.slist[i].name.split('.')[1];
+            console.log("fileType: " +$scope.slist[i].fileType);
+        }
+    };
+
     if ($rootScope.searchList == undefined) {
     	$scope.$emit('to-search-all', 'hide');
         $location.path('/index');
     } else {
         $scope.slist = $rootScope.searchList.data;
         //console.log($rootScope.searchList['data']);
+        $scope.addFileType();
         $scope.getIt = function(selectedFile) {
             $rootScope.selectedFile = selectedFile;
             $location.path('/detail');
@@ -41,6 +56,7 @@ searchResult.controller('search-list', ['$scope', '$rootScope', '$location', '$h
             }).success(function(data, header, config, status) {
                 if (data.err == false) {
                     $scope.slist = data.data;
+                    $scope.addFileType();
                     console.log($scope.slist);
                     console.log('success')
                 } else {

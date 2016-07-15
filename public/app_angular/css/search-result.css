@@ -1,3 +1,7 @@
 #search-result .navbar {
 	background-color: #2fa5d3;
 }
+
+div.result-highlight:hover {
+    border: 3px #38B0DE solid;
+}

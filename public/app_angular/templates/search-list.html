@@ -2,9 +2,9 @@
     <div class="row" style="width:70%; margin-left:auto;margin-right:auto;">
         <div class="col-md-3 animate-repeat" ng-repeat="item in slist" >
             <div class="thumbnail result-highlight" ng-click="getIt(item)">
-                <img src="/app_angular/images/img/favicon.ico" alt="..." style="width:100%">
+                <img src="/app_angular/images/cover.png" alt="..." style="width:100%;background-color:#7171C6;">
                 <div style="padding-top: 3px;" >
-                	<span class="label label-primary" style="position: absolute;top: 15px;right: 15px;">pdf</span>
+                	<span class="label {{labelColor[item.fileType]}}" style="position: absolute;top: 15px;right: 15px;">{{item.fileType}}</span>
                     <p style="margin:0 !important; width: 100%; overflow: hidden;text-overflow:ellipsis; white-space:nowrap; padding:4px 0px;">{{item.name}}</p>
                 </div>
             </div>

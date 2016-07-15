@@ -26,12 +26,12 @@
 .animate-repeat.ng-enter.ng-enter-active {
     opacity: 1;
     /*  max-height:30px;*/
-/*}
-
-div.result-highlight:hover {
-    border: 3px #38B0DE solid;
 }
-*/
+
+/*div.result-highlight:hover {
+    border: 3px #38B0DE solid;
+}*/
+
 /*.detail-top {
     transition: 1s linear all;
     -webkit-transition: 1s linear all;
