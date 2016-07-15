@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="SearchBox" ng-controller="HomeSearchController">
-		<input type="text" id="searchInput" ng-model="search.input" >
+		<input type="text" id="searchInput" ng-model="search.input" onkeypress="if(event.keyCode==13) {searchButton.click();return false;}">
 		<p ng-click="HomeSearch()" id="searchButton">Search File</p>
 	</div>
 </div>

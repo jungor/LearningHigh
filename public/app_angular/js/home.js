@@ -15,6 +15,7 @@ home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', '$loca
                     // console.log('success');
                     $rootScope.searchList = data;
                     $location.path('/search-result');
+                    jQuery('html,body').animate({scrollTop:0}, 200);
                 } else {
                     // console.log("failed");
                    	// console.log(data)
