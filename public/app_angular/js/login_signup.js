@@ -1,4 +1,4 @@
-var login_signup = angular.module('login_signup', ["ui.bootstrap"]);
+var login_signup = angular.module('login_signup', []);
 
 login_signup.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
