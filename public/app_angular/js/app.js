@@ -4,13 +4,22 @@
  * Description
  */
 
-var qingYun = angular.module('qingYun', ['ui.router','ngAnimate', 'home', 'login_signup', 'search-result', 'detail']);
+var qingYun = angular.module('qingYun', ['ui.router', '$http' ,'ngAnimate', 'home', 'login_signup', 'search-result', 'detail']);
 
 
-qingYun.run(function($rootScope, $state, $stateParams) {
+qingYun.run(function($rootScope, $state, $stateParams, $http) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-
+    $http({
+        url: '/api/users/logout/',
+        method: 'GET'
+    }).success(function(data, header, config, status) {
+        if (data.err == false) {
+            console.log("log out succeed");
+        } else {
+            console.log("log out failed");
+        }
+    });
 });
 
 qingYun.config(function($stateProvider, $urlRouterProvider) {

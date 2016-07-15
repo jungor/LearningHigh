@@ -2,6 +2,7 @@ var home = angular.module('home', []);
 
 home.controller('HomeSearchController', ['$scope', '$rootScope', '$http', '$location' ,function($scope, $rootScope, $http, $location) {
     $scope.search = {}
+    
     $scope.HomeSearch = function() {
     	// console.log($scope.search.input);
         if ($scope.search.input != '') {
@@ -35,6 +36,16 @@ home.controller('loginBoxController', ['$scope', '$rootScope', '$location', func
         $rootScope.username = undefined;
         $scope.islogin = $rootScope.id == undefined ? false : true;
         $scope.notlogin = $rootScope.id == undefined ? true : false;
+        $http({
+            url: '/api/users/logout/',
+            method: 'GET'
+        }).success(function(data, header, config, status) {
+            if (data.err == false) {
+                console.log("log out succeed");
+            } else {
+                console.log("log out failed");
+            }
+        });
     }
     $scope.login = function() {
         $location.path('/login_signup');
