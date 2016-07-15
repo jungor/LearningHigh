@@ -24,9 +24,6 @@ module.exports = function (app) {
  *       "data": {
  *         "id": 27,
  *         "username": "test6",
- *         "password": "123",
- *         "updatedAt": "2016-07-08T17:48:51.000Z",
- *         "createdAt": "2016-07-08T17:48:51.000Z"
  *       }
  *     }
  * @apiErrorExample Error
@@ -44,7 +41,10 @@ router.post('/', (req, res)=>{
     username,
     password
   }).then(data=>{
-    req.session.user = data;
+    let user = {};
+    user.username = data.username;
+    user.id = data.id;
+    req.session.user = user;
     sendData(res, data);
   },err=>{
     handleError(res, err, '用户名已存在');
